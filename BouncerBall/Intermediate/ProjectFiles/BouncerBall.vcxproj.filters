@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<ItemGroup>
+		<None Include="..\..\BouncerBall.uproject" />
+		<Filter Include="Source">
+			<UniqueIdentifier>{BD718A5A-4C16-455E-9F19-3C4509A67FAF}</UniqueIdentifier>
+		</Filter>
+		<None Include="..\..\Source\BouncerBall.Target.cs">
+			<Filter>Source</Filter>
+		</None >
+		<None Include="..\..\Source\BouncerBallEditor.Target.cs">
+			<Filter>Source</Filter>
+		</None >
+		<Filter Include="Config">
+			<UniqueIdentifier>{307CEEE7-2DB7-4F43-BCFC-171A2AB74906}</UniqueIdentifier>
+		</Filter>
+		<None Include="..\..\Config\DefaultEditor.ini">
+			<Filter>Config</Filter>
+		</None >
+		<None Include="..\..\Config\DefaultEngine.ini">
+			<Filter>Config</Filter>
+		</None >
+		<None Include="..\..\Config\DefaultGame.ini">
+			<Filter>Config</Filter>
+		</None >
+		<Filter Include="Source\BouncerBall">
+			<UniqueIdentifier>{4F87F17E-E057-467B-8EF7-510BA98BE22B}</UniqueIdentifier>
+		</Filter>
+		<None Include="..\..\Source\BouncerBall\BouncerBall.Build.cs">
+			<Filter>Source\BouncerBall</Filter>
+		</None >
+		<ClCompile Include="..\..\Source\BouncerBall\BouncerBall.cpp">
+			<Filter>Source\BouncerBall</Filter>
+		</ClCompile >
+		<ClInclude Include="..\..\Source\BouncerBall\BouncerBall.h">
+			<Filter>Source\BouncerBall</Filter>
+		</ClInclude >
+		<ClCompile Include="..\..\Source\BouncerBall\BouncerBallGameMode.cpp">
+			<Filter>Source\BouncerBall</Filter>
+		</ClCompile >
+		<ClInclude Include="..\..\Source\BouncerBall\BouncerBallGameMode.h">
+			<Filter>Source\BouncerBall</Filter>
+		</ClInclude >
+	</ItemGroup>
+</Project>
