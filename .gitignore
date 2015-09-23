@@ -1,9 +1,9 @@
 .~lock.GDD.doc#
-*.opensdf
-*.sdf
-*.sln
-*.suo
-*\Logs
+BouncerBall\*.opensdf
+BouncerBall\*.sdf
+BouncerBall\*.sln
+BouncerBall\*.suo
+BouncerBall\*\Logs
 BoucerBall\Binaries\
 BoucerBall\DerivedDataCache\
 BoucerBall\Intermediate
