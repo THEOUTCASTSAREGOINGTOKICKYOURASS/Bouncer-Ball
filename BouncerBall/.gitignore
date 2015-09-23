@@ -1,0 +1,11 @@
+.~lock.GDD.doc#
+
+*.opensdf 
+*.log
+*.sdf
+*.sln
+*.suo
+*\Logs
+Binaries
+DerivedDataCache
+Intermediate
