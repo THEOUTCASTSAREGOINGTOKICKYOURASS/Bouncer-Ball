@@ -4,6 +4,6 @@
 *.sln
 *.suo
 *\Logs
-BoucerBall\Binaries
-BoucerBall\DerivedDataCache
-BoucerBall\Intermediate
+BoucerBall\Binaries\
+BoucerBall\DerivedDataCache\
+BoucerBall\Intermediate\
