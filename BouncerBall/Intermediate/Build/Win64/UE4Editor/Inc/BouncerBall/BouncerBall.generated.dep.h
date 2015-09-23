@@ -5,6 +5,12 @@
 	DO NOT modify this manually! Edit the corresponding .h files instead!
 ===========================================================================*/
 
+#ifndef BOUNCERBALL_BouncerPlayer_generated_h
+	#include "BouncerPlayer.h"
+#endif
+#ifndef BOUNCERBALL_Ball_generated_h
+	#include "Ball.h"
+#endif
 #ifndef BOUNCERBALL_BouncerBallGameMode_generated_h
 	#include "BouncerBallGameMode.h"
 #endif
