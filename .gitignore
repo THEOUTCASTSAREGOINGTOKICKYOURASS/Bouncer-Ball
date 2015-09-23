@@ -11,3 +11,5 @@ DerivedDataCache
 Intermediate
 *.sdf
 *.sln
+BouncerBall/BouncerBall.sln
+BouncerBall/BouncerBall.sdf
