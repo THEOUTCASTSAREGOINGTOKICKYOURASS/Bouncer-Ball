@@ -6,4 +6,7 @@
 *\Logs
 BoucerBall\Binaries\
 BoucerBall\DerivedDataCache\
-BoucerBall\Intermediate\
+BoucerBall\Intermediate
+Binaries
+DerivedDataCache
+Intermediate
