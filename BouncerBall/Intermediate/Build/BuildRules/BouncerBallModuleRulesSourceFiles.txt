@@ -460,8 +460,8 @@ C:\Program Files\Epic Games\4.9\Engine\Plugins\ScriptGeneratorPlugin\Source\Scri
 C:\Program Files\Epic Games\4.9\Engine\Plugins\ScriptPlugin\Source\ScriptEditorPlugin\ScriptEditorPlugin.Build.cs
 C:\Program Files\Epic Games\4.9\Engine\Plugins\ScriptPlugin\Source\ScriptPlugin\ScriptPlugin.Build.cs
 C:\Program Files\Epic Games\4.9\Engine\Plugins\Slate\SlateRemote\Source\SlateRemote\SlateRemote.Build.cs
-Z:\Unreal\BouncerBall\BouncerBall\Source\BouncerBall\BouncerBall.Build.cs
+C:\Users\Jarrett\Documents\Unreal Projects\Bouncer-Ball\BouncerBall\Source\BouncerBall\BouncerBall.Build.cs
 C:\Program Files\Epic Games\4.9\Engine\Source\UE4Editor.Target.cs
 C:\Program Files\Epic Games\4.9\Engine\Source\UE4Game.Target.cs
-Z:\Unreal\BouncerBall\BouncerBall\Source\BouncerBall.Target.cs
-Z:\Unreal\BouncerBall\BouncerBall\Source\BouncerBallEditor.Target.cs
+C:\Users\Jarrett\Documents\Unreal Projects\Bouncer-Ball\BouncerBall\Source\BouncerBall.Target.cs
+C:\Users\Jarrett\Documents\Unreal Projects\Bouncer-Ball\BouncerBall\Source\BouncerBallEditor.Target.cs

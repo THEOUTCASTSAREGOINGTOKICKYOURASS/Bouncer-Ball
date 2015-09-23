@@ -4,7 +4,7 @@
 	<ItemGroup>
 		<None Include="..\..\BouncerBall.uproject" />
 		<Filter Include="Source">
-			<UniqueIdentifier>{BD718A5A-4C16-455E-9F19-3C4509A67FAF}</UniqueIdentifier>
+			<UniqueIdentifier>{B6A48F01-59F9-45AE-8DCB-17E70ACF387C}</UniqueIdentifier>
 		</Filter>
 		<None Include="..\..\Source\BouncerBall.Target.cs">
 			<Filter>Source</Filter>
@@ -13,7 +13,7 @@
 			<Filter>Source</Filter>
 		</None >
 		<Filter Include="Config">
-			<UniqueIdentifier>{307CEEE7-2DB7-4F43-BCFC-171A2AB74906}</UniqueIdentifier>
+			<UniqueIdentifier>{5980B998-CF4B-4F87-A9DB-A11D4B770CBB}</UniqueIdentifier>
 		</Filter>
 		<None Include="..\..\Config\DefaultEditor.ini">
 			<Filter>Config</Filter>
@@ -25,7 +25,7 @@
 			<Filter>Config</Filter>
 		</None >
 		<Filter Include="Source\BouncerBall">
-			<UniqueIdentifier>{4F87F17E-E057-467B-8EF7-510BA98BE22B}</UniqueIdentifier>
+			<UniqueIdentifier>{C8858422-5848-437D-968B-173238963027}</UniqueIdentifier>
 		</Filter>
 		<None Include="..\..\Source\BouncerBall\BouncerBall.Build.cs">
 			<Filter>Source\BouncerBall</Filter>
