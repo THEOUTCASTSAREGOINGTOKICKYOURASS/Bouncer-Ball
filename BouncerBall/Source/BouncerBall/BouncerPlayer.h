@@ -22,7 +22,16 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* InputComponent) override;
-
-	
+	int8 GetWeight()
+	{
+		return Weight;
+	}
+	int8 SetWeight(int8 amount)
+	{
+		Weight -= amount;
+	}
+protected:
+	//A value that will be modified by the balls after targetting to make sure there is an even distrobution of targeting for RNG
+	int8 Weight;
 	
 };

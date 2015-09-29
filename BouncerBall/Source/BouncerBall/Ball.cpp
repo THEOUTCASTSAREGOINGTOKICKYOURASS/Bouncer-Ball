@@ -2,6 +2,7 @@
 
 #include "BouncerBall.h"
 #include "Ball.h"
+#include "EngineUtils.h"
 
 
 // Sets default values
@@ -32,5 +33,11 @@ void ABall::Move()
 }
 void ABall::GetTarget()
 {
+	for (TActorIterator<ABouncerPlayer> ActorItr(GetWorld()); ActorItr; ++ActorItr)
+	{
+		if (!CurrentTarget)
+		{
 
+		}
+	}
 }
