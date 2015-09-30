@@ -1,0 +1,19 @@
+Hey Guys so here are the steps for once you pull from git and want to start working
+
+First things first right click the .uproject file and generate the visual studio project files
+
+This will configure it correctly so you can be able to compile it
+
+Open the solution and build the game this will allow intellisense to pick up our custom classes and such so you will have completion working and kind of proper error finding
+
+Once completed close it and you are good to go!
+
+When you are done and want to commit to source control make sure it builds without breaking anything!!!! 
+
+If you commit and it says there is a merge issue look at the new files that show up and look for the files with yellow blocks beside them
+
+if it is anything BUT an .h or .cpp files discard the changes by right clicking the file and selecting that option
+
+If it is a cpp file or .h open them in a text editor and remove the -----HEAD and the _____ to close it and put it back to what you wanted and then commit
+ 
+If you need any help with git just email me dougmcgill08@gmail.com Ill help no worries.

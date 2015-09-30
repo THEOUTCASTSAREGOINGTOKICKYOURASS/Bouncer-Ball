@@ -9,7 +9,10 @@
 Binaries
 DerivedDataCache
 Intermediate
+Saved\Config\Windows
 *.sdf
 *.sln
 BouncerBall/BouncerBall.sln
 BouncerBall/BouncerBall.sdf
+BouncerBall/Saved/AutoScreenshot.png
+BouncerBall/Build/Receipts/BouncerBallEditor-Win64-Development.target.xml
