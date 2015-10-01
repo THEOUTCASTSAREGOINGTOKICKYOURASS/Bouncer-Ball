@@ -26,7 +26,7 @@ public:
 	{
 		return Weight;
 	}
-	int8 SetWeight(int8 amount)
+	void SetWeight(int8 amount)
 	{
 		Weight -= amount;
 	}
