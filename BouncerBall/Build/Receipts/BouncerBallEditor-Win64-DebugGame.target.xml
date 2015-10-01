@@ -3,6 +3,7 @@
   <Properties>
     <Property Name="TargetName" Value="BouncerBallEditor" />
     <Property Name="Platform" Value="Win64" />
+<<<<<<< HEAD:BouncerBall/Build/Receipts/BouncerBallEditor-Win64-Development.target.xml
     <Property Name="Configuration" Value="Development" />
     <Property Name="Precompile" Value="False" />
   </Properties>
@@ -10,6 +11,15 @@
     <BuildProduct Path="$(ProjectDir)\Binaries\Win64\UE4Editor-BouncerBall.dll" Type="DynamicLibrary" />
     <BuildProduct Path="$(ProjectDir)\Binaries\Win64\UE4Editor-BouncerBall.pdb" Type="SymbolFile" />
     <BuildProduct Path="$(ProjectDir)\Intermediate\Build\Win64\UE4Editor\Development\UE4Editor-BouncerBall.lib" Type="ImportLibrary" />
+=======
+    <Property Name="Configuration" Value="DebugGame" />
+    <Property Name="Precompile" Value="False" />
+  </Properties>
+  <BuildProducts>
+    <BuildProduct Path="$(ProjectDir)\Binaries\Win64\UE4Editor-BouncerBall-Win64-DebugGame.dll" Type="DynamicLibrary" />
+    <BuildProduct Path="$(ProjectDir)\Binaries\Win64\UE4Editor-BouncerBall-Win64-DebugGame.pdb" Type="SymbolFile" />
+    <BuildProduct Path="$(ProjectDir)\Intermediate\Build\Win64\UE4Editor\DebugGame\UE4Editor-BouncerBall-Win64-DebugGame.lib" Type="ImportLibrary" />
+>>>>>>> origin/master:BouncerBall/Build/Receipts/BouncerBallEditor-Win64-DebugGame.target.xml
   </BuildProducts>
   <RuntimeDependencies />
   <bRequireDependenciesToExist>true</bRequireDependenciesToExist>
