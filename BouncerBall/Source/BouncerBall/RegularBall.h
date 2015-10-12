@@ -13,9 +13,11 @@ class BOUNCERBALL_API ARegularBall : public ABall
 {
 	GENERATED_BODY()
 	
+	// Called every frame
+	virtual void Tick(float DeltaSeconds) override;
 public:
 	ARegularBall();
-	virtual void Move();
+	virtual void Move() override;
 	
 	
 };

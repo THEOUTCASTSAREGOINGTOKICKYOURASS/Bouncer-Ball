@@ -11,4 +11,7 @@ void ARegularBall::Move()
 {
 
 }
-
+void ARegularBall::Tick(float DeltaSeconds)
+{
+	Super::Tick(DeltaSeconds);
+}

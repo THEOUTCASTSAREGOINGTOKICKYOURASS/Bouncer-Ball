@@ -5,7 +5,7 @@
 #include "GameFramework/Actor.h"
 #include "BouncerPlayer.h"
 #include "Ball.generated.h"
-
+#define WEIGHT_COST 25
 UCLASS()
 class BOUNCERBALL_API ABall : public AActor
 {
@@ -14,21 +14,20 @@ class BOUNCERBALL_API ABall : public AActor
 public:	
 	// Sets default values for this actor's properties
 	ABall();
-
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-	
-	// Called every frame
-	virtual void Tick( float DeltaSeconds ) override;
 protected:
 	//Called per frame in tick to move the Ball, override for your own movement, no need to call this in your implementation
 	UFUNCTION()
-	virtual void Move();
+	virtual void Move() PURE_VIRTUAL(ABall::Move,);
 	//Call to have the ball find a new target
 	UFUNCTION()
-		void GetTarget();
+	void GetTarget();
 	//A reference to the current target of the ball
 	UPROPERTY()
-	ABouncerPlayer* CurrentTarget;
-	
+	ABouncerPlayer *CurrentTarget;
+	//The Mesh for our Ball this will be set through blueprint
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
+	UStaticMeshComponent *Mesh;
+	//The Collider for the ball Good Times.
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	USphereComponent *Collider;
 };
