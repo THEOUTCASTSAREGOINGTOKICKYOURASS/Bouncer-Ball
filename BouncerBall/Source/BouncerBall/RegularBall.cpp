@@ -5,6 +5,8 @@
 
 ARegularBall::ARegularBall()
 {
+	MovementComponent = CreateDefaultSubobject<UProjectileMovementComponent>(
+		TEXT("MovementComponent"));
 	
 }
 void ARegularBall::Move()
@@ -14,4 +16,6 @@ void ARegularBall::Move()
 void ARegularBall::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
+	FVector pos = GetActorLocation();
+	SetActorLocation(pos);
 }

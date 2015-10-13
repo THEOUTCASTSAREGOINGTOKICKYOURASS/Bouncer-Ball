@@ -12,12 +12,16 @@ UCLASS()
 class BOUNCERBALL_API ARegularBall : public ABall
 {
 	GENERATED_BODY()
-	
+public:
+
+	ARegularBall();
 	// Called every frame
 	virtual void Tick(float DeltaSeconds) override;
-public:
-	ARegularBall();
-	virtual void Move() override;
 	
+	
+	virtual void Move() override;
+protected:
+	UPROPERTY(VisibleAnywhere)
+	UProjectileMovementComponent* MovementComponent;
 	
 };
