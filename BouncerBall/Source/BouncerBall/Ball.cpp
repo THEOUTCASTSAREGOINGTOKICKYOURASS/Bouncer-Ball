@@ -6,7 +6,7 @@
 
 
 // Sets default values
-ABall::ABall()
+ABall::ABall() :ZPos(0.f)
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
@@ -17,6 +17,22 @@ ABall::ABall()
 
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 	Mesh->AttachTo(RootComponent);
+
+	FRotator Rotator;
+	Rotator.Add(0.f, FMath::Rand() % 360,0.f);
+	SetActorRotation(Rotator);
+	
+}
+void ABall::BeginPlay()
+{
+	ZPos = GetActorLocation().Z;
+}
+void ABall::Tick(float DeltaSeconds)
+{
+	Super::Tick(DeltaSeconds);
+	FVector pos = GetActorLocation();
+	pos.Z = ZPos;
+	SetActorLocation(pos);
 }
 void ABall::GetTarget()
 {

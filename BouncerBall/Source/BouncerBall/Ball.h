@@ -14,6 +14,8 @@ class BOUNCERBALL_API ABall : public AActor
 public:	
 	// Sets default values for this actor's properties
 	ABall();
+	virtual void BeginPlay() override;
+	virtual void Tick(float DeltaSeconds) override;
 protected:
 	//Called per frame in tick to move the Ball, override for your own movement, no need to call this in your implementation
 	UFUNCTION()
@@ -30,4 +32,6 @@ protected:
 	//The Collider for the ball Good Times.
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	USphereComponent *Collider;
+	//this is used to keep the balls from flying off into no where.
+	float ZPos;
 };
