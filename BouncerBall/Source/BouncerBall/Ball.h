@@ -34,4 +34,6 @@ protected:
 	USphereComponent *Collider;
 	//this is used to keep the balls from flying off into no where.
 	float ZPos;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+		UPointLightComponent *Light;
 };

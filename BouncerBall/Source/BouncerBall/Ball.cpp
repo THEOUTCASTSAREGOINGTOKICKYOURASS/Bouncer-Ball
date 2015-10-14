@@ -18,6 +18,8 @@ ABall::ABall() :ZPos(0.f)
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 	Mesh->AttachTo(RootComponent);
 
+	Light = CreateDefaultSubobject<UPointLightComponent>(TEXT("Light"));
+	Light->AttachTo(RootComponent);
 	FRotator Rotator;
 	Rotator.Add(0.f, FMath::Rand() % 360,0.f);
 	SetActorRotation(Rotator);
@@ -25,11 +27,13 @@ ABall::ABall() :ZPos(0.f)
 }
 void ABall::BeginPlay()
 {
+	//Get the Z position of the ball on start for locking
 	ZPos = GetActorLocation().Z;
 }
 void ABall::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
+	//Get the current Position of the Ball and set its Z to the start up Z position 
 	FVector pos = GetActorLocation();
 	pos.Z = ZPos;
 	SetActorLocation(pos);
