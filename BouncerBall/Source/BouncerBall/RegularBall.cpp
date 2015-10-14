@@ -5,10 +5,7 @@
 
 ARegularBall::ARegularBall()
 {
+	MovementComponent = CreateDefaultSubobject<UProjectileMovementComponent>(
+		TEXT("MovementComponent"));
 	
 }
-void ARegularBall::Move()
-{
-
-}
-
