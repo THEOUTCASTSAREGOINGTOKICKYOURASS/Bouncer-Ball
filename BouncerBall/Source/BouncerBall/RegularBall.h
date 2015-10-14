@@ -6,7 +6,8 @@
 #include "RegularBall.generated.h"
 
 /**
- * 
+ * This Ball has all of its functionality from the Projectile Movement Component
+ * I set in the Blueprint of this Object to have no gravity lock orientation in the Z axis, bounce and not loose velocity
  */
 UCLASS()
 class BOUNCERBALL_API ARegularBall : public ABall
@@ -15,12 +16,8 @@ class BOUNCERBALL_API ARegularBall : public ABall
 public:
 
 	ARegularBall();
-	// Called every frame
-	virtual void Tick(float DeltaSeconds) override;
-	
-	
-	virtual void Move() override;
 protected:
+	//Used to make the Ball move in blueprint
 	UPROPERTY(VisibleAnywhere)
 	UProjectileMovementComponent* MovementComponent;
 	
