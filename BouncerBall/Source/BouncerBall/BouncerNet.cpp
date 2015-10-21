@@ -2,27 +2,27 @@
 
 #include "BouncerBall.h"
 #include "BouncerNet.h"
-
+#include "Ball.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 ABouncerNet::ABouncerNet()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bCanEverTick = false;
 
+	//Create the root CubeComponent to handle the pickup's collision
+	BaseCollisionComponent = CreateDefaultSubobject<UBoxComponent>(TEXT("BaseCollisionComponent"));
+
+	//set the SubComponent as the root component
+	RootComponent = BaseCollisionComponent;
+
+	OnActorBeginOverlap.AddDynamic(this, &ABouncerNet::OnBeginOverlap);
 }
 
-// Called when the game starts or when spawned
-void ABouncerNet::BeginPlay()
+void ABouncerNet::OnBeginOverlap_Implementation(AActor* OtherActor)
 {
-	Super::BeginPlay();
-	
+
+	GEngine->AddOnScreenDebugMessage(0, 1.f, FColor::Yellow, TEXT("Goal"));
+	OtherActor->Destroy();
 }
-
-// Called every frame
-void ABouncerNet::Tick( float DeltaTime )
-{
-	Super::Tick( DeltaTime );
-
-}
-

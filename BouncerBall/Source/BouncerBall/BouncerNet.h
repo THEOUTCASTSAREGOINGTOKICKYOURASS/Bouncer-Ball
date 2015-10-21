@@ -14,12 +14,12 @@ public:
 	// Sets default values for this actor's properties
 	ABouncerNet();
 
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-	
-	// Called every frame
-	virtual void Tick( float DeltaSeconds ) override;
+	//Collision Component
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly, Category = net)
+	UBoxComponent* BaseCollisionComponent;
 
-	
+	UFUNCTION(BlueprintNativeEvent)
+	void OnBeginOverlap(AActor* OtherActor);
+	virtual void OnBeginOverlap_Implementation(AActor* OtherActor);
 	
 };
