@@ -16,6 +16,9 @@ public:
 	ABall();
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaSeconds) override;
+	//What the ball should do when the player hits it
+	UFUNCTION()
+	virtual void Shoot(FVector direction);
 protected:
 	//Called per frame in tick to move the Ball, override for your own movement, no need to call this in your implementation
 	UFUNCTION()
