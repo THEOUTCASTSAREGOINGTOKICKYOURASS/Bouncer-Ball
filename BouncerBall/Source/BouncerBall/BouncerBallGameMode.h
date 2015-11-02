@@ -12,6 +12,9 @@ UCLASS()
 class BOUNCERBALL_API ABouncerBallGameMode : public AGameMode
 {
 	GENERATED_BODY()
+
+public:
+	ABouncerBallGameMode(const FObjectInitializer& ObjectInitializer);
 	
 	
 	

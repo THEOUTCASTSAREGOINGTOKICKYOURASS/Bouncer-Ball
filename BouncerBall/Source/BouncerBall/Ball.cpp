@@ -81,3 +81,7 @@ void ABall::GetTarget()
 	CurrentTarget = Players[0]; 
 	CurrentTarget->SetWeight(CurrentTarget->GetWeight() - WEIGHT_COST);
 }
+void ABall::Shoot(FVector Direction)
+{
+	GetTarget();
+}

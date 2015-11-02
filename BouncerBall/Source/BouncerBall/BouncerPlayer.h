@@ -6,7 +6,7 @@
 #include "BouncerPlayer.generated.h"
 
 UCLASS()
-class BOUNCERBALL_API ABouncerPlayer : public APawn
+class BOUNCERBALL_API ABouncerPlayer : public ACharacter
 {
 	GENERATED_BODY()
 
@@ -31,7 +31,39 @@ public:
 		Weight -= amount;
 	}
 protected:
+	//Function to that allows the player to strafe
+	UFUNCTION()
+	virtual void Strafe(float Scale);
+	//Call the shoot function on the ball when it's overlaping with the player
+	UFUNCTION()
+	virtual void Shoot();
+	
+
+	UFUNCTION()
+	virtual void OnBeginOverlap(AActor* OtherActor);
+
+	UFUNCTION()
+	virtual void OnEndOverlap(AActor* OtherActor);
+
+public:
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+		USpringArmComponent* CameraBoom;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+		UCameraComponent* Camera;
+
+protected:
 	//A value that will be modified by the balls after targetting to make sure there is an even distrobution of targeting for RNG
 	int8 Weight;
+	//Used to set the movement boundaries
+	FVector leftBounds;
+	FVector rightBounds;
+	
+	//Set to true when a ball is overlaping with the player
+	bool canShoot;
+	// the ball that is overlaping with the player
+	AActor* Ball;
+
+
 	
 };
