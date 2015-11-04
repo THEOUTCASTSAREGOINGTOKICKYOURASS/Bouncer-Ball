@@ -66,12 +66,11 @@ void ABouncerPlayer::Strafe(float Scale)
 	//stops the player from moving outside their bounds
 	if (FVector::Dist(GetActorLocation(), leftBounds) > 20&&Scale<0)
 	{
-
-		CharacterMovement->AddInputVector(GetActorRightVector() *Scale);
+		GetMovementComponent()->AddInputVector(GetActorRightVector() *Scale);
 	}
 	else if (FVector::Dist(GetActorLocation(), rightBounds) > 20 && Scale > 0)
 	{
-		CharacterMovement->AddInputVector(GetActorRightVector() *Scale);
+		GetMovementComponent()->AddInputVector(GetActorRightVector() *Scale);
 	}
 	
 	
