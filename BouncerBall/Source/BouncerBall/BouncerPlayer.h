@@ -6,7 +6,7 @@
 #include "BouncerPlayer.generated.h"
 
 UCLASS()
-class BOUNCERBALL_API ABouncerPlayer : public ACharacter
+class BOUNCERBALL_API ABouncerPlayer : public APawn
 {
 	GENERATED_BODY()
 
@@ -46,6 +46,11 @@ protected:
 	virtual void OnEndOverlap(AActor* OtherActor);
 
 public:
+
+	/// StaticMesh component that will be the visuals for our flying pawn 
+	UPROPERTY(Category = Mesh, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	class UStaticMeshComponent* Mesh;
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 		USpringArmComponent* CameraBoom;
 
