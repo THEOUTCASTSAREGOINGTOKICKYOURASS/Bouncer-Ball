@@ -3,6 +3,7 @@
 #pragma once
 
 #include "GameFramework/Pawn.h"
+#include "BouncerPowerUp.h"
 #include "BouncerPlayer.generated.h"
 
 UCLASS()
@@ -29,6 +30,10 @@ public:
 	void SetWeight(int8 amount)
 	{
 		Weight -= amount;
+	}
+	void SetPickup(BouncerPowerUp* NewPowerUp)
+	{
+		StoredPowerUp = NewPowerUp;
 	}
 protected:
 	//Function to that allows the player to strafe
@@ -63,6 +68,8 @@ protected:
 	bool canShoot;
 	// the ball that is overlaping with the player
 	AActor* Ball;
+	//The current pickup of the player
+	BouncerPowerUp* StoredPowerUp;
 
 
 	

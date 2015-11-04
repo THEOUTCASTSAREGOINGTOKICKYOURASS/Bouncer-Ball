@@ -67,11 +67,11 @@ void ABouncerPlayer::Strafe(float Scale)
 	if (FVector::Dist(GetActorLocation(), leftBounds) > 20&&Scale<0)
 	{
 
-		CharacterMovement->AddInputVector(GetActorRightVector() *Scale);
+		GetCharacterMovement()->AddInputVector(GetActorRightVector() *Scale);
 	}
 	else if (FVector::Dist(GetActorLocation(), rightBounds) > 20 && Scale > 0)
 	{
-		CharacterMovement->AddInputVector(GetActorRightVector() *Scale);
+		GetCharacterMovement()->AddInputVector(GetActorRightVector() *Scale);
 	}
 	
 	
@@ -83,8 +83,14 @@ void ABouncerPlayer::Shoot()
 	
 	if (canShoot)
 	{
+		ABall *TheBall = Cast<ABall>(Ball);
+		if (TheBall)
+		{
+			TheBall->Shoot(GetActorForwardVector() * 1000);
+			TheBall->SetOwner(this);
+		}
+		
 
-		Cast<ABall>(Ball)->Shoot(GetActorForwardVector()*1000);
 	}
 	
 }
