@@ -23,7 +23,6 @@ ABouncerNet::ABouncerNet()
 
 void ABouncerNet::OnBeginOverlap_Implementation(AActor* OtherActor)
 {
-
 	GEngine->AddOnScreenDebugMessage(0, 1.f, FColor::Yellow, TEXT("Goal"));
 	OtherActor->Destroy();
 
@@ -36,5 +35,4 @@ void ABouncerNet::OnBeginOverlap_Implementation(AActor* OtherActor)
 		i++;
 	}
 	SpawnVolumes[0]->SpawnPickup();
-	Destroy();
 }

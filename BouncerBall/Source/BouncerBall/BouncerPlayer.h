@@ -69,6 +69,9 @@ protected:
 	// the ball that is overlaping with the player
 	AActor* Ball;
 
+private:
+	/** Current speed */
+	float MoveSpeed;
 
 	
 };

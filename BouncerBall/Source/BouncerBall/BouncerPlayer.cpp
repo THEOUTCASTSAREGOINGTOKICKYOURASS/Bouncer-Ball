@@ -27,6 +27,8 @@ ABouncerPlayer::ABouncerPlayer()
 
 	OnActorBeginOverlap.AddDynamic(this, &ABouncerPlayer::OnBeginOverlap);
 	OnActorEndOverlap.AddDynamic(this, &ABouncerPlayer::OnEndOverlap);
+
+	MoveSpeed = 10.f;
 }
 
 // Called when the game starts or when spawned
@@ -63,12 +65,13 @@ void ABouncerPlayer::Strafe(float Scale)
 	if (FVector::Dist(GetActorLocation(), leftBounds) > 20 && Scale<0)
 	{
 		GEngine->AddOnScreenDebugMessage(2, 1.f, FColor::Yellow, TEXT("Left"));
-		AddMovementInput(GetActorRightVector() *Scale * 100);
+		AddActorWorldOffset(GetActorRightVector()*Scale* MoveSpeed);
+
 	}
 	else if (FVector::Dist(GetActorLocation(), rightBounds) > 20 && Scale > 0)
 	{
 		GEngine->AddOnScreenDebugMessage(3, 1.f, FColor::Yellow, TEXT("Right"));
-		AddMovementInput(GetActorRightVector() *Scale * 100);
+		AddActorWorldOffset(GetActorRightVector()*Scale * MoveSpeed);
 	}
 }
 void ABouncerPlayer::Shoot()
