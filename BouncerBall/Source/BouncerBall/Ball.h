@@ -19,6 +19,16 @@ public:
 	//What the ball should do when the player hits it
 	UFUNCTION()
 	virtual void Shoot(FVector direction);
+	//For setting if there is a new owner can be overriden for functionality of the different balls please remember to call this if overriden.
+	UFUNCTION()
+	virtual void SetOwner(ABouncerPlayer* NewOwner)
+	{
+		BallOwner = NewOwner;
+	}
+	ABouncerPlayer* GetOwner()
+	{
+		return BallOwner;
+	}
 protected:
 	//Called per frame in tick to move the Ball, override for your own movement, no need to call this in your implementation
 	UFUNCTION()
@@ -29,6 +39,8 @@ protected:
 	//A reference to the current target of the ball
 	UPROPERTY()
 	ABouncerPlayer *CurrentTarget;
+	UPROPERTY()
+	ABouncerPlayer *BallOwner;
 	//The Mesh for our Ball this will be set through blueprint
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
 	UStaticMeshComponent *Mesh;

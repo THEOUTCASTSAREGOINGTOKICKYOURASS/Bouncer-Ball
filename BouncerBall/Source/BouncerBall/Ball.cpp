@@ -83,5 +83,6 @@ void ABall::GetTarget()
 }
 void ABall::Shoot(FVector Direction)
 {
-	GetTarget();
+	//Not all balls have targets no need
+	//GetTarget();
 }
