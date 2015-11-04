@@ -23,3 +23,4 @@ public:
 		virtual void OnBeginOverlap(AActor* OtherActor);
 	
 };
+

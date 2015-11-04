@@ -11,6 +11,9 @@ ABouncerPlayer::ABouncerPlayer()
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
+	RootComponent = Mesh;
+
 	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(
 		TEXT("CameraBoom")
 		);
@@ -24,7 +27,6 @@ ABouncerPlayer::ABouncerPlayer()
 
 	OnActorBeginOverlap.AddDynamic(this, &ABouncerPlayer::OnBeginOverlap);
 	OnActorEndOverlap.AddDynamic(this, &ABouncerPlayer::OnEndOverlap);
-
 }
 
 // Called when the game starts or when spawned
@@ -34,18 +36,12 @@ void ABouncerPlayer::BeginPlay()
 	//Set the bounds based on where the player starts
 	rightBounds = GetActorLocation() + GetActorRightVector() * 250;
 	leftBounds = GetActorLocation() + GetActorRightVector() *-250;
-	
-	
 }
 
 // Called every frame
 void ABouncerPlayer::Tick( float DeltaTime )
 {
-	
 	Super::Tick( DeltaTime );
-	
-	
-
 }
 
 // Called to bind functionality to input
@@ -58,29 +54,24 @@ void ABouncerPlayer::SetupPlayerInputComponent(class UInputComponent* InputCompo
 		IE_Pressed,
 		this,
 		&ABouncerPlayer::Shoot);
-
 }
 
 void ABouncerPlayer::Strafe(float Scale)
 {
+	GEngine->AddOnScreenDebugMessage(1, 1.f, FColor::Yellow, TEXT("Move"));
 	//stops the player from moving outside their bounds
-	if (FVector::Dist(GetActorLocation(), leftBounds) > 20&&Scale<0)
+	if (FVector::Dist(GetActorLocation(), leftBounds) > 20 && Scale<0)
 	{
-
 		GetCharacterMovement()->AddInputVector(GetActorRightVector() *Scale);
 	}
 	else if (FVector::Dist(GetActorLocation(), rightBounds) > 20 && Scale > 0)
 	{
 		GetCharacterMovement()->AddInputVector(GetActorRightVector() *Scale);
 	}
-	
-	
-
 }
 void ABouncerPlayer::Shoot()
 {
-	//if a ball is currently overlapping with the player calls the shoot function and passes in the new velocity
-	
+	//if a ball is currently overlapping with the player calls the shoot function and passes in the new velocity	
 	if (canShoot)
 	{
 		ABall *TheBall = Cast<ABall>(Ball);
@@ -89,10 +80,7 @@ void ABouncerPlayer::Shoot()
 			TheBall->Shoot(GetActorForwardVector() * 1000);
 			TheBall->SetOwner(this);
 		}
-		
-
 	}
-	
 }
 void ABouncerPlayer::OnBeginOverlap(AActor* OtherActor)
 {
@@ -109,6 +97,5 @@ void ABouncerPlayer::OnEndOverlap(AActor* OtherActor)
 	{
 		canShoot = false;
 	}
-
 }
 
