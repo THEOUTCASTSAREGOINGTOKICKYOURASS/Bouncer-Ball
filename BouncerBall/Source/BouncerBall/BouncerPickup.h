@@ -18,7 +18,7 @@ public:
 		USphereComponent* Collider;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 		UStaticMeshComponent* Mesh;
-
+	//this is used for instancing a power up to the player the other actor will always be a player so for each pickup there is a powerup that goes with it
 	UFUNCTION()
 		virtual void OnBeginOverlap(AActor* OtherActor);
 	
