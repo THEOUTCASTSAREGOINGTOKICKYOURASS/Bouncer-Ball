@@ -14,6 +14,11 @@ ABouncerPlayer::ABouncerPlayer()
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 	RootComponent = Mesh;
 
+	SpotLight = CreateDefaultSubobject<USpotLightComponent>(TEXT("SpotLight"));
+	SpotLight->SetRelativeRotation(FRotator(90.f, 315.f, 90.f));
+	SpotLight->SetRelativeLocation(FVector(0.f, 141.f, 80.f));
+	SpotLight->AttachTo(Mesh);
+
 	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(
 		TEXT("CameraBoom")
 		);
