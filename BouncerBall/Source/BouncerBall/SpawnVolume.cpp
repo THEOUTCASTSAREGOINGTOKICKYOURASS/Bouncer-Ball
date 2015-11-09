@@ -2,7 +2,7 @@
 
 #include "BouncerBall.h"
 #include "SpawnVolume.h"
-#include "Ball.h"
+#include "Balls/Ball.h"
 
 // Sets default values
 ASpawnVolume::ASpawnVolume()

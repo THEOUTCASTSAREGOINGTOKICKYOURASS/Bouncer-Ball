@@ -2,7 +2,7 @@
 
 #include "BouncerBall.h"
 #include "BouncerNet.h"
-#include "Ball.h"
+#include "Balls/Ball.h"
 #include "Kismet/GameplayStatics.h"
 #include "SpawnVolume.h"
 

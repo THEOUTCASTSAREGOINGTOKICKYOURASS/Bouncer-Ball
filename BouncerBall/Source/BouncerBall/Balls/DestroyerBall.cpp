@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "BouncerBall.h"
-#include "BouncerPickup.h"
+#include "../PickUps/BouncerPickup.h"
 #include "CollectorBall.h"
 #include "DestroyerBall.h"
 

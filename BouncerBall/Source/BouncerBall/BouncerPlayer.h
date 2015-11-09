@@ -3,7 +3,7 @@
 #pragma once
 
 #include "GameFramework/Pawn.h"
-#include "BouncerPowerUp.h"
+//#include "BouncerPowerUp.h"
 #include "BouncerPlayer.generated.h"
 
 UCLASS()
@@ -31,10 +31,10 @@ public:
 	{
 		Weight -= amount;
 	}
-	void SetPickup(BouncerPowerUp* NewPowerUp)
+	/*void SetPowerUp(BouncerPowerUp* NewPowerUp)
 	{
 		StoredPowerUp = NewPowerUp;
-	}
+	}*/
 protected:
 	//Function to that allows the player to strafe
 	UFUNCTION()
@@ -78,7 +78,7 @@ protected:
 	// the ball that is overlaping with the player
 	AActor* Ball;
 	//The current pickup of the player
-	BouncerPowerUp* StoredPowerUp;
+	//BouncerPowerUp* StoredPowerUp;
 
 private:
 	/** Current speed */

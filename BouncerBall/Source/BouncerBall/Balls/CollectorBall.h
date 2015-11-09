@@ -3,7 +3,7 @@
 #pragma once
 
 #include "RegularBall.h"
-#include "BouncerPickup.h"
+#include "../PickUps/BouncerPickup.h"
 #include "CollectorBall.generated.h"
 
 /**
