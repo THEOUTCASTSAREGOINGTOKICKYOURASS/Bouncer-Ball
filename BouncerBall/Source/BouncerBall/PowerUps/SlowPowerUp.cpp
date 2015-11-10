@@ -19,7 +19,7 @@ void SlowPowerUp::Use(UWorld* WorldRef)
 	Owner->SetTimer(SLOWED_TIME);
 	for (TActorIterator<ABouncerPlayer> ActorItr(WorldRef); ActorItr; ++ActorItr)
 	{
-		if (*ActorItr != Owner)
+		if (*ActorItr != Owner || !ActorItr->IsInvinsible())
 		{
 			ActorItr->SetMoveScalar(SLOW_SCALAR);
 		}
