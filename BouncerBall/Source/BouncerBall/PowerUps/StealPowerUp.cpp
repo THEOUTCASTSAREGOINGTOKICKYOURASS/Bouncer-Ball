@@ -11,7 +11,11 @@ StealPowerUp::~StealPowerUp()
 {
 }
 
-void StealPowerUp::Use()
+void StealPowerUp::Use(UWorld* WorldRef)
+{
+	BouncerPowerUp::Use(WorldRef);
+}
+void StealPowerUp::Over()
 {
 
 }

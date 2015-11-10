@@ -11,5 +11,6 @@ public:
 	InvinsiblePowerUp(ABouncerPlayer *PlayerOwner);
 	~InvinsiblePowerUp();
 
-	void Use();
+	void Use(UWorld* WorldRef);
+	void Over();
 };

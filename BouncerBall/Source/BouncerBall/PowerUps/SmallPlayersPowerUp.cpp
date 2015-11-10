@@ -11,7 +11,11 @@ SmallPlayersPowerUp::~SmallPlayersPowerUp()
 {
 }
 
-void SmallPlayersPowerUp::Use()
+void SmallPlayersPowerUp::Use(UWorld* WorldRef)
+{
+	BouncerPowerUp::Use(WorldRef);
+}
+void SmallPlayersPowerUp::Over()
 {
 
 }

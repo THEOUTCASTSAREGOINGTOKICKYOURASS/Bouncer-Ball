@@ -11,5 +11,6 @@ public:
 	OwnAllPowerUp(ABouncerPlayer *PlayerOwner);
 	~OwnAllPowerUp();
 
-	void Use();
+	void Use(UWorld* WorldRef);
+	void Over();
 };

@@ -10,3 +10,8 @@ BouncerPowerUp::BouncerPowerUp(ABouncerPlayer* PlayerOwner) :Owner(PlayerOwner)
 BouncerPowerUp::~BouncerPowerUp()
 {
 }
+
+void BouncerPowerUp::Use(UWorld* WorldRef)
+{
+	bIsUsed = true;
+}

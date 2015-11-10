@@ -11,5 +11,6 @@ public:
 	StealPowerUp(ABouncerPlayer *PlayerOwner);
 	~StealPowerUp();
 
-	void Use();
+	void Use(UWorld* WorldRef);
+	void Over();
 };

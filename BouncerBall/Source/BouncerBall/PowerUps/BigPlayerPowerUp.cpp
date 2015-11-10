@@ -11,7 +11,11 @@ BigPlayerPowerUp::~BigPlayerPowerUp()
 {
 }
 
-void BigPlayerPowerUp::Use()
+void BigPlayerPowerUp::Use(UWorld* WorldRef)
+{
+	BouncerPowerUp::Use(WorldRef);
+}
+void BigPlayerPowerUp::Over()
 {
 
 }

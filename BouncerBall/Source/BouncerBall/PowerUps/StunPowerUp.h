@@ -11,5 +11,8 @@ public:
 	StunPowerUp(ABouncerPlayer *PlayerOwner);
 	~StunPowerUp();
 
-	void Use();
+	void Use(UWorld* WorldRef);
+	void Over();
+private:
+	UWorld *WorldRef;
 };

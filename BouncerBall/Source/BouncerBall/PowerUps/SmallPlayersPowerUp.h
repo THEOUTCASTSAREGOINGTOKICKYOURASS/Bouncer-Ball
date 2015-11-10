@@ -11,5 +11,6 @@ public:
 	SmallPlayersPowerUp(ABouncerPlayer *PlayerOwner);
 	~SmallPlayersPowerUp();
 
-	void Use();
+	void Use(UWorld* WorldRef);
+	void Over();
 };

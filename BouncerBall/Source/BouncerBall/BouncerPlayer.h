@@ -37,6 +37,34 @@ public:
 	{
 		StoredPowerUp = NewPowerUp;
 	}
+	void SetInvinsible(bool value)
+	{
+		bIsImmune = value;
+	}
+	bool IsInvinsible()
+	{
+		return bIsImmune;
+	}
+	//Sets how long the power up lasts
+	void SetTimer(float TimerMax)
+	{
+		TimeTillOver = TimerMax;
+	}
+	void SetMoveScalar(float Scalar)
+	{
+		MoveScalar = Scalar;
+	}
+	float GetMoveScale()
+	{
+		return MoveScalar;
+	}
+
+	void SetStunned(bool Stunned)
+	{
+		bIsStunned = Stunned;
+	}
+
+
 protected:
 	//Function to that allows the player to strafe
 	UFUNCTION()
@@ -44,7 +72,9 @@ protected:
 	//Call the shoot function on the ball when it's overlaping with the player
 	UFUNCTION()
 	virtual void Shoot();
-	
+	//Use the Powerup thats stored if valid
+	UFUNCTION()
+	void UsePowerUp();
 
 	UFUNCTION()
 	virtual void OnBeginOverlap(AActor* OtherActor);
@@ -82,9 +112,19 @@ protected:
 	//The current pickup of the player
 	BouncerPowerUp* StoredPowerUp;
 
+	//Used for the power up timer counts time spent
+	float TimeCounted;
+	//Used for the power ups to say when they have ended
+	float TimeTillOver;
+
 private:
 	/** Current speed */
 	float MoveSpeed;
-
+	//Scalar for movement power ups
+	float MoveScalar;
+	//if true negative powerups dont work
+	bool bIsImmune;
+	//if true player can not move
+	bool bIsStunned;
 	
 };

@@ -11,5 +11,8 @@ public:
 	SlowPowerUp(ABouncerPlayer *PlayerOwner);
 	~SlowPowerUp();
 
-	void Use();
+	void Use(UWorld* WorldRef);
+	void Over();
+private:
+	UWorld *WorldRef;
 };

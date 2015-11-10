@@ -34,6 +34,12 @@ ABouncerPlayer::ABouncerPlayer()
 	OnActorEndOverlap.AddDynamic(this, &ABouncerPlayer::OnEndOverlap);
 
 	MoveSpeed = 10.f;
+	TimeCounted = 0.f;
+	TimeTillOver = 0.f;
+	MoveScalar = 1.f;
+	bIsStunned = false;
+	bIsImmune = false;
+
 }
 
 // Called when the game starts or when spawned
@@ -49,6 +55,17 @@ void ABouncerPlayer::BeginPlay()
 void ABouncerPlayer::Tick( float DeltaTime )
 {
 	Super::Tick( DeltaTime );
+	TimeCounted += DeltaTime;
+	if (TimeTillOver != 0.f)
+	{
+		if (TimeCounted >= TimeTillOver)
+		{
+			this->StoredPowerUp->Over();
+			TimeTillOver = 0.f;
+			delete StoredPowerUp;
+			StoredPowerUp = nullptr;
+		}
+	}
 }
 
 // Called to bind functionality to input
@@ -65,24 +82,26 @@ void ABouncerPlayer::SetupPlayerInputComponent(class UInputComponent* InputCompo
 
 void ABouncerPlayer::Strafe(float Scale)
 {
+	if (bIsStunned)
+		return;
 	GEngine->AddOnScreenDebugMessage(1, 1.f, FColor::Yellow, TEXT("Move"));
 	//stops the player from moving outside their bounds
 	if (FVector::Dist(GetActorLocation(), leftBounds) > 20 && Scale<0)
 	{
 		GEngine->AddOnScreenDebugMessage(2, 1.f, FColor::Yellow, TEXT("Left"));
-		AddActorWorldOffset(GetActorRightVector()*Scale* MoveSpeed);
+		AddActorWorldOffset(GetActorRightVector()*Scale* (MoveSpeed * MoveScalar));
 
 	}
 	else if (FVector::Dist(GetActorLocation(), rightBounds) > 20 && Scale > 0)
 	{
 		GEngine->AddOnScreenDebugMessage(3, 1.f, FColor::Yellow, TEXT("Right"));
-		AddActorWorldOffset(GetActorRightVector()*Scale * MoveSpeed);
+		AddActorWorldOffset(GetActorRightVector()*Scale * (MoveSpeed* MoveScalar));
 	}
 }
 void ABouncerPlayer::Shoot()
 {
 	//if a ball is currently overlapping with the player calls the shoot function and passes in the new velocity	
-	if (canShoot)
+	if (canShoot && !bIsStunned)
 	{
 		ABall *ShootingBall = Cast<ABall>(Ball);
 
@@ -91,6 +110,14 @@ void ABouncerPlayer::Shoot()
 			ShootingBall->SetOwner(this);
 			ShootingBall->Shoot(GetActorForwardVector() * 1000);
 		}
+	}
+}
+void ABouncerPlayer::UsePowerUp()
+{
+	if (!bIsStunned && StoredPowerUp && !StoredPowerUp->IsUsed())
+	{
+		TimeCounted = 0.f;
+		StoredPowerUp->Use(GetWorld());
 	}
 }
 void ABouncerPlayer::OnBeginOverlap(AActor* OtherActor)

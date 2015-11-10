@@ -2,7 +2,7 @@
 
 #include "BouncerBall.h"
 #include "InvinsiblePowerUp.h"
-
+#define TIME_INVULNERABLE 4.f
 InvinsiblePowerUp::InvinsiblePowerUp(ABouncerPlayer *PlayerOwner) :BouncerPowerUp(PlayerOwner)
 {
 }
@@ -11,7 +11,13 @@ InvinsiblePowerUp::~InvinsiblePowerUp()
 {
 }
 
-void InvinsiblePowerUp::Use()
+void InvinsiblePowerUp::Use(UWorld* WorldRef)
 {
-
+	BouncerPowerUp::Use(WorldRef);
+	Owner->SetInvinsible(true);
+	Owner->SetTimer(TIME_INVULNERABLE);
+}
+void InvinsiblePowerUp::Over()
+{
+	Owner->SetInvinsible(false);
 }

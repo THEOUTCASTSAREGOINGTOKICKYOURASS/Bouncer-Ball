@@ -2,7 +2,8 @@
 
 #include "BouncerBall.h"
 #include "SlowPowerUp.h"
-
+#define SLOWED_TIME 3.f
+#define SLOW_SCALAR 0.75f
 SlowPowerUp::SlowPowerUp(ABouncerPlayer* PlayerOwner) :BouncerPowerUp(PlayerOwner)
 {
 }
@@ -11,7 +12,29 @@ SlowPowerUp::~SlowPowerUp()
 {
 }
 
-void SlowPowerUp::Use()
+void SlowPowerUp::Use(UWorld* WorldRef)
 {
+	BouncerPowerUp::Use(WorldRef);
+	this->WorldRef = WorldRef;
+	for (TActorIterator<ABouncerPlayer> ActorItr(WorldRef); ActorItr; ++ActorItr)
+	{
+		if (*ActorItr != Owner)
+		{
+			ActorItr->SetTimer(SLOWED_TIME);
+			ActorItr->SetMoveScalar(SLOW_SCALAR);
+		}
+	}
+	
+}
+void SlowPowerUp::Over()
+{
+	for (TActorIterator<ABouncerPlayer> ActorItr(WorldRef); ActorItr; ++ActorItr)
+	{
+		if (*ActorItr != Owner)
+		{
 
+			if (ActorItr->GetMoveScale() == SLOW_SCALAR)
+				ActorItr->SetMoveScalar(1.f);
+		}
+	}
 }

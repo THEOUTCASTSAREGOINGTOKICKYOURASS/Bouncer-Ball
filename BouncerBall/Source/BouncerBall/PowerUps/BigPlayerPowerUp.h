@@ -10,5 +10,6 @@ class BOUNCERBALL_API BigPlayerPowerUp:public BouncerPowerUp
 public:
 	BigPlayerPowerUp(ABouncerPlayer *PlayerOwner);
 	~BigPlayerPowerUp();
-	void Use();
+	void Use(UWorld* WorldRef);
+	void Over();
 };

@@ -13,8 +13,15 @@ public:
 	BouncerPowerUp(ABouncerPlayer* PlayerOwner);
 	~BouncerPowerUp();
 
-	virtual void Use() = 0;
+	virtual void Use(UWorld* WorldRef);
+	virtual void Over() = 0;
 
+	bool IsUsed()
+	{
+		return bIsUsed;
+	}
 protected:
 	ABouncerPlayer *Owner;
+private:
+	bool bIsUsed;
 };
