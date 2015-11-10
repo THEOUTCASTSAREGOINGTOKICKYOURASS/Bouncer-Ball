@@ -16,11 +16,11 @@ void SlowPowerUp::Use(UWorld* WorldRef)
 {
 	BouncerPowerUp::Use(WorldRef);
 	this->WorldRef = WorldRef;
+	Owner->SetTimer(SLOWED_TIME);
 	for (TActorIterator<ABouncerPlayer> ActorItr(WorldRef); ActorItr; ++ActorItr)
 	{
 		if (*ActorItr != Owner)
 		{
-			ActorItr->SetTimer(SLOWED_TIME);
 			ActorItr->SetMoveScalar(SLOW_SCALAR);
 		}
 	}

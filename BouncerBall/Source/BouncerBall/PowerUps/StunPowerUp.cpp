@@ -16,11 +16,11 @@ void StunPowerUp::Use(UWorld* WorldRef)
 {
 	BouncerPowerUp::Use(WorldRef);
 	this->WorldRef = WorldRef;
+	Owner->SetTimer(STUN_LENGTH);
 	for (TActorIterator<ABouncerPlayer> ActorItr(WorldRef); ActorItr; ++ActorItr)
 	{
 		if (*ActorItr != Owner || !ActorItr->IsInvinsible())
 		{
-			ActorItr->SetTimer(STUN_LENGTH);
 			ActorItr->SetStunned(true);
 		}
 	}
