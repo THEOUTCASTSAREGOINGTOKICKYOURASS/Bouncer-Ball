@@ -37,6 +37,20 @@ public:
 	{
 		StoredPowerUp = NewPowerUp;
 	}
+	bool HasPowerUp()
+	{
+		if (StoredPowerUp)
+		{
+			return true;
+		}
+		return false;
+	}
+	BouncerPowerUp* StealPowerUp()
+	{
+		BouncerPowerUp* temp = StoredPowerUp;
+		StoredPowerUp = nullptr;
+		return temp;
+	}
 	void SetInvinsible(bool value)
 	{
 		bIsImmune = value;
@@ -63,7 +77,7 @@ public:
 	{
 		bIsStunned = Stunned;
 	}
-
+	
 
 protected:
 	//Function to that allows the player to strafe

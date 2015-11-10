@@ -5,6 +5,7 @@
 
 StealPowerUp::StealPowerUp(ABouncerPlayer *PlayerOwner) :BouncerPowerUp(PlayerOwner)
 {
+	StolenPowerUp = nullptr;
 }
 
 StealPowerUp::~StealPowerUp()
@@ -14,8 +15,16 @@ StealPowerUp::~StealPowerUp()
 void StealPowerUp::Use(UWorld* WorldRef)
 {
 	BouncerPowerUp::Use(WorldRef);
+	Owner->SetTimer(0.1f);
+	for (TActorIterator<ABouncerPlayer> ActorItr(WorldRef); ActorItr; ++ActorItr)
+	{
+		if (*ActorItr != Owner || !ActorItr->IsInvinsible() && ActorItr->HasPowerUp())
+		{
+			StolenPowerUp = ActorItr->StealPowerUp();
+		}
+	}
 }
 void StealPowerUp::Over()
 {
-
+	Owner->SetPowerUp(StolenPowerUp);
 }

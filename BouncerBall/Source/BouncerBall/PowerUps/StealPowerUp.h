@@ -13,4 +13,7 @@ public:
 
 	void Use(UWorld* WorldRef);
 	void Over();
+
+private:
+	BouncerPowerUp* StolenPowerUp;
 };

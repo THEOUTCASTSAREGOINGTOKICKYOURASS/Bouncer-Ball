@@ -39,6 +39,7 @@ ABouncerPlayer::ABouncerPlayer()
 	MoveScalar = 1.f;
 	bIsStunned = false;
 	bIsImmune = false;
+	StoredPowerUp = nullptr;
 
 }
 
