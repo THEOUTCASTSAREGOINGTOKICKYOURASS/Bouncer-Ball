@@ -2,14 +2,14 @@
 
 #pragma once
 
-#include "Ball.h"
+#include "PlayerTargetingBall.h"
 #include "TargetBall.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class BOUNCERBALL_API ATargetBall : public ABall
+class BOUNCERBALL_API ATargetBall : public APlayerTargetingBall
 {
 	GENERATED_BODY()
 	

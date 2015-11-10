@@ -33,12 +33,6 @@ protected:
 	//Called per frame in tick to move the Ball, override for your own movement, no need to call this in your implementation
 	UFUNCTION()
 	virtual void Move() PURE_VIRTUAL(ABall::Move,);
-	//Call to have the ball find a new target
-	UFUNCTION()
-	void GetTarget();
-	//A reference to the current target of the ball
-	UPROPERTY()
-	ABouncerPlayer *CurrentTarget;
 	//The Mesh for our Ball this will be set through blueprint
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
 	UStaticMeshComponent *Mesh;
