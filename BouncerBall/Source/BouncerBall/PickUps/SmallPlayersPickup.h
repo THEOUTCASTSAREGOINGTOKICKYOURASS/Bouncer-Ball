@@ -10,4 +10,7 @@ UCLASS()
 class BOUNCERBALL_API ASmallPlayersPickup:public ABouncerPickup
 {
 	GENERATED_BODY()
+public:
+	UFUNCTION()
+		virtual void OnBeginOverlap(AActor* OtherActor);
 };

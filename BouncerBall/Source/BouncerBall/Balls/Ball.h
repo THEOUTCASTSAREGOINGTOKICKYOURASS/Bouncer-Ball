@@ -19,6 +19,16 @@ public:
 	//What the ball should do when the player hits it
 	UFUNCTION()
 	virtual void Shoot(FVector direction);
+	UFUNCTION()
+	ABouncerPlayer* GetOwner()
+	{
+		return BallOwner;
+	}
+	UFUNCTION()
+	void SetOwner(ABouncerPlayer* NewOwner)
+	{
+		BallOwner = NewOwner;
+	}
 protected:
 	//Called per frame in tick to move the Ball, override for your own movement, no need to call this in your implementation
 	UFUNCTION()
@@ -37,6 +47,10 @@ protected:
 	USphereComponent *Collider;
 	//this is used to keep the balls from flying off into no where.
 	float ZPos;
+	//The light attached to the ball set in blueprint
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 		UPointLightComponent *Light;
+	//The owner of this ball
+	UPROPERTY()
+	ABouncerPlayer *BallOwner;
 };

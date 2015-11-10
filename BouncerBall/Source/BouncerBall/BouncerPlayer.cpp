@@ -84,7 +84,13 @@ void ABouncerPlayer::Shoot()
 	//if a ball is currently overlapping with the player calls the shoot function and passes in the new velocity	
 	if (canShoot)
 	{
-		Cast<ABall>(Ball)->Shoot(GetActorForwardVector()*1000);
+		ABall *ShootingBall = Cast<ABall>(Ball);
+
+		if (ShootingBall)
+		{
+			ShootingBall->SetOwner(this);
+			ShootingBall->Shoot(GetActorForwardVector() * 1000);
+		}
 	}
 }
 void ABouncerPlayer::OnBeginOverlap(AActor* OtherActor)

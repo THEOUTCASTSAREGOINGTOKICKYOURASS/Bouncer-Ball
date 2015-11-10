@@ -3,6 +3,8 @@
 #pragma once
 
 #include "GameFramework/Actor.h"
+#include "../BouncerPlayer.h"
+#include "../Balls/Ball.h"
 #include "BouncerPickup.generated.h"
 
 UCLASS()

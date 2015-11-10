@@ -13,7 +13,8 @@ class BOUNCERBALL_API ABigPlayerPickup : public ABouncerPickup
 {
 	GENERATED_BODY()
 	
-	
+	UFUNCTION()
+		virtual void OnBeginOverlap(AActor* OtherActor);
 	
 	
 };

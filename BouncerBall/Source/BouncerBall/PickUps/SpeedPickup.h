@@ -1,13 +1,18 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
-
+#include "BouncerPickup.h"
+#include "SpeedPickup.generated.h"
 /**
  * 
  */
-class BOUNCERBALL_API SpeedPickup
+UCLASS()
+class BOUNCERBALL_API ASpeedPickup:public ABouncerPickup
 {
+	GENERATED_BODY()
+
 public:
-	SpeedPickup();
-	~SpeedPickup();
+	UFUNCTION()
+		virtual void OnBeginOverlap(AActor* OtherActor);
+	
 };

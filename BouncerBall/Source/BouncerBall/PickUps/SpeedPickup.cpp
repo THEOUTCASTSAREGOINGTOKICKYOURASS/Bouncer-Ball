@@ -1,12 +1,17 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "BouncerBall.h"
+#include "../PowerUps/SpeedPowerUp.h"
 #include "SpeedPickup.h"
 
-SpeedPickup::SpeedPickup()
+void ASpeedPickup::OnBeginOverlap(AActor* OtherActor)
 {
-}
+	Super::OnBeginOverlap(OtherActor);
 
-SpeedPickup::~SpeedPickup()
-{
+	ABall *Ball = Cast<ABall>(OtherActor);
+	if (Ball)
+	{
+		if (Ball->GetOwner())
+			Ball->GetOwner()->SetPowerUp(new SpeedPowerUp(Ball->GetOwner()));
+	}
 }

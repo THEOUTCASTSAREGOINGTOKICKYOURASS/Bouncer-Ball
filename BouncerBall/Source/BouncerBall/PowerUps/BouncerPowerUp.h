@@ -5,6 +5,8 @@
 /**
  * 
  */
+class ABouncerPlayer;
+
 class BOUNCERBALL_API BouncerPowerUp
 {
 public:

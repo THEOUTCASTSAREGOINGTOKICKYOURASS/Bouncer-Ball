@@ -12,8 +12,9 @@ UCLASS()
 class BOUNCERBALL_API ASlowPickup : public ABouncerPickup
 {
 	GENERATED_BODY()
-	
-	
+public:
+	UFUNCTION()
+	virtual void OnBeginOverlap(AActor* OtherActor);
 	
 	
 };

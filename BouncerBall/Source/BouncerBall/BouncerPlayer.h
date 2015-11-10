@@ -3,8 +3,10 @@
 #pragma once
 
 #include "GameFramework/Pawn.h"
-//#include "BouncerPowerUp.h"
+#include "PowerUps/BouncerPowerUp.h"
 #include "BouncerPlayer.generated.h"
+
+class BouncerPowerUp;
 
 UCLASS()
 class BOUNCERBALL_API ABouncerPlayer : public APawn
@@ -31,10 +33,10 @@ public:
 	{
 		Weight -= amount;
 	}
-	/*void SetPowerUp(BouncerPowerUp* NewPowerUp)
+	void SetPowerUp(BouncerPowerUp* NewPowerUp)
 	{
 		StoredPowerUp = NewPowerUp;
-	}*/
+	}
 protected:
 	//Function to that allows the player to strafe
 	UFUNCTION()
@@ -78,7 +80,7 @@ protected:
 	// the ball that is overlaping with the player
 	AActor* Ball;
 	//The current pickup of the player
-	//BouncerPowerUp* StoredPowerUp;
+	BouncerPowerUp* StoredPowerUp;
 
 private:
 	/** Current speed */
