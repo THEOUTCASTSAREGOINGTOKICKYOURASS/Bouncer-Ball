@@ -142,8 +142,10 @@ void ABouncerPlayer::OnEndOverlap(AActor* OtherActor)
 void ABouncerPlayer::Grow()
 {
 	SizeFactor++;
+	SetActorScale3D(GetActorScale3D() * GROW_FACTOR);
 }
 void ABouncerPlayer::Shrink()
 {
 	SizeFactor--;
+	SetActorScale3D(GetActorScale3D()* SHRINK_FACTOR);
 }
