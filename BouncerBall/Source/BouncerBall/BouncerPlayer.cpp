@@ -4,7 +4,8 @@
 #include "Balls/Ball.h"
 #include "BouncerPlayer.h"
 
-
+#define GROW_FACTOR 1.5f
+#define SHRINK_FACTOR 0.5f
 // Sets default values
 ABouncerPlayer::ABouncerPlayer()
 {
@@ -138,3 +139,11 @@ void ABouncerPlayer::OnEndOverlap(AActor* OtherActor)
 	}
 }
 
+void ABouncerPlayer::Grow()
+{
+	SizeFactor++;
+}
+void ABouncerPlayer::Shrink()
+{
+	SizeFactor--;
+}

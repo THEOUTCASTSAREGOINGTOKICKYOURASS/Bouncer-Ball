@@ -77,8 +77,40 @@ public:
 	{
 		bIsStunned = Stunned;
 	}
-	
-
+	//Used for the big and small powerups
+	void Grow();
+	void Shrink();
+	//Used to keep track of what size the player is 0 = small 1 = regular 2 = big
+	int8 GetSize()
+	{
+		return SizeFactor;
+	}
+	//Used to keep track of how many stuns were used
+	void GotStunned()
+	{
+		StunPowerUpUsed++;
+	}
+	void StunIsOver()
+	{
+		StunPowerUpUsed--;
+	}
+	int8 GetStunnedCounter()
+	{
+		return StunPowerUpUsed;
+	}
+	//Used to keep track of shrinks used
+	void GotShrunk()
+	{
+		SmallPowerUpUsed++;
+	}
+	void ShrunkOver()
+	{
+		SmallPowerUpUsed--;
+	}
+	int8 GetShrunkCounter()
+	{
+		return SmallPowerUpUsed;
+	}
 protected:
 	//Function to that allows the player to strafe
 	UFUNCTION()
@@ -140,5 +172,11 @@ private:
 	bool bIsImmune;
 	//if true player can not move
 	bool bIsStunned;
+	//Keep track if shrunken or bigger 0 = small 1 = regular 2 = big
+	int8 SizeFactor;
+	//Keeps track of how many smalls have been used on this player that have not expired
+	int8 SmallPowerUpUsed;
+	//Keeps track of how many stuns have been used on this player that have not expired
+	int8 StunPowerUpUsed;
 	
 };

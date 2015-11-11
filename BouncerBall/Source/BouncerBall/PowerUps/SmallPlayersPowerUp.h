@@ -13,4 +13,6 @@ public:
 
 	void Use(UWorld* WorldRef);
 	void Over();
+private:
+	UWorld* WorldRef;
 };
