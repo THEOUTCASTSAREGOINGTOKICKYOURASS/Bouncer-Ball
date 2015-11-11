@@ -21,6 +21,7 @@ void StunPowerUp::Use(UWorld* WorldRef)
 	{
 		if (*ActorItr != Owner || !ActorItr->IsInvinsible())
 		{
+			ActorItr->GotStunned();
 			ActorItr->SetStunned(true);
 		}
 	}
@@ -31,7 +32,9 @@ void StunPowerUp::Over()
 	{
 		if (*ActorItr != Owner)
 		{
-			ActorItr->SetStunned(false);
+			ActorItr->StunIsOver();
+			if (ActorItr->GetStunnedCounter() == 0)
+				ActorItr->SetStunned(false);
 		}
 	}
 }
