@@ -18,7 +18,7 @@ public:
 	ACollectorBall();
 
 	UFUNCTION()
-	void GetTarget();
+	bool GetTarget();
 
 	virtual void Tick(float DeltaSeconds) override;
 	
