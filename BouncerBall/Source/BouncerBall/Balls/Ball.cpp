@@ -46,6 +46,7 @@ void ABall::Tick(float DeltaSeconds)
 	{
 		Time += DeltaSeconds;
 		SetActorRelativeScale3D(FVector(Time*2 , Time*2 , Time*2 ));
+		Light->SetIntensity( 10000 * Time);
 	}
 	else
 	{
