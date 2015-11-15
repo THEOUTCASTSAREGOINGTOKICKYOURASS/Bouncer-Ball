@@ -2,6 +2,7 @@
 
 #include "BouncerBall.h"
 #include "Ball.h"
+#include "../SpawnVolume.h"
 #include "EngineUtils.h"
 
 
@@ -37,6 +38,8 @@ void ABall::Tick(float DeltaSeconds)
 	FVector pos = GetActorLocation();
 	pos.Z = ZPos;
 	SetActorLocation(pos);
+
+	
 }
 void ABall::Shoot(FVector Direction)
 {

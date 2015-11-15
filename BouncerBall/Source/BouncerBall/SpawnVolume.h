@@ -4,7 +4,7 @@
 
 #include "GameFramework/Actor.h"
 #include "SpawnVolume.generated.h"
-
+#define SPAWNER_ARRAY_SIZE 10
 UCLASS()
 class BOUNCERBALL_API ASpawnVolume : public AActor
 {
@@ -24,9 +24,9 @@ public:
 	UPROPERTY(VisibleInstanceOnly, Category = Spawning)
 		UBoxComponent* WhereToSpawn;
 
-	//The pickup to spawn
+	//The pickup to spawn 
 	UPROPERTY(EditAnywhere, Category = Spawning)
-		TSubclassOf<class ABall> WhatToSpawn;
+		TSubclassOf<class AActor> WhatToSpawn[SPAWNER_ARRAY_SIZE];
 
 	//finds a random point within the BoxComponent
 	UFUNCTION(BlueprintPure, Category = Spawning)
@@ -44,9 +44,10 @@ private:
 
 	/** Whether or not spawning is enabled */
 	bool bSpawningEnabled;
-
-	//ADragonSnakePickup* SpawnedPickup;
-
+	//used for spawning
+	AActor* SpawnedPickup;
+	//used to keep track of the amount of objects in our array
+	int8 ArraySize;
 	
 	
 };
