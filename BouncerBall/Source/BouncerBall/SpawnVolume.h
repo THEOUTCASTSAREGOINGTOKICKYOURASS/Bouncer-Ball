@@ -27,7 +27,12 @@ public:
 	//The pickup to spawn 
 	UPROPERTY(EditAnywhere, Category = Spawning)
 		TSubclassOf<class AActor> WhatToSpawn[SPAWNER_ARRAY_SIZE];
-
+	//the maximum amount of time untill a new spawn happens
+	UPROPERTY(EditAnywhere)
+		float RespawnMaxTime;
+	//The minimum amount of time untill a new spawn happens
+	UPROPERTY(EditAnywhere)
+		float RespawnMinTime;
 	//finds a random point within the BoxComponent
 	UFUNCTION(BlueprintPure, Category = Spawning)
 		FVector GetRandomPointInVolume();
@@ -48,6 +53,11 @@ private:
 	AActor* SpawnedPickup;
 	//used to keep track of the amount of objects in our array
 	int8 ArraySize;
-	
+	//used for the respawn timer
+	float TimeSpent;
+	//The time till respawn
+	float TimeTillRespawn;
+
+	void GetNewRespawnTime();
 	
 };

@@ -17,6 +17,10 @@ ASpawnVolume::ASpawnVolume()
 	RootComponent = WhereToSpawn;
 	bSpawningEnabled = true;
 	ArraySize = 0;
+	GetNewRespawnTime();
+	TimeSpent = 0.f;
+	RespawnMaxTime = 7.f;
+	RespawnMinTime = 4.f;
 }
 
 // Called when the game starts or when spawned
@@ -30,16 +34,30 @@ void ASpawnVolume::BeginPlay()
 			break;
 		}
 	}
-	SpawnPickup();
 }
-
+void ASpawnVolume::GetNewRespawnTime()
+{
+	TimeTillRespawn = RespawnMinTime + (FMath::FRand() * (RespawnMaxTime - RespawnMinTime));
+}
 // Called every frame
 void ASpawnVolume::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	if (TimeTillRespawn != 0.f)
+	{
+		TimeSpent += DeltaTime;
+		if (TimeSpent >= TimeTillRespawn)
+		{
+			SpawnPickup();
+			TimeTillRespawn = 0.f;
+			TimeSpent = 0.f;
+			return;
+		}
+	}
+	
 	if (!SpawnedPickup || SpawnedPickup->IsPendingKill())
 	{
-		SpawnPickup();
+		GetNewRespawnTime();
 	}
 }
 
