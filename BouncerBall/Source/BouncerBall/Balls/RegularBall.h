@@ -13,15 +13,5 @@ UCLASS()
 class BOUNCERBALL_API ARegularBall : public ABall
 {
 	GENERATED_BODY()
-public:
 
-	ARegularBall();
-	//What happens when the player shoots the ball
-	UFUNCTION()
-	void Shoot(FVector Direction);
-protected:
-	//Used to make the Ball move in blueprint
-	UPROPERTY(VisibleAnywhere)
-	UProjectileMovementComponent* MovementComponent;
-	
 };

@@ -47,4 +47,8 @@ protected:
 	//The owner of this ball
 	UPROPERTY()
 	ABouncerPlayer *BallOwner;
+
+	//Used to make the Ball move in blueprint
+	UPROPERTY(VisibleAnywhere)
+		UProjectileMovementComponent* MovementComponent;
 };

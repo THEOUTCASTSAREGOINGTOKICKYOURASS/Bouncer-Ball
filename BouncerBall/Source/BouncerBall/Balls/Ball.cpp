@@ -24,6 +24,9 @@ ABall::ABall() :ZPos(0.f)
 	FRotator Rotator;
 	Rotator.Add(0.f, FMath::Rand() % 360,0.f);
 	SetActorRotation(Rotator);
+
+	MovementComponent = CreateDefaultSubobject<UProjectileMovementComponent>(
+		TEXT("MovementComponent"));
 	
 }
 void ABall::BeginPlay()
@@ -43,4 +46,6 @@ void ABall::Tick(float DeltaSeconds)
 }
 void ABall::Shoot(FVector Direction)
 {
+	//set the direction of the ball to the players forward vector
+	MovementComponent->Velocity = Direction;
 }
