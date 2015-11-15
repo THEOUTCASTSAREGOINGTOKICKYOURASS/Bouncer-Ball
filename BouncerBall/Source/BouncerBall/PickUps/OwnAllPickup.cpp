@@ -5,7 +5,10 @@
 #include "OwnAllPickup.h"
 
 
-
+AOwnAllPickup::AOwnAllPickup()
+{
+	OnActorBeginOverlap.AddDynamic(this, &AOwnAllPickup::OnBeginOverlap);
+}
 
 void AOwnAllPickup::OnBeginOverlap(AActor* OtherActor)
 {

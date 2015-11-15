@@ -14,6 +14,7 @@ class BOUNCERBALL_API AStunPickup : public ABouncerPickup
 	GENERATED_BODY()
 	
 public:
+	AStunPickup();
 	UFUNCTION()
 		virtual void OnBeginOverlap(AActor* OtherActor);
 	

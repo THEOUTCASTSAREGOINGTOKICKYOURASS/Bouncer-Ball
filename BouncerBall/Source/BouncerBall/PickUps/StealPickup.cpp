@@ -5,7 +5,10 @@
 #include "StealPickup.h"
 
 
-
+AStealPickup::AStealPickup()
+{
+	OnActorBeginOverlap.AddDynamic(this, &AStealPickup::OnBeginOverlap);
+}
 
 void AStealPickup::OnBeginOverlap(AActor* OtherActor)
 {

@@ -5,7 +5,10 @@
 #include "BigPlayerPickup.h"
 
 
-
+ABigPlayerPickup::ABigPlayerPickup()
+{
+	OnActorBeginOverlap.AddDynamic(this, &ABigPlayerPickup::OnBeginOverlap);
+}
 
 void ABigPlayerPickup::OnBeginOverlap(AActor *OtherActor)
 {

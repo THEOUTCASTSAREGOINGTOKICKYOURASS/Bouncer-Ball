@@ -4,7 +4,10 @@
 #include "../PowerUps/InvinsiblePowerUp.h"
 #include "InvinsiblePickup.h"
 
-
+AInvinsiblePickup::AInvinsiblePickup()
+{
+	OnActorBeginOverlap.AddDynamic(this, &AInvinsiblePickup::OnBeginOverlap);
+}
 
 void AInvinsiblePickup::OnBeginOverlap(AActor* OtherActor)
 {

@@ -15,6 +15,7 @@ class BOUNCERBALL_API AInvinsiblePickup : public ABouncerPickup
 	
 	
 public:
+	AInvinsiblePickup();
 	UFUNCTION()
 		virtual void OnBeginOverlap(AActor* OtherActor);
 	

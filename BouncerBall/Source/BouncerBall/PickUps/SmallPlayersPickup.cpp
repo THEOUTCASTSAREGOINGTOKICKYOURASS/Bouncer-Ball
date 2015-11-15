@@ -4,6 +4,11 @@
 #include "../PowerUps/SmallPlayersPowerUp.h"
 #include "SmallPlayersPickup.h"
 
+ASmallPlayersPickup::ASmallPlayersPickup()
+{
+	OnActorBeginOverlap.AddDynamic(this, &ASmallPlayersPickup::OnBeginOverlap);
+}
+
 void ASmallPlayersPickup::OnBeginOverlap(AActor* OtherActor)
 {
 	Super::OnBeginOverlap(OtherActor);

@@ -5,6 +5,11 @@
 #include "../PowerUps/StunPowerUp.h"
 #include "StunPickup.h"
 
+AStunPickup::AStunPickup()
+{
+	OnActorBeginOverlap.AddDynamic(this, &AStunPickup::OnBeginOverlap);
+}
+
 void AStunPickup::OnBeginOverlap(AActor* OtherActor)
 {
 	Super::OnBeginOverlap(OtherActor);

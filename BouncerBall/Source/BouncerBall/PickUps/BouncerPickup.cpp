@@ -16,8 +16,6 @@ ABouncerPickup::ABouncerPickup()
 
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 	Mesh->AttachTo(RootComponent);
-	OnActorBeginOverlap.AddDynamic(this, &ABouncerPickup::OnBeginOverlap);
-
 }
 
 void ABouncerPickup::OnBeginOverlap(AActor* OtherActor)

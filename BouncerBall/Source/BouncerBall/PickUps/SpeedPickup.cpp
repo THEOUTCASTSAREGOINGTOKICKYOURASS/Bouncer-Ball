@@ -4,6 +4,11 @@
 #include "../PowerUps/SpeedPowerUp.h"
 #include "SpeedPickup.h"
 
+ASpeedPickup::ASpeedPickup()
+{
+	OnActorBeginOverlap.AddDynamic(this, &ASpeedPickup::OnBeginOverlap);
+}
+
 void ASpeedPickup::OnBeginOverlap(AActor* OtherActor)
 {
 	Super::OnBeginOverlap(OtherActor);
