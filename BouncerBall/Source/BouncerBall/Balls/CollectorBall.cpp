@@ -5,16 +5,17 @@
 
 ACollectorBall::ACollectorBall()
 {
-
+	CurrentPickupTarget = nullptr;
 }
 
 // Called every frame
 void ACollectorBall::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
-
+	if (!CurrentPickupTarget)
+		GetTarget();
 	//Turn the Minion to face the Player
-	if (CurrentPickupTarget)
+	if (CurrentPickupTarget != nullptr)
 	{
 		const FVector PlayerPos = CurrentPickupTarget->GetActorLocation();
 		FVector Forward = (PlayerPos - this->GetActorLocation());
@@ -22,8 +23,7 @@ void ACollectorBall::Tick(float DeltaSeconds)
 		this->SetActorRotation(GetActorRotation() - PlayerRot * DeltaSeconds);
 	}
 
-	if (!CurrentPickupTarget)
-		GetTarget();
+
 }
 
 void ACollectorBall::GetTarget()

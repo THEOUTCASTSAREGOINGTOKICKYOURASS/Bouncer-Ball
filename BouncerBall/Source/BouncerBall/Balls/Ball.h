@@ -51,4 +51,7 @@ protected:
 	//Used to make the Ball move in blueprint
 	UPROPERTY(VisibleAnywhere)
 		UProjectileMovementComponent* MovementComponent;
+private:
+	float Time;
+	bool bIsScaled;
 };

@@ -27,7 +27,11 @@ ABall::ABall() :ZPos(0.f)
 
 	MovementComponent = CreateDefaultSubobject<UProjectileMovementComponent>(
 		TEXT("MovementComponent"));
-	
+	MovementComponent->ProjectileGravityScale = 0.0f;
+	MovementComponent->bShouldBounce = true;
+	MovementComponent->Bounciness = 1.0f;
+	MovementComponent->Friction = 0.0f;
+	MovementComponent->BounceVelocityStopSimulatingThreshold = 0.0f;
 }
 void ABall::BeginPlay()
 {
@@ -37,10 +41,28 @@ void ABall::BeginPlay()
 void ABall::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
+	
+	if (Time < .5f)
+	{
+		Time += DeltaSeconds;
+		SetActorRelativeScale3D(FVector(Time*2 , Time*2 , Time*2 ));
+	}
+	else
+	{
+		if (!bIsScaled)
+		{
+			bIsScaled = true;
+			SetActorRelativeScale3D(FVector(1.f, 1.f, 1.f));
+			MovementComponent->SetVelocityInLocalSpace(GetActorForwardVector()*1000);
+		}
+		
+	}
+	
 	//Get the current Position of the Ball and set its Z to the start up Z position 
 	FVector pos = GetActorLocation();
 	pos.Z = ZPos;
 	SetActorLocation(pos);
+
 
 	
 }
