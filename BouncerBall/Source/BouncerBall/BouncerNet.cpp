@@ -2,8 +2,9 @@
 
 #include "BouncerBall.h"
 #include "BouncerNet.h"
-#include "Ball.h"
+#include "Balls/Ball.h"
 #include "Kismet/GameplayStatics.h"
+#include "SpawnVolume.h"
 
 // Sets default values
 ABouncerNet::ABouncerNet()
@@ -22,7 +23,16 @@ ABouncerNet::ABouncerNet()
 
 void ABouncerNet::OnBeginOverlap_Implementation(AActor* OtherActor)
 {
-
 	GEngine->AddOnScreenDebugMessage(0, 1.f, FColor::Yellow, TEXT("Goal"));
 	OtherActor->Destroy();
+
+	ASpawnVolume* SpawnVolumes[4];
+	int8 i = 0;
+	//Finds all Instances of SpawnVolumes and stores them into an array
+	for (TActorIterator<ASpawnVolume> ActorItr(GetWorld()); ActorItr; ++ActorItr)
+	{
+		SpawnVolumes[i] = *ActorItr;
+		i++;
+	}
+	//SpawnVolumes[0]->SpawnPickup();
 }
