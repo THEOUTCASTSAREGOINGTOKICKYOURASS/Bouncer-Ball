@@ -34,5 +34,5 @@ void ABouncerNet::OnBeginOverlap_Implementation(AActor* OtherActor)
 		SpawnVolumes[i] = *ActorItr;
 		i++;
 	}
-	SpawnVolumes[0]->SpawnPickup();
+	//SpawnVolumes[0]->SpawnPickup();
 }

@@ -8,7 +8,7 @@
 ASpawnVolume::ASpawnVolume()
 {
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = false;
+	PrimaryActorTick.bCanEverTick = true;
 
 	//Create the root CubeComponent to handle the pickup's collision
 	WhereToSpawn = CreateDefaultSubobject<UBoxComponent>(TEXT("WhereToSpawn"));
@@ -16,26 +16,55 @@ ASpawnVolume::ASpawnVolume()
 	//set the SubComponent as the root component
 	RootComponent = WhereToSpawn;
 	bSpawningEnabled = true;
+	ArraySize = 0;
+	GetNewRespawnTime();
+	TimeSpent = 0.f;
+	RespawnMaxTime = 7.f;
+	RespawnMinTime = 4.f;
 }
 
 // Called when the game starts or when spawned
 void ASpawnVolume::BeginPlay()
 {
 	Super::BeginPlay();
-
-	SpawnPickup();
+	for (ArraySize = 0; ArraySize < SPAWNER_ARRAY_SIZE; ArraySize++)
+	{
+		if (!WhatToSpawn[ArraySize])
+		{
+			break;
+		}
+	}
 }
-
+void ASpawnVolume::GetNewRespawnTime()
+{
+	TimeTillRespawn = RespawnMinTime + (FMath::FRand() * (RespawnMaxTime - RespawnMinTime));
+}
 // Called every frame
 void ASpawnVolume::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	if (TimeTillRespawn != 0.f)
+	{
+		TimeSpent += DeltaTime;
+		if (TimeSpent >= TimeTillRespawn)
+		{
+			SpawnPickup();
+			TimeTillRespawn = 0.f;
+			TimeSpent = 0.f;
+			return;
+		}
+	}
+	
+	if (!SpawnedPickup || SpawnedPickup->IsPendingKill())
+	{
+		GetNewRespawnTime();
+	}
 }
 
 void ASpawnVolume::SpawnPickup()
 {
 	// If we have set something to spawn:
-	if (WhatToSpawn != NULL)
+	if (WhatToSpawn[0] != NULL)
 	{
 		// Check for a valid World: 
 		UWorld* const World = GetWorld();
@@ -56,7 +85,7 @@ void ASpawnVolume::SpawnPickup()
 			SpawnRotation.Roll = 0.f;
 
 			// spawn the pickup
-			ABall* SpawnedPickup = World->SpawnActor<ABall>(WhatToSpawn, SpawnLocation, SpawnRotation, SpawnParams);
+			SpawnedPickup = World->SpawnActor<AActor>(WhatToSpawn[FMath::Rand()%ArraySize], SpawnLocation, SpawnRotation, SpawnParams);
 		}
 	}
 }

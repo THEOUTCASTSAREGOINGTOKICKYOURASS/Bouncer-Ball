@@ -5,7 +5,10 @@
 #include "SlowPickup.h"
 
 
-
+ASlowPickup::ASlowPickup()
+{
+	OnActorBeginOverlap.AddDynamic(this, &ASlowPickup::OnBeginOverlap);
+}
 
 void ASlowPickup::OnBeginOverlap(AActor* OtherActor)
 {

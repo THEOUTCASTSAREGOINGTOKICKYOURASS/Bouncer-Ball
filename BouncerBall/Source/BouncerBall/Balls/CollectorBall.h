@@ -2,7 +2,7 @@
 
 #pragma once
 
-#include "RegularBall.h"
+#include "Ball.h"
 #include "../PickUps/BouncerPickup.h"
 #include "CollectorBall.generated.h"
 
@@ -10,7 +10,7 @@
  * 
  */
 UCLASS()
-class BOUNCERBALL_API ACollectorBall : public ARegularBall
+class BOUNCERBALL_API ACollectorBall : public ABall
 {
 	GENERATED_BODY()
 	
@@ -18,7 +18,7 @@ public:
 	ACollectorBall();
 
 	UFUNCTION()
-	void GetTarget();
+	bool GetTarget();
 
 	virtual void Tick(float DeltaSeconds) override;
 	

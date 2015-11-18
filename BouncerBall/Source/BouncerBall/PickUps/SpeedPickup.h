@@ -12,6 +12,7 @@ class BOUNCERBALL_API ASpeedPickup:public ABouncerPickup
 	GENERATED_BODY()
 
 public:
+	ASpeedPickup();
 	UFUNCTION()
 		virtual void OnBeginOverlap(AActor* OtherActor);
 	

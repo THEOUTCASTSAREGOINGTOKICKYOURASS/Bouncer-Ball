@@ -12,9 +12,10 @@ UCLASS()
 class BOUNCERBALL_API AOwnAllPickup : public ABouncerPickup
 {
 	GENERATED_BODY()
-
-		UFUNCTION()
-		virtual void OnBeginOverlap(AActor *OtherActor);
+public:
+	AOwnAllPickup();
+	UFUNCTION()
+	virtual void OnBeginOverlap(AActor *OtherActor);
 	
 	
 	

@@ -13,6 +13,8 @@ class BOUNCERBALL_API AStealPickup : public ABouncerPickup
 {
 	GENERATED_BODY()
 public:
+
+	AStealPickup();
 	UFUNCTION()
 		virtual void OnBeginOverlap(AActor* OtherActor);
 	

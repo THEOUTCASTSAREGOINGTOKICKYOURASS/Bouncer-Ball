@@ -2,24 +2,19 @@
 
 #pragma once
 
-#include "GameFramework/Actor.h"
+#include "../BouncerAreanaObject.h"
 #include "../BouncerPlayer.h"
 #include "../Balls/Ball.h"
 #include "BouncerPickup.generated.h"
 
 UCLASS()
-class BOUNCERBALL_API ABouncerPickup : public AActor
+class BOUNCERBALL_API ABouncerPickup : public ABouncerAreanaObject
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
 	ABouncerPickup();
-	
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-		USphereComponent* Collider;
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-		UStaticMeshComponent* Mesh;
 
 	UFUNCTION()
 		virtual void OnBeginOverlap(AActor* OtherActor);
