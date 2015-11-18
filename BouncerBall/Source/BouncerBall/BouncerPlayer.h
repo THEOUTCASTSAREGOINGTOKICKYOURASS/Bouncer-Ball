@@ -143,15 +143,16 @@ public:
 
 	//Not needed for overhead camera
 	/*UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-		USpringArmComponent* CameraBoom;*/
+	USpringArmComponent* CameraBoom;*/
+
+	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	//UCameraComponent* Camera;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-		UCameraComponent* Camera;
+	USpotLightComponent* SpotLight;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-		USpotLightComponent* SpotLight;
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-		UBoxComponent* Collider;
+	UBoxComponent* Collider;
 protected:
 	//A value that will be modified by the balls after targetting to make sure there is an even distrobution of targeting for RNG
 	int8 Weight;

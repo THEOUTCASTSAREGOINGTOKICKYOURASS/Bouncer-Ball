@@ -15,7 +15,7 @@ class BOUNCERBALL_API ABouncerPlayerState : public APlayerState
 	
 public:
 	UPROPERTY()
-	int32 Lives = 0;
+	int32 Lives = 10;
 
 	UPROPERTY()
 	int32 RealScore = 0; //Can't access 'Score'

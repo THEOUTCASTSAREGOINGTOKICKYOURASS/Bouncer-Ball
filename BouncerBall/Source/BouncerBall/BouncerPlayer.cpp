@@ -33,11 +33,9 @@ ABouncerPlayer::ABouncerPlayer()
 	//CameraBoom->SetRelativeRotation(FRotator(-35.f, 0.f, 0.f));
 	//CameraBoom->AttachTo(RootComponent);
 
-	Camera = CreateDefaultSubobject<UCameraComponent>(
-		TEXT("Camera")
-		);
+	//Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	//lock camera position
-	Camera->SetAbsolute(true, true);
+	//Camera->SetAbsolute(true, true);
 	//Camera->AttachTo(CameraBoom);
 
 	OnActorBeginOverlap.AddDynamic(this, &ABouncerPlayer::OnBeginOverlap);
@@ -67,8 +65,8 @@ void ABouncerPlayer::BeginPlay()
 	startRotation = Mesh->GetComponentRotation();
 
 	//set overhead camera position
-	Camera->SetWorldLocation(FVector(-1300, 0, 1500));
-	Camera->SetWorldRotation(FRotator(-55, 0, 0));
+	//Camera->SetWorldLocation(FVector(-1300, 0, 1500));
+	//Camera->SetWorldRotation(FRotator(-55, 0, 0));
 }
 
 // Called every frame
