@@ -27,6 +27,18 @@ ABouncerBallGameMode::ABouncerBallGameMode(
 	}
 }
 
+// Called when the game starts or when spawned
+void ABouncerBallGameMode::BeginPlay()
+{
+	Super::BeginPlay();
+
+	//for splitscreen
+	/*UGameplayStatics::CreatePlayer(GetWorld(), 0, true);
+	UGameplayStatics::CreatePlayer(GetWorld(), 1, true);
+	UGameplayStatics::CreatePlayer(GetWorld(), 2, true);
+	UGameplayStatics::CreatePlayer(GetWorld(), 3, true);*/
+}
+
 
 
 

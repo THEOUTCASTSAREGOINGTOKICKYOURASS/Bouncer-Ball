@@ -20,16 +20,18 @@ ABouncerPlayer::ABouncerPlayer()
 	SpotLight->SetRelativeLocation(FVector(0.f, 141.f, 80.f));
 	SpotLight->AttachTo(Mesh);
 
-	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(
-		TEXT("CameraBoom")
-		);
-	CameraBoom->SetRelativeRotation(FRotator(-35.f, 0.f, 0.f));
-	CameraBoom->AttachTo(RootComponent);
+	//CameraBoom = CreateDefaultSubobject<USpringArmComponent>(
+		//TEXT("CameraBoom")
+		//);
+	//CameraBoom->SetRelativeRotation(FRotator(-35.f, 0.f, 0.f));
+	//CameraBoom->AttachTo(RootComponent);
 
 	Camera = CreateDefaultSubobject<UCameraComponent>(
 		TEXT("Camera")
 		);
-	Camera->AttachTo(CameraBoom);
+	//lock camera position
+	Camera->SetAbsolute(true, true);
+	//Camera->AttachTo(CameraBoom);
 
 	OnActorBeginOverlap.AddDynamic(this, &ABouncerPlayer::OnBeginOverlap);
 	OnActorEndOverlap.AddDynamic(this, &ABouncerPlayer::OnEndOverlap);
@@ -51,6 +53,10 @@ void ABouncerPlayer::BeginPlay()
 	//Set the bounds based on where the player starts
 	rightBounds = GetActorLocation() + GetActorRightVector() * 250;
 	leftBounds = GetActorLocation() + GetActorRightVector() *-250;
+
+	//set overhead camera position
+	Camera->SetWorldLocation(FVector(0, 0, 2250));
+	Camera->SetWorldRotation(FRotator(-90, 0, 0));
 }
 
 // Called every frame

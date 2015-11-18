@@ -16,7 +16,8 @@ class BOUNCERBALL_API ABouncerBallGameMode : public AGameMode
 public:
 	ABouncerBallGameMode(const FObjectInitializer& ObjectInitializer);
 	
-	
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
 	
 	
 };

@@ -134,8 +134,9 @@ public:
 	UPROPERTY(Category = Mesh, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	class UStaticMeshComponent* Mesh;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-		USpringArmComponent* CameraBoom;
+	//Not needed for overhead camera
+	/*UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+		USpringArmComponent* CameraBoom;*/
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 		UCameraComponent* Camera;
