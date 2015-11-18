@@ -28,6 +28,11 @@ public:
 	void SetOwner(ABouncerPlayer* NewOwner)
 	{
 		BallOwner = NewOwner;
+		
+	}
+	void SetLightColor(FLinearColor Color)
+	{
+		Light->SetLightColor(Color);
 	}
 protected:
 	//Called per frame in tick to move the Ball, override for your own movement, no need to call this in your implementation

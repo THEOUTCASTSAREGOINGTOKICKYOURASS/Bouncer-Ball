@@ -115,6 +115,10 @@ protected:
 	//Function to that allows the player to strafe
 	UFUNCTION()
 	virtual void Strafe(float Scale);
+
+	UFUNCTION()
+	virtual void Rotate(float Scale);
+
 	//Call the shoot function on the ball when it's overlaping with the player
 	UFUNCTION()
 	virtual void Shoot();
@@ -134,6 +138,9 @@ public:
 	UPROPERTY(Category = Mesh, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	class UStaticMeshComponent* Mesh;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	class USceneComponent* root;
+
 	//Not needed for overhead camera
 	/*UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 		USpringArmComponent* CameraBoom;*/
@@ -143,15 +150,16 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 		USpotLightComponent* SpotLight;
-
-
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+		UBoxComponent* Collider;
 protected:
 	//A value that will be modified by the balls after targetting to make sure there is an even distrobution of targeting for RNG
 	int8 Weight;
 	//Used to set the movement boundaries
 	FVector leftBounds;
 	FVector rightBounds;
-	
+	FVector rightVector;
+
 	//Set to true when a ball is overlaping with the player
 	bool canShoot;
 	// the ball that is overlaping with the player
@@ -163,8 +171,16 @@ protected:
 	float TimeCounted;
 	//Used for the power ups to say when they have ended
 	float TimeTillOver;
+	//The Starting rotation
+	FRotator startRotation;
+	//Max angle the player can rotate
+	float rotBounds;
 
 private:
+	//Speed the player rotates at
+	float rotSpeed;
+	//The Speed the paddle reutrns to starting rotation
+	float returnSpeed;
 	/** Current speed */
 	float MoveSpeed;
 	//Scalar for movement power ups

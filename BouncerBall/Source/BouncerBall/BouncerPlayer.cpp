@@ -12,8 +12,15 @@ ABouncerPlayer::ABouncerPlayer()
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	root = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
+	RootComponent = root;
+
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
-	RootComponent = Mesh;
+	Mesh->AttachTo(RootComponent);
+	Mesh->SetRelativeLocation(FVector(0.f, 0.f, 0.f));
+
+	Collider = CreateDefaultSubobject<UBoxComponent>(TEXT("Collider"));
+	Collider->AttachTo(RootComponent);
 
 	SpotLight = CreateDefaultSubobject<USpotLightComponent>(TEXT("SpotLight"));
 	SpotLight->SetRelativeRotation(FRotator(90.f, 315.f, 90.f));
@@ -37,12 +44,15 @@ ABouncerPlayer::ABouncerPlayer()
 	OnActorEndOverlap.AddDynamic(this, &ABouncerPlayer::OnEndOverlap);
 
 	MoveSpeed = 10.f;
+	rotSpeed = 1.f;
 	TimeCounted = 0.f;
 	TimeTillOver = 0.f;
 	MoveScalar = 1.f;
 	bIsStunned = false;
 	bIsImmune = false;
 	StoredPowerUp = nullptr;
+	rotBounds = 35.f;
+	returnSpeed = 10.f;
 
 }
 
@@ -51,12 +61,14 @@ void ABouncerPlayer::BeginPlay()
 {
 	Super::BeginPlay();
 	//Set the bounds based on where the player starts
+	rightVector = GetActorRightVector();
 	rightBounds = GetActorLocation() + GetActorRightVector() * 250;
 	leftBounds = GetActorLocation() + GetActorRightVector() *-250;
+	startRotation = Mesh->GetComponentRotation();
 
 	//set overhead camera position
-	Camera->SetWorldLocation(FVector(0, 0, 2250));
-	Camera->SetWorldRotation(FRotator(-90, 0, 0));
+	Camera->SetWorldLocation(FVector(-1300, 0, 1500));
+	Camera->SetWorldRotation(FRotator(-55, 0, 0));
 }
 
 // Called every frame
@@ -82,6 +94,8 @@ void ABouncerPlayer::SetupPlayerInputComponent(class UInputComponent* InputCompo
 	Super::SetupPlayerInputComponent(InputComponent);
 	InputComponent->BindAxis(TEXT("Strafe"), this, &ABouncerPlayer::Strafe);
 
+	InputComponent->BindAxis(TEXT("Rotate"), this, &ABouncerPlayer::Rotate);
+
 	InputComponent->BindAction(TEXT("Shoot"),
 		IE_Pressed,
 		this,
@@ -92,32 +106,45 @@ void ABouncerPlayer::Strafe(float Scale)
 {
 	if (bIsStunned)
 		return;
-	GEngine->AddOnScreenDebugMessage(1, 1.f, FColor::Yellow, TEXT("Move"));
 	//stops the player from moving outside their bounds
 	if (FVector::Dist(GetActorLocation(), leftBounds) > 20 && Scale<0)
 	{
-		GEngine->AddOnScreenDebugMessage(2, 1.f, FColor::Yellow, TEXT("Left"));
-		AddActorWorldOffset(GetActorRightVector()*Scale* (MoveSpeed * MoveScalar));
+		AddActorWorldOffset(rightVector*Scale* (MoveSpeed * MoveScalar));
 
 	}
 	else if (FVector::Dist(GetActorLocation(), rightBounds) > 20 && Scale > 0)
 	{
-		GEngine->AddOnScreenDebugMessage(3, 1.f, FColor::Yellow, TEXT("Right"));
-		AddActorWorldOffset(GetActorRightVector()*Scale * (MoveSpeed* MoveScalar));
+		AddActorWorldOffset(rightVector*Scale * (MoveSpeed* MoveScalar));
 	}
 }
+
+void ABouncerPlayer::Rotate(float Scale)
+{
+	FRotator CurrentRotation = Mesh->GetComponentRotation();
+
+	CurrentRotation.Yaw += Scale * rotSpeed;
+	if (Scale != 0)
+	{
+		CurrentRotation.Yaw += Scale * rotSpeed;
+
+		if (CurrentRotation.Yaw < startRotation.Yaw + 45 && CurrentRotation.Yaw > startRotation.Yaw - 45)
+		{
+			Mesh->SetWorldRotation(CurrentRotation);
+		}
+	}
+	else
+	{
+
+		CurrentRotation = FMath::RInterpTo(CurrentRotation, startRotation, GetWorld()->GetDeltaSeconds(), returnSpeed);
+		Mesh->SetWorldRotation(CurrentRotation);
+	}
+}
+
 void ABouncerPlayer::Shoot()
 {
 	//if a ball is currently overlapping with the player calls the shoot function and passes in the new velocity	
 	if (canShoot && !bIsStunned)
 	{
-		ABall *ShootingBall = Cast<ABall>(Ball);
-
-		if (ShootingBall)
-		{
-			ShootingBall->SetOwner(this);
-			ShootingBall->Shoot(GetActorForwardVector() * 1000);
-		}
 	}
 }
 void ABouncerPlayer::UsePowerUp()
@@ -133,6 +160,15 @@ void ABouncerPlayer::OnBeginOverlap(AActor* OtherActor)
 	//sets true when a ball is overlaping with the player
 	if (OtherActor->GetClass()->IsChildOf(ABall::StaticClass()))
 	{
+		ABall *ShootingBall = Cast<ABall>(OtherActor);
+		
+		if (ShootingBall)
+		{
+			ShootingBall->SetOwner(this);
+			ShootingBall->SetLightColor(SpotLight->GetLightColor());
+			//ShootingBall->Shoot(GetActorForwardVector() * 1000);
+		}
+		
 		canShoot = true;
 		Ball = OtherActor;
 	}
