@@ -13,7 +13,11 @@ class BOUNCERBALL_API ABouncerPlayerState : public APlayerState
 {
 	GENERATED_BODY()
 	
-	
-	
+public:
+	UPROPERTY()
+	int32 Lives = 0;
+
+	UPROPERTY()
+	int32 RealScore = 0; //Can't access 'Score'
 	
 };
