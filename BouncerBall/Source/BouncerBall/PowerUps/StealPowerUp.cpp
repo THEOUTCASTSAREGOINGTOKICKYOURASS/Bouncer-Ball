@@ -3,7 +3,7 @@
 #include "BouncerBall.h"
 #include "StealPowerUp.h"
 
-StealPowerUp::StealPowerUp(ABouncerPlayer *PlayerOwner) :BouncerPowerUp(PlayerOwner)
+StealPowerUp::StealPowerUp(ABouncerPlayer *PlayerOwner) :BouncerPowerUp(PlayerOwner,"Steal")
 {
 	StolenPowerUp = nullptr;
 }

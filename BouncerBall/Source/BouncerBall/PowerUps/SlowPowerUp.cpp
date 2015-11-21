@@ -4,7 +4,7 @@
 #include "SlowPowerUp.h"
 #define SLOWED_TIME 3.f
 #define SLOW_SCALAR 0.75f
-SlowPowerUp::SlowPowerUp(ABouncerPlayer* PlayerOwner) :BouncerPowerUp(PlayerOwner)
+SlowPowerUp::SlowPowerUp(ABouncerPlayer* PlayerOwner) :BouncerPowerUp(PlayerOwner,"Slow")
 {
 }
 

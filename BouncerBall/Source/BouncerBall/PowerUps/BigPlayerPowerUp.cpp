@@ -5,7 +5,7 @@
 
 #define BIG_TIME 4.f
 
-BigPlayerPowerUp::BigPlayerPowerUp(ABouncerPlayer* PlayerOwner) :BouncerPowerUp(PlayerOwner)
+BigPlayerPowerUp::BigPlayerPowerUp(ABouncerPlayer* PlayerOwner) :BouncerPowerUp(PlayerOwner,"Grow")
 {
 }
 

@@ -5,7 +5,7 @@
 
 #define SMALL_LENGTH 4.f
 
-SmallPlayersPowerUp::SmallPlayersPowerUp(ABouncerPlayer *PlayerOwner) :BouncerPowerUp(PlayerOwner)
+SmallPlayersPowerUp::SmallPlayersPowerUp(ABouncerPlayer *PlayerOwner) :BouncerPowerUp(PlayerOwner,"Small")
 {
 }
 

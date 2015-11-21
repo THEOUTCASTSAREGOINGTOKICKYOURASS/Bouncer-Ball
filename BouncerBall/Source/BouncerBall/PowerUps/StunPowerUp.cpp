@@ -4,7 +4,7 @@
 #include "StunPowerUp.h"
 
 #define STUN_LENGTH 2.f
-StunPowerUp::StunPowerUp(ABouncerPlayer* PlayerOwner) :BouncerPowerUp(PlayerOwner)
+StunPowerUp::StunPowerUp(ABouncerPlayer* PlayerOwner) :BouncerPowerUp(PlayerOwner,"Stun")
 {
 }
 

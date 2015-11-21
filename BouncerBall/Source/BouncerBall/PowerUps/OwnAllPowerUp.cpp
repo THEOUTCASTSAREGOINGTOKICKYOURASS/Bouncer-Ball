@@ -4,7 +4,7 @@
 #include "../Balls/Ball.h"
 #include "OwnAllPowerUp.h"
 
-OwnAllPowerUp::OwnAllPowerUp(ABouncerPlayer *PlayerOwner) :BouncerPowerUp(PlayerOwner)
+OwnAllPowerUp::OwnAllPowerUp(ABouncerPlayer *PlayerOwner) :BouncerPowerUp(PlayerOwner,"All Balls")
 {
 }
 

@@ -111,6 +111,13 @@ public:
 	{
 		return SmallPowerUpUsed;
 	}
+	FString GetPowerUpName()
+	{
+		if (StoredPowerUp && !StoredPowerUp->IsUsed())
+			return StoredPowerUp->GetName();
+		return "";
+	}
+
 protected:
 	//Function to that allows the player to strafe
 	UFUNCTION()

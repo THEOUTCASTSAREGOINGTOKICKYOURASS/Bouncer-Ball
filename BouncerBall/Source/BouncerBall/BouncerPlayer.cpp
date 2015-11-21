@@ -98,6 +98,7 @@ void ABouncerPlayer::SetupPlayerInputComponent(class UInputComponent* InputCompo
 		IE_Pressed,
 		this,
 		&ABouncerPlayer::Shoot);
+	InputComponent->BindAction(TEXT("PowerUp"), IE_Pressed, this, &ABouncerPlayer::UsePowerUp);
 }
 
 void ABouncerPlayer::Strafe(float Scale)
@@ -140,22 +141,18 @@ void ABouncerPlayer::Rotate(float Scale)
 
 void ABouncerPlayer::Shoot()
 {
-	//if a ball is currently overlapping with the player calls the shoot function and passes in the new velocity	
-	if (canShoot && !bIsStunned)
-	{
-	}
 }
 void ABouncerPlayer::UsePowerUp()
 {
 	if (!bIsStunned && StoredPowerUp && !StoredPowerUp->IsUsed())
 	{
+		GEngine->AddOnScreenDebugMessage(0, 1.f, FColor::Yellow, TEXT("Used Power Up"));
 		TimeCounted = 0.f;
 		StoredPowerUp->Use(GetWorld());
 	}
 }
 void ABouncerPlayer::OnBeginOverlap(AActor* OtherActor)
 {
-	//sets true when a ball is overlaping with the player
 	if (OtherActor->GetClass()->IsChildOf(ABall::StaticClass()))
 	{
 		ABall *ShootingBall = Cast<ABall>(OtherActor);
@@ -164,11 +161,7 @@ void ABouncerPlayer::OnBeginOverlap(AActor* OtherActor)
 		{
 			ShootingBall->SetOwner(this);
 			ShootingBall->SetLightColor(SpotLight->GetLightColor());
-			//ShootingBall->Shoot(GetActorForwardVector() * 1000);
 		}
-		
-		canShoot = true;
-		Ball = OtherActor;
 	}
 }
 void ABouncerPlayer::OnEndOverlap(AActor* OtherActor)

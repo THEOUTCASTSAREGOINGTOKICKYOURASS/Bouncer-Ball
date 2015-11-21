@@ -10,7 +10,7 @@ class ABouncerPlayer;
 class BOUNCERBALL_API BouncerPowerUp
 {
 public:
-	BouncerPowerUp(ABouncerPlayer* PlayerOwner);
+	BouncerPowerUp(ABouncerPlayer* PlayerOwner,FString Name);
 	~BouncerPowerUp();
 
 	virtual void Use(UWorld* WorldRef);
@@ -20,8 +20,13 @@ public:
 	{
 		return bIsUsed;
 	}
+	FString GetName()
+	{
+		return Name;
+	}
 protected:
 	ABouncerPlayer *Owner;
 private:
 	bool bIsUsed;
+	FString Name;
 };
