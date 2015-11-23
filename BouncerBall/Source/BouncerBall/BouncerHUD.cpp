@@ -43,6 +43,7 @@ void ABouncerHUD::DrawHUD()
 	FString PowerUpPlayerThree = "";
 	FString PowerUpPlayerFour = "";
 
+	FString ScoredText = "";
 	APlayerController* PlayerController1 = UGameplayStatics::GetPlayerController(GetWorld(), 0);
 	if (PlayerController1)
 	{
@@ -50,6 +51,10 @@ void ABouncerHUD::DrawHUD()
 		ABouncerPlayerState* PlayerState1 = Cast<ABouncerPlayerState>(PlayerController1->PlayerState);
 		if (PlayerState1)
 		{
+			if (PlayerState1->bHasScored)
+			{
+				ScoredText = "Red";
+			}
 			CurrentPointString1 += FString::Printf(TEXT("%d"), FMath::Abs(PlayerState1->RealScore));
 		}
 		else
@@ -65,6 +70,17 @@ void ABouncerHUD::DrawHUD()
 		ABouncerPlayerState* PlayerState2 = Cast<ABouncerPlayerState>(PlayerController2->PlayerState);
 		if (PlayerState2)
 		{
+			if (PlayerState2->bHasScored)
+			{
+				if (ScoredText.Len() > 1)
+				{
+					ScoredText += " and Yellow";
+				}
+				else
+				{
+					ScoredText = "Yellow";
+				}
+			}
 			CurrentPointString2 += FString::Printf(TEXT("%d"), FMath::Abs(PlayerState2->RealScore));
 		}
 		else
@@ -80,6 +96,17 @@ void ABouncerHUD::DrawHUD()
 		ABouncerPlayerState* PlayerState3 = Cast<ABouncerPlayerState>(PlayerController3->PlayerState);
 		if (PlayerState3)
 		{
+			if (PlayerState3->bHasScored)
+			{
+				if (ScoredText.Len() > 1)
+				{
+					ScoredText += " and Blue";
+				}
+				else
+				{
+					ScoredText = "Blue";
+				}
+			}
 			CurrentPointString3 += FString::Printf(TEXT("%d"), FMath::Abs(PlayerState3->RealScore));
 		}
 		else
@@ -95,6 +122,17 @@ void ABouncerHUD::DrawHUD()
 		ABouncerPlayerState* PlayerState4 = Cast<ABouncerPlayerState>(PlayerController4->PlayerState);
 		if (PlayerState4)
 		{
+			if (PlayerState4->bHasScored)
+			{
+				if (ScoredText.Len() > 1)
+				{
+					ScoredText += " and Green";
+				}
+				else
+				{
+					ScoredText = "Green";
+				}
+			}
 			CurrentPointString4 += FString::Printf(TEXT("%d"), FMath::Abs(PlayerState4->RealScore));
 		}
 		else
@@ -103,8 +141,10 @@ void ABouncerHUD::DrawHUD()
 	else
 		CurrentPointString4 += "-1";
 
+	if (ScoredText.Len() > 1)
+		ScoredText += " Scored!";
 	//The dimensions 2D of the CurrentPointString
-	FVector2D ScoreSize, ScoreSize1, ScoreSize2, ScoreSize3, ScoreSize4,PowerUpSizeOne,PowerUpSizeTwo,PowerUpSizeThree,PowerUpSizeFour;
+	FVector2D ScoreSize, ScoreSize1, ScoreSize2, ScoreSize3, ScoreSize4,PowerUpSizeOne,PowerUpSizeTwo,PowerUpSizeThree,PowerUpSizeFour,CenterScoreSize;
 	GetTextSize(CurrentPointString1, ScoreSize1.X, ScoreSize1.Y, HUDFont);
 	GetTextSize(CurrentPointString2, ScoreSize2.X, ScoreSize2.Y, HUDFont);
 	GetTextSize(CurrentPointString3, ScoreSize3.X, ScoreSize3.Y, HUDFont);
@@ -115,6 +155,7 @@ void ABouncerHUD::DrawHUD()
 	GetTextSize(PowerUpPlayerThree, PowerUpSizeThree.X, PowerUpSizeThree.Y, HUDFont);
 	GetTextSize(PowerUpPlayerFour, PowerUpSizeFour.X, PowerUpSizeFour.Y, HUDFont);
 
+	GetTextSize(ScoredText, CenterScoreSize.X, CenterScoreSize.Y, HUDFont);
 	//We Draw the Player's Current Points or Score on the top of the screen, Centered on the X
 	DrawText(CurrentPointString1, FColor::Red, 0, ScreenDimensions.Y - ScoreSize1.Y, HUDFont);
 	DrawText(PowerUpPlayerOne, FColor::Red, ScoreSize1.X + 10, ScreenDimensions.Y - PowerUpSizeOne.Y, HUDFont);
@@ -127,6 +168,9 @@ void ABouncerHUD::DrawHUD()
 
 	DrawText(CurrentPointString4, FColor::Green, ScreenDimensions.X - ScoreSize4.X, ScreenDimensions.Y - ScoreSize4.Y, HUDFont);
 	DrawText(PowerUpPlayerFour, FColor::Green, ScreenDimensions.X - ScoreSize4.X - PowerUpSizeFour.X - 10, ScreenDimensions.Y - PowerUpSizeFour.Y, HUDFont);
+
+	DrawText(ScoredText, FColor::White, (ScreenDimensions.X - CenterScoreSize.X) / 2, (ScreenDimensions.Y - CenterScoreSize.Y) / 2, HUDFont);
+
 
 	ABouncerBallGameMode* BouncerBallGameMode = Cast<ABouncerBallGameMode>(UGameplayStatics::GetGameMode(this));
 }

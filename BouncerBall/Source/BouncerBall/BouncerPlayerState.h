@@ -19,5 +19,7 @@ public:
 
 	UPROPERTY()
 	int32 RealScore = 0; //Can't access 'Score'
+	UPROPERTY()
+	bool bHasScored = false;
 	
 };

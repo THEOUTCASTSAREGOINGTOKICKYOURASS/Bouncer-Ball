@@ -55,8 +55,17 @@ ABouncerPlayer::ABouncerPlayer()
 	SizeFactor = 1;
 	SmallPowerUpUsed = 0;
 	StunPowerUpUsed = 0;
+	ScoredTime = 0.f;
 }
-
+bool ABouncerPlayer::HasScored()
+{
+	ABouncerPlayerState* State = Cast<ABouncerPlayerState>(PlayerState);
+	if (State)
+	{
+		return State->bHasScored;
+	}
+	return false;
+}
 // Called when the game starts or when spawned
 void ABouncerPlayer::BeginPlay()
 {
@@ -77,6 +86,19 @@ void ABouncerPlayer::Tick( float DeltaTime )
 {
 	Super::Tick( DeltaTime );
 	TimeCounted += DeltaTime;
+	ABouncerPlayerState* State = Cast<ABouncerPlayerState>(PlayerState);
+	if (State)
+	{
+		if (State->bHasScored)
+		{
+			ScoredTime += DeltaTime;
+			if (ScoredTime >= 2)
+			{
+				State->bHasScored = false;
+				ScoredTime = 0;
+			}
+		}
+	}
 	if (TimeTillOver != 0.f)
 	{
 		if (TimeCounted >= TimeTillOver)

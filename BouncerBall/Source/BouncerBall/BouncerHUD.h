@@ -22,6 +22,4 @@ class BOUNCERBALL_API ABouncerHUD : public AHUD
 
 public:
 	ABouncerHUD(const FObjectInitializer& ObjectInitializer);
-	
-	
 };

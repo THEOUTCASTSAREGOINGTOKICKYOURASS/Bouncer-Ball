@@ -2,6 +2,7 @@
 
 #pragma once
 #include "BouncerPlayer.h"
+#include "BouncerPlayerState.h"
 #include "BouncerNet.generated.h"
 
 
@@ -24,5 +25,8 @@ public:
 	//The player who owns this net
 	UPROPERTY(EditAnywhere)
 	ABouncerPlayer* PlayerOwner;
+
+private:
+	void ScoreLower(ABouncerPlayerState* State);
 	
 };

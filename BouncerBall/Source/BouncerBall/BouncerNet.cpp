@@ -4,7 +4,6 @@
 #include "BouncerNet.h"
 #include "Balls/Ball.h"
 #include "Kismet/GameplayStatics.h"
-#include "BouncerPlayerState.h"
 #include "SpawnVolume.h"
 
 // Sets default values
@@ -24,7 +23,6 @@ ABouncerNet::ABouncerNet()
 
 void ABouncerNet::OnBeginOverlap_Implementation(AActor* OtherActor)
 {
-	GEngine->AddOnScreenDebugMessage(0, 1.f, FColor::Yellow, TEXT("Goal"));
 	ABouncerPlayerState* State;
 	ABall* Ball = Cast<ABall>(OtherActor);
 	if (Ball)
@@ -37,29 +35,34 @@ void ABouncerNet::OnBeginOverlap_Implementation(AActor* OtherActor)
 			{
 				if (Ball->GetOwner() == PlayerOwner)
 				{
-					State->RealScore--;
-					if (State->RealScore <= 0)
-						State->RealScore = 0;
+					ScoreLower(State);
 				}
 				else
+				{
 					State->RealScore++;
+					State->bHasScored = true;
+				}	
 			}
-			
 		}
 		else
 		{
 			if (PlayerOwner)
 			{
 				State = Cast<ABouncerPlayerState>(PlayerOwner);
-				if (State)
-				{
-					State->RealScore--;
-					if (State->RealScore <= 0)
-						State->RealScore = 0;
-				}
+				ScoreLower(State);
 			}
-			
 		}
 	}
 	OtherActor->Destroy();
+}
+
+void ABouncerNet::ScoreLower(ABouncerPlayerState* State)
+{
+	if (State)
+	{
+		State->RealScore--;
+		if (State->RealScore <= 0)
+			State->RealScore = 0;
+	}
+
 }

@@ -25,5 +25,4 @@ protected:
 	UPROPERTY()
 	ABouncerPlayer *CurrentTarget;
 	
-	
 };

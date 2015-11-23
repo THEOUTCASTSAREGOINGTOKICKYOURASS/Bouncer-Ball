@@ -4,6 +4,7 @@
 
 #include "GameFramework/Pawn.h"
 #include "PowerUps/BouncerPowerUp.h"
+#include "BouncerPlayerState.h"
 #include "BouncerPlayer.generated.h"
 
 class BouncerPowerUp;
@@ -134,6 +135,7 @@ public:
 	{
 		return SpotLight->GetLightColor();
 	}
+	bool HasScored();
 protected:
 	//Function to that allows the player to strafe
 	UFUNCTION()
@@ -206,6 +208,8 @@ private:
 	float returnSpeed;
 	/** Current speed */
 	float MoveSpeed;
+	//Timer for the boolean being true in the player state
+	float ScoredTime;
 	//Scalar for movement power ups
 	float MoveScalar;
 	//if true negative powerups dont work
