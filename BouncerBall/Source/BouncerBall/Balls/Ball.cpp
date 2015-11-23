@@ -24,6 +24,7 @@ ABall::ABall() :ZPos(0.f)
 	MovementComponent->Bounciness = 1.0f;
 	MovementComponent->Friction = 0.0f;
 	MovementComponent->BounceVelocityStopSimulatingThreshold = 0.0f;
+	MovementComponent->MaxSpeed = 1000.f;
 	bStartedMoving = false;
 }
 void ABall::BeginPlay()

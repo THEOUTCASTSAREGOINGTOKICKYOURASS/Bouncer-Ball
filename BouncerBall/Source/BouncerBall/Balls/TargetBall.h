@@ -12,8 +12,11 @@ UCLASS()
 class BOUNCERBALL_API ATargetBall : public APlayerTargetingBall
 {
 	GENERATED_BODY()
-	
-	
+public:
+	ATargetBall();
+	UFUNCTION()
+	virtual void OnBeginOverlap(AActor* OtherActor);
+
 	
 	
 };

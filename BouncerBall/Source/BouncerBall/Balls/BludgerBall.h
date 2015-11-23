@@ -13,7 +13,11 @@ class BOUNCERBALL_API ABludgerBall : public APlayerTargetingBall
 {
 	GENERATED_BODY()
 	
+public:
+	ABludgerBall();
+	UFUNCTION()
+	virtual void OnBeginOverlap(AActor* OtherActor);
 	
-	
-	
+private:
+	int8 HitCounter;
 };
