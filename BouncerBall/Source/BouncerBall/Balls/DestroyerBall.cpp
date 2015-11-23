@@ -14,11 +14,8 @@ void ADestroyerBall::NotifyHit(class UPrimitiveComponent* MyComp, class AActor* 
 {
 	Super::NotifyHit(MyComp, Other, OtherComp, bSelfMoved, HitLocation, HitNormal, NormalImpulse, Hit);
 
-	ACollectorBall* Balls = Cast<ACollectorBall>(Other);
 	ABouncerPickup* Pickups = Cast<ABouncerPickup>(Other);
 
-	if (Balls)
-		Balls->Destroy();
-	else if (Pickups)
+	if (Pickups)
 		Pickups->Destroy();
 }
