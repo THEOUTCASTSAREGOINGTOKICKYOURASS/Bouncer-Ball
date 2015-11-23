@@ -19,9 +19,10 @@ void StunPowerUp::Use(UWorld* WorldRef)
 	Owner->SetTimer(STUN_LENGTH);
 	for (TActorIterator<ABouncerPlayer> ActorItr(WorldRef); ActorItr; ++ActorItr)
 	{
-		if (*ActorItr != Owner || !ActorItr->IsInvinsible())
+		if (*ActorItr != Owner)
 		{
-			ActorItr->GotStunned();
+			if (!ActorItr->IsInvinsible())
+				ActorItr->GotStunned();
 			ActorItr->SetStunned(true);
 		}
 	}
