@@ -22,7 +22,7 @@ public:
 	void OnBeginOverlap(AActor* OtherActor);
 	virtual void OnBeginOverlap_Implementation(AActor* OtherActor);
 	//The player who owns this net
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UPROPERTY(EditAnywhere)
 	ABouncerPlayer* PlayerOwner;
 	
 };

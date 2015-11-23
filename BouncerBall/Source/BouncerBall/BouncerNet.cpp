@@ -25,12 +25,13 @@ ABouncerNet::ABouncerNet()
 void ABouncerNet::OnBeginOverlap_Implementation(AActor* OtherActor)
 {
 	GEngine->AddOnScreenDebugMessage(0, 1.f, FColor::Yellow, TEXT("Goal"));
+	ABouncerPlayerState* State;
 	ABall* Ball = Cast<ABall>(OtherActor);
 	if (Ball)
 	{
 		if (Ball->GetOwner())
 		{
-			ABouncerPlayerState* State = Cast<ABouncerPlayerState>(Ball->GetOwner()->PlayerState);
+			State = Cast<ABouncerPlayerState>(Ball->GetOwner()->PlayerState);
 
 			if (State)
 			{
@@ -42,6 +43,20 @@ void ABouncerNet::OnBeginOverlap_Implementation(AActor* OtherActor)
 				}
 				else
 					State->RealScore++;
+			}
+			
+		}
+		else
+		{
+			if (PlayerOwner)
+			{
+				State = Cast<ABouncerPlayerState>(PlayerOwner);
+				if (State)
+				{
+					State->RealScore--;
+					if (State->RealScore <= 0)
+						State->RealScore = 0;
+				}
 			}
 			
 		}
