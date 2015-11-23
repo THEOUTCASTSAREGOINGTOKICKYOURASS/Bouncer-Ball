@@ -19,6 +19,7 @@ void OwnAllPowerUp::Use(UWorld* WorldRef)
 	for (TActorIterator<ABall> ActorItr(WorldRef); ActorItr; ++ActorItr)
 	{
 		ActorItr->SetOwner(Owner);
+		ActorItr->SetLightColor(Owner->SpotLight->GetLightColor());
 	}
 }
 void OwnAllPowerUp::Over()
