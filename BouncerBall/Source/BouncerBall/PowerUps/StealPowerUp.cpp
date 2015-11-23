@@ -18,13 +18,15 @@ void StealPowerUp::Use(UWorld* WorldRef)
 	Owner->SetTimer(0.1f);
 	for (TActorIterator<ABouncerPlayer> ActorItr(WorldRef); ActorItr; ++ActorItr)
 	{
-		if (*ActorItr != Owner || !ActorItr->IsInvinsible() && ActorItr->HasPowerUp())
+		if ((*ActorItr != Owner || !ActorItr->IsInvinsible()) && ActorItr->HasPowerUp())
 		{
 			StolenPowerUp = ActorItr->StealPowerUp();
+			StolenPowerUp->NewOwner(Owner);
+			return;
 		}
 	}
 }
 void StealPowerUp::Over()
 {
-	Owner->SetPowerUp(StolenPowerUp);
+	Owner->SetStolenPowerUp(StolenPowerUp);
 }
