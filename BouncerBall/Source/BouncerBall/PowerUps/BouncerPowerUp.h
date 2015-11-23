@@ -24,6 +24,10 @@ public:
 	{
 		return Name;
 	}
+	void NewOwner(ABouncerPlayer* NewOwner)
+	{
+		Owner = NewOwner;
+	}
 protected:
 	ABouncerPlayer *Owner;
 private:
