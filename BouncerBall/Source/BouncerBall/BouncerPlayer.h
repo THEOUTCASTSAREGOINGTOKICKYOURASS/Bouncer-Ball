@@ -120,11 +120,20 @@ public:
 	}
 	FString GetPowerUpName()
 	{
-		if (StoredPowerUp && !StoredPowerUp->IsUsed())
-			return StoredPowerUp->GetName();
+		if (StoredPowerUp)
+		{
+			if (!StoredPowerUp->IsUsed())
+				return StoredPowerUp->GetName();
+			else
+				return StoredPowerUp->GetName() + " Used : " + FString::FromInt(TimeTillOver - TimeCounted);
+		}
+			
 		return "";
 	}
-
+	FLinearColor GetLightColor()
+	{
+		return SpotLight->GetLightColor();
+	}
 protected:
 	//Function to that allows the player to strafe
 	UFUNCTION()
@@ -163,11 +172,10 @@ public:
 	//UCameraComponent* Camera;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	USpotLightComponent* SpotLight;
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UBoxComponent* Collider;
 protected:
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+		USpotLightComponent* SpotLight;
 	//A value that will be modified by the balls after targetting to make sure there is an even distrobution of targeting for RNG
 	int8 Weight;
 	//Used to set the movement boundaries

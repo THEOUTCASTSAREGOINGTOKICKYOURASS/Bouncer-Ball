@@ -168,8 +168,7 @@ void ABouncerPlayer::OnBeginOverlap(AActor* OtherActor)
 		
 		if (ShootingBall)
 		{
-			ShootingBall->SetOwner(this);
-			ShootingBall->SetLightColor(SpotLight->GetLightColor());
+			ShootingBall->SetOwner(this,SpotLight->GetLightColor());
 		}
 	}
 }
