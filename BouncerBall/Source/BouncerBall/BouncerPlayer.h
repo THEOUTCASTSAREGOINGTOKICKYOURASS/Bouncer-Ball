@@ -33,13 +33,16 @@ public:
 	{
 		Weight -= amount;
 	}
-	void SetPowerUp(BouncerPowerUp* NewPowerUp)
+	bool SetPowerUp(BouncerPowerUp* NewPowerUp)
 	{
+		if (StoredPowerUp)
+			return false;
 		StoredPowerUp = NewPowerUp;
+		return true;
 	}
 	bool HasPowerUp()
 	{
-		if (StoredPowerUp)
+		if (StoredPowerUp && !StoredPowerUp->IsUsed())
 		{
 			return true;
 		}
@@ -50,6 +53,10 @@ public:
 		BouncerPowerUp* temp = StoredPowerUp;
 		StoredPowerUp = nullptr;
 		return temp;
+	}
+	void SetStolenPowerUp(BouncerPowerUp* PowerUp)
+	{
+		StolenPowerUp = PowerUp;
 	}
 	void SetInvinsible(bool value)
 	{
@@ -173,7 +180,7 @@ protected:
 	// the ball that is overlaping with the player
 	AActor* Ball;
 	//The current pickup of the player
-	BouncerPowerUp* StoredPowerUp;
+	BouncerPowerUp* StoredPowerUp,*StolenPowerUp;
 
 	//Used for the power up timer counts time spent
 	float TimeCounted;

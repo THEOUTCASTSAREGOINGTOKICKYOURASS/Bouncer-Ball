@@ -49,9 +49,12 @@ ABouncerPlayer::ABouncerPlayer()
 	bIsStunned = false;
 	bIsImmune = false;
 	StoredPowerUp = nullptr;
+	StolenPowerUp = nullptr;
 	rotBounds = 35.f;
 	returnSpeed = 10.f;
-
+	SizeFactor = 1;
+	SmallPowerUpUsed = 0;
+	StunPowerUpUsed = 0;
 }
 
 // Called when the game starts or when spawned
@@ -78,10 +81,16 @@ void ABouncerPlayer::Tick( float DeltaTime )
 	{
 		if (TimeCounted >= TimeTillOver)
 		{
-			this->StoredPowerUp->Over();
+			if (StoredPowerUp)
+				StoredPowerUp->Over();
 			TimeTillOver = 0.f;
 			delete StoredPowerUp;
 			StoredPowerUp = nullptr;
+			if (StolenPowerUp)
+			{
+				StoredPowerUp = StolenPowerUp;
+				StolenPowerUp = nullptr;
+			}
 		}
 	}
 }
@@ -175,7 +184,7 @@ void ABouncerPlayer::OnEndOverlap(AActor* OtherActor)
 void ABouncerPlayer::Grow()
 {
 	SizeFactor++;
-	SetActorScale3D(GetActorScale3D() * GROW_FACTOR);
+	SetActorScale3D(GetActorScale3D() / SHRINK_FACTOR);
 }
 void ABouncerPlayer::Shrink()
 {
