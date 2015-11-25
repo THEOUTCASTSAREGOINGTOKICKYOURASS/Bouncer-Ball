@@ -32,8 +32,8 @@ ACameraFocusActor::ACameraFocusActor()
 void ACameraFocusActor::BeginPlay()
 {
 	Super::BeginPlay();
-	Camera->SetWorldLocation(FVector(-1300, 0, 1500));
-	Camera->SetWorldRotation(FRotator(-55, 0, 0));
+	Camera->SetWorldLocation(FVector(0, 0, 2200));
+	Camera->SetWorldRotation(FRotator(-90, 0, 0));
 
 	//Get the character and print its current points
 	APlayerController* Player1 = UGameplayStatics::GetPlayerController(GetWorld(), 0);
