@@ -42,7 +42,10 @@ void ABall::Tick(float DeltaSeconds)
 		MovementComponent->SetVelocityInLocalSpace(GetActorForwardVector()*1000);
 	}
 		
-
+	if (bStartedMoving && MovementComponent->Velocity.Size() < 500.f)
+	{
+		MovementComponent->SetVelocityInLocalSpace(GetActorForwardVector() * 1000);
+	}
 	//Get the current Position of the Ball and set its Z to the start up Z position 
 	FVector pos = GetActorLocation();
 	pos.Z = ZPos;
