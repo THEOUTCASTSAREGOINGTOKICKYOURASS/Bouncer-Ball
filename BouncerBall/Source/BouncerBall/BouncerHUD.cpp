@@ -17,6 +17,7 @@ ABouncerHUD::ABouncerHUD(const FObjectInitializer& ObjectInitializer)
 
 void ABouncerHUD::DrawHUD()
 {
+	GameTime += GetWorld()->DeltaTimeSeconds;
 	//Get the screen dimensions
 	FVector2D ScreenDimensions = FVector2D(Canvas->SizeX, Canvas->SizeY);
 
@@ -143,8 +144,10 @@ void ABouncerHUD::DrawHUD()
 
 	if (ScoredText.Len() > 1)
 		ScoredText += " Scored!";
+	int Time = 300.f - GameTime;
+	FString TimeText = FString::Printf(TEXT("%d"), Time);
 	//The dimensions 2D of the CurrentPointString
-	FVector2D ScoreSize, ScoreSize1, ScoreSize2, ScoreSize3, ScoreSize4,PowerUpSizeOne,PowerUpSizeTwo,PowerUpSizeThree,PowerUpSizeFour,CenterScoreSize;
+	FVector2D ScoreSize, ScoreSize1, ScoreSize2, ScoreSize3, ScoreSize4,PowerUpSizeOne,PowerUpSizeTwo,PowerUpSizeThree,PowerUpSizeFour,CenterScoreSize,TimeTextSize;
 	GetTextSize(CurrentPointString1, ScoreSize1.X, ScoreSize1.Y, HUDFont);
 	GetTextSize(CurrentPointString2, ScoreSize2.X, ScoreSize2.Y, HUDFont);
 	GetTextSize(CurrentPointString3, ScoreSize3.X, ScoreSize3.Y, HUDFont);
@@ -156,6 +159,8 @@ void ABouncerHUD::DrawHUD()
 	GetTextSize(PowerUpPlayerFour, PowerUpSizeFour.X, PowerUpSizeFour.Y, HUDFont);
 
 	GetTextSize(ScoredText, CenterScoreSize.X, CenterScoreSize.Y, HUDFont);
+
+	GetTextSize(TimeText, TimeTextSize.X, TimeTextSize.Y, HUDFont);
 	//We Draw the Player's Current Points or Score on the top of the screen, Centered on the X
 	DrawText(CurrentPointString1, FColor::Red, 0, ScreenDimensions.Y - ScoreSize1.Y, HUDFont);
 	DrawText(PowerUpPlayerOne, FColor::Red, ScoreSize1.X + 10, ScreenDimensions.Y - PowerUpSizeOne.Y, HUDFont);
@@ -171,6 +176,8 @@ void ABouncerHUD::DrawHUD()
 
 	DrawText(ScoredText, FColor::White, (ScreenDimensions.X - CenterScoreSize.X) / 2, (ScreenDimensions.Y - CenterScoreSize.Y) / 2, HUDFont);
 
+	DrawText(TimeText, FColor::White, TimeTextSize.X, (ScreenDimensions.Y - TimeTextSize.Y) / 2, HUDFont);
+	DrawText(TimeText, FColor::White, ScreenDimensions.X - (TimeTextSize.X*2), (ScreenDimensions.Y - TimeTextSize.Y) / 2, HUDFont);
 
 	ABouncerBallGameMode* BouncerBallGameMode = Cast<ABouncerBallGameMode>(UGameplayStatics::GetGameMode(this));
 }
