@@ -101,6 +101,8 @@ public:
 	void StunIsOver()
 	{
 		StunPowerUpUsed--;
+		if (StunPowerUpUsed < 0)
+			StunPowerUpUsed = 0;
 	}
 	int8 GetStunnedCounter()
 	{
@@ -184,6 +186,9 @@ protected:
 	FVector leftBounds;
 	FVector rightBounds;
 	FVector rightVector;
+
+	UPROPERTY(Editanywhere)
+		bool bReverseControls;
 
 	//Set to true when a ball is overlaping with the player
 	bool canShoot;

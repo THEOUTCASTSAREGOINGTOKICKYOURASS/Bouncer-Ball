@@ -41,7 +41,7 @@ ABouncerPlayer::ABouncerPlayer()
 	OnActorBeginOverlap.AddDynamic(this, &ABouncerPlayer::OnBeginOverlap);
 	OnActorEndOverlap.AddDynamic(this, &ABouncerPlayer::OnEndOverlap);
 
-	MoveSpeed = 10.f;
+	MoveSpeed = 15.f;
 	rotSpeed = 1.f;
 	TimeCounted = 0.f;
 	TimeTillOver = 0.f;
@@ -137,19 +137,21 @@ void ABouncerPlayer::Strafe(float Scale)
 	if (bIsStunned)
 		return;
 	//stops the player from moving outside their bounds
-	if (FVector::Dist(GetActorLocation(), leftBounds) > 20 && Scale<0)
+	if (FVector::Dist(GetActorLocation(), leftBounds) > 20 && (bReverseControls ? Scale *-1 : Scale)<0)
 	{
-		AddActorWorldOffset(rightVector*Scale* (MoveSpeed * MoveScalar));
+		AddActorWorldOffset(rightVector*(bReverseControls ? Scale *-1: Scale)* (MoveSpeed * MoveScalar));
 
 	}
-	else if (FVector::Dist(GetActorLocation(), rightBounds) > 20 && Scale > 0)
+	else if (FVector::Dist(GetActorLocation(), rightBounds) > 20 && (bReverseControls ? Scale *-1 : Scale) > 0)
 	{
-		AddActorWorldOffset(rightVector*Scale * (MoveSpeed* MoveScalar));
+		AddActorWorldOffset(rightVector*(bReverseControls ? Scale *-1 : Scale) * (MoveSpeed* MoveScalar));
 	}
 }
 
 void ABouncerPlayer::Rotate(float Scale)
 {
+	if (bIsStunned)
+		return;
 	FRotator CurrentRotation = Mesh->GetComponentRotation();
 
 	CurrentRotation.Yaw += Scale * rotSpeed;
