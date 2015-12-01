@@ -3,7 +3,9 @@
 #pragma once
 
 #include "GameFramework/Pawn.h"
+#include "MyAudio.h"
 #include "PowerUps/BouncerPowerUp.h"
+#include "BouncerPlayerState.h"
 #include "BouncerPlayer.generated.h"
 
 class BouncerPowerUp;
@@ -33,13 +35,16 @@ public:
 	{
 		Weight -= amount;
 	}
-	void SetPowerUp(BouncerPowerUp* NewPowerUp)
+	bool SetPowerUp(BouncerPowerUp* NewPowerUp)
 	{
+		if (StoredPowerUp)
+			return false;
 		StoredPowerUp = NewPowerUp;
+		return true;
 	}
 	bool HasPowerUp()
 	{
-		if (StoredPowerUp)
+		if (StoredPowerUp && !StoredPowerUp->IsUsed())
 		{
 			return true;
 		}
@@ -50,6 +55,10 @@ public:
 		BouncerPowerUp* temp = StoredPowerUp;
 		StoredPowerUp = nullptr;
 		return temp;
+	}
+	void SetStolenPowerUp(BouncerPowerUp* PowerUp)
+	{
+		StolenPowerUp = PowerUp;
 	}
 	void SetInvinsible(bool value)
 	{
@@ -93,6 +102,8 @@ public:
 	void StunIsOver()
 	{
 		StunPowerUpUsed--;
+		if (StunPowerUpUsed < 0)
+			StunPowerUpUsed = 0;
 	}
 	int8 GetStunnedCounter()
 	{
@@ -111,6 +122,23 @@ public:
 	{
 		return SmallPowerUpUsed;
 	}
+	FString GetPowerUpName()
+	{
+		if (StoredPowerUp)
+		{
+			if (!StoredPowerUp->IsUsed())
+				return StoredPowerUp->GetName();
+			else
+				return StoredPowerUp->GetName() + " Used : " + FString::FromInt(TimeTillOver - TimeCounted);
+		}
+			
+		return "";
+	}
+	FLinearColor GetLightColor()
+	{
+		return SpotLight->GetLightColor();
+	}
+	bool HasScored();
 protected:
 	//Function to that allows the player to strafe
 	UFUNCTION()
@@ -118,6 +146,7 @@ protected:
 
 	UFUNCTION()
 	virtual void Rotate(float Scale);
+
 	//Call the shoot function on the ball when it's overlaping with the player
 	UFUNCTION()
 	virtual void Shoot();
@@ -140,30 +169,36 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	class USceneComponent* root;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-		USpringArmComponent* CameraBoom;
+	//Not needed for overhead camera
+	/*UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	USpringArmComponent* CameraBoom;*/
+
+	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	//UCameraComponent* Camera;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-		UCameraComponent* Camera;
-
+	UBoxComponent* Collider;
+	UPROPERTY(EditAnywhere)
+		AMyAudio* AudioPlayer;
+protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 		USpotLightComponent* SpotLight;
-
-
-protected:
 	//A value that will be modified by the balls after targetting to make sure there is an even distrobution of targeting for RNG
 	int8 Weight;
 	//Used to set the movement boundaries
 	FVector leftBounds;
 	FVector rightBounds;
 	FVector rightVector;
-	
+
+	UPROPERTY(Editanywhere)
+		bool bReverseControls;
+
 	//Set to true when a ball is overlaping with the player
 	bool canShoot;
 	// the ball that is overlaping with the player
 	AActor* Ball;
 	//The current pickup of the player
-	BouncerPowerUp* StoredPowerUp;
+	BouncerPowerUp* StoredPowerUp,*StolenPowerUp;
 
 	//Used for the power up timer counts time spent
 	float TimeCounted;
@@ -181,6 +216,8 @@ private:
 	float returnSpeed;
 	/** Current speed */
 	float MoveSpeed;
+	//Timer for the boolean being true in the player state
+	float ScoredTime;
 	//Scalar for movement power ups
 	float MoveScalar;
 	//if true negative powerups dont work
@@ -193,5 +230,6 @@ private:
 	int8 SmallPowerUpUsed;
 	//Keeps track of how many stuns have been used on this player that have not expired
 	int8 StunPowerUpUsed;
+
 	
 };

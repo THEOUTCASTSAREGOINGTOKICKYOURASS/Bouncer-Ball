@@ -38,7 +38,7 @@ void ABouncerAreanaObject::Tick( float DeltaTime )
 	{
 		Time += DeltaTime;
 		SetActorRelativeScale3D(FVector(Time * 2, Time * 2, Time * 2));
-		Light->SetIntensity(10000 * Time);
+		Light->SetIntensity(1000 * Time);
 	}
 	else
 	{

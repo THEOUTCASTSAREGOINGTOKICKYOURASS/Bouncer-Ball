@@ -2,10 +2,27 @@
 
 #include "BouncerBall.h"
 #include "PlayerTargetingBall.h"
+APlayerTargetingBall::APlayerTargetingBall()
+{
+	
+	MovementComponent->HomingAccelerationMagnitude = 1100;
+}
+void APlayerTargetingBall::BeginPlay()
+{
+	Super::BeginPlay();
+	GetTarget();
+	MovementComponent->bIsHomingProjectile = true;
+}
 
+void APlayerTargetingBall::Tick(float DeltaSeconds)
+{
+	Super::Tick(DeltaSeconds);
 
-
-
+}
+void APlayerTargetingBall::RotateToTarget(float DeltaSeconds)
+{
+	
+}
 void APlayerTargetingBall::GetTarget()
 {
 	int8 i = 0;
@@ -18,34 +35,7 @@ void APlayerTargetingBall::GetTarget()
 		i++;
 
 	}
-	NumOfPlayers = i;
-	/*Iterate through all the players and checks their weight
-	the largest weight goes to the front if they have the same its a random pick between them
-	after it iterates through them all the player in the first index is chosen as the target*/
-	for (i = 1; i < NumOfPlayers; i++)
-	{
-
-		if (Players[i]->GetWeight() > Players[0]->GetWeight())
-		{
-			ABouncerPlayer *temp = Players[0];
-			Players[0] = Players[i];
-			Players[i] = temp;
-		}
-		else if (Players[i]->GetWeight() == Players[0]->GetWeight())
-		{
-			int RandomNumber = FMath::Rand() % 2;
-			if (RandomNumber == 0)
-			{
-				continue;
-			}
-			else
-			{
-				ABouncerPlayer *temp = Players[0];
-				Players[0] = Players[i];
-				Players[i] = temp;
-			}
-		}
-	}
-	CurrentTarget = Players[0];
+	CurrentTarget = Players[FMath::RandRange(0,i-1)]; 
 	CurrentTarget->SetWeight(CurrentTarget->GetWeight() - WEIGHT_COST);
+	MovementComponent->HomingTargetComponent = CurrentTarget->Collider;
 }

@@ -4,7 +4,7 @@
 #include "StunPowerUp.h"
 
 #define STUN_LENGTH 2.f
-StunPowerUp::StunPowerUp(ABouncerPlayer* PlayerOwner) :BouncerPowerUp(PlayerOwner)
+StunPowerUp::StunPowerUp(ABouncerPlayer* PlayerOwner) :BouncerPowerUp(PlayerOwner,"Stun")
 {
 }
 
@@ -19,10 +19,14 @@ void StunPowerUp::Use(UWorld* WorldRef)
 	Owner->SetTimer(STUN_LENGTH);
 	for (TActorIterator<ABouncerPlayer> ActorItr(WorldRef); ActorItr; ++ActorItr)
 	{
-		if (*ActorItr != Owner || !ActorItr->IsInvinsible())
+		if (*ActorItr != Owner)
 		{
-			ActorItr->GotStunned();
-			ActorItr->SetStunned(true);
+			if (!ActorItr->IsInvinsible())
+			{
+				ActorItr->GotStunned();
+				ActorItr->SetStunned(true);
+			}
+				
 		}
 	}
 }
@@ -33,7 +37,7 @@ void StunPowerUp::Over()
 		if (*ActorItr != Owner)
 		{
 			ActorItr->StunIsOver();
-			if (ActorItr->GetStunnedCounter() == 0)
+			if (ActorItr->GetStunnedCounter() <= 0)
 				ActorItr->SetStunned(false);
 		}
 	}

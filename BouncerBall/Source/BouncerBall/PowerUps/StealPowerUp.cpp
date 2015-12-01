@@ -3,7 +3,7 @@
 #include "BouncerBall.h"
 #include "StealPowerUp.h"
 
-StealPowerUp::StealPowerUp(ABouncerPlayer *PlayerOwner) :BouncerPowerUp(PlayerOwner)
+StealPowerUp::StealPowerUp(ABouncerPlayer *PlayerOwner) :BouncerPowerUp(PlayerOwner,"Steal")
 {
 	StolenPowerUp = nullptr;
 }
@@ -18,13 +18,15 @@ void StealPowerUp::Use(UWorld* WorldRef)
 	Owner->SetTimer(0.1f);
 	for (TActorIterator<ABouncerPlayer> ActorItr(WorldRef); ActorItr; ++ActorItr)
 	{
-		if (*ActorItr != Owner || !ActorItr->IsInvinsible() && ActorItr->HasPowerUp())
+		if ((*ActorItr != Owner || !ActorItr->IsInvinsible()) && ActorItr->HasPowerUp())
 		{
 			StolenPowerUp = ActorItr->StealPowerUp();
+			StolenPowerUp->NewOwner(Owner);
+			return;
 		}
 	}
 }
 void StealPowerUp::Over()
 {
-	Owner->SetPowerUp(StolenPowerUp);
+	Owner->SetStolenPowerUp(StolenPowerUp);
 }

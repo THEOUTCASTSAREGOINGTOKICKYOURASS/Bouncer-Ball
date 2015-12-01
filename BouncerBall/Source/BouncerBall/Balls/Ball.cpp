@@ -24,6 +24,7 @@ ABall::ABall() :ZPos(0.f)
 	MovementComponent->Bounciness = 1.0f;
 	MovementComponent->Friction = 0.0f;
 	MovementComponent->BounceVelocityStopSimulatingThreshold = 0.0f;
+	MovementComponent->MaxSpeed = 1000.f;
 	bStartedMoving = false;
 }
 void ABall::BeginPlay()
@@ -41,7 +42,10 @@ void ABall::Tick(float DeltaSeconds)
 		MovementComponent->SetVelocityInLocalSpace(GetActorForwardVector()*1000);
 	}
 		
-
+	if (bStartedMoving && MovementComponent->Velocity.Size() < 500.f)
+	{
+		MovementComponent->SetVelocityInLocalSpace(GetActorForwardVector() * 1000);
+	}
 	//Get the current Position of the Ball and set its Z to the start up Z position 
 	FVector pos = GetActorLocation();
 	pos.Z = ZPos;

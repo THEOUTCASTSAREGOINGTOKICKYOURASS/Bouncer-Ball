@@ -3,7 +3,7 @@
 #include "BouncerBall.h"
 #include "BouncerPowerUp.h"
 
-BouncerPowerUp::BouncerPowerUp(ABouncerPlayer* PlayerOwner) :Owner(PlayerOwner)
+BouncerPowerUp::BouncerPowerUp(ABouncerPlayer* PlayerOwner, FString Name) :Owner(PlayerOwner), Name(Name), bIsUsed(false)
 {
 }
 

@@ -44,7 +44,9 @@ public:
 	/** Handles the spawning of a new pickup */
 	UFUNCTION(/*BlueprintCallable,*/ Category = Spawning)
 		void SpawnPickup();
-
+protected:
+	UPROPERTY(EditAnywhere)
+	float TimeTillStarted;
 private:
 
 	/** Whether or not spawning is enabled */
@@ -57,6 +59,8 @@ private:
 	float TimeSpent;
 	//The time till respawn
 	float TimeTillRespawn;
+	
+	
 
 	void GetNewRespawnTime();
 	

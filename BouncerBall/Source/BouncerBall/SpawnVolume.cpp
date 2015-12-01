@@ -15,12 +15,14 @@ ASpawnVolume::ASpawnVolume()
 
 	//set the SubComponent as the root component
 	RootComponent = WhereToSpawn;
-	bSpawningEnabled = true;
+	bSpawningEnabled = false;
 	ArraySize = 0;
 	GetNewRespawnTime();
 	TimeSpent = 0.f;
 	RespawnMaxTime = 7.f;
 	RespawnMinTime = 4.f;
+	TimeTillStarted = 0.f;
+
 }
 
 // Called when the game starts or when spawned
@@ -43,22 +45,32 @@ void ASpawnVolume::GetNewRespawnTime()
 void ASpawnVolume::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	if (TimeTillRespawn != 0.f)
+	if (bSpawningEnabled)
 	{
-		TimeSpent += DeltaTime;
-		if (TimeSpent >= TimeTillRespawn)
+		if (TimeTillRespawn != 0.f)
 		{
-			SpawnPickup();
-			TimeTillRespawn = 0.f;
-			TimeSpent = 0.f;
-			return;
+			TimeSpent += DeltaTime;
+			if (TimeSpent >= TimeTillRespawn)
+			{
+				SpawnPickup();
+				TimeTillRespawn = 0.f;
+				TimeSpent = 0.f;
+				return;
+			}
+		}
+	
+		if (!SpawnedPickup || SpawnedPickup->IsPendingKill())
+		{
+			GetNewRespawnTime();
 		}
 	}
-	
-	if (!SpawnedPickup || SpawnedPickup->IsPendingKill())
+	else
 	{
-		GetNewRespawnTime();
+		TimeTillStarted -= DeltaTime;
+		if (TimeTillStarted <= 0)
+			bSpawningEnabled = true;
 	}
+	
 }
 
 void ASpawnVolume::SpawnPickup()

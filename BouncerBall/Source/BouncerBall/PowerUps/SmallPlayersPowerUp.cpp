@@ -5,7 +5,7 @@
 
 #define SMALL_LENGTH 4.f
 
-SmallPlayersPowerUp::SmallPlayersPowerUp(ABouncerPlayer *PlayerOwner) :BouncerPowerUp(PlayerOwner)
+SmallPlayersPowerUp::SmallPlayersPowerUp(ABouncerPlayer *PlayerOwner) :BouncerPowerUp(PlayerOwner,"Small")
 {
 }
 
@@ -20,10 +20,18 @@ void SmallPlayersPowerUp::Use(UWorld* WorldRef)
 	Owner->SetTimer(SMALL_LENGTH);
 	for (TActorIterator<ABouncerPlayer> ActorItr(WorldRef); ActorItr; ++ActorItr)
 	{
-		if (*ActorItr != Owner || !ActorItr->IsInvinsible() && ActorItr->GetSize() == 1)
+		if (*ActorItr != Owner )
 		{
-			ActorItr->Shrink();
-			ActorItr->GotShrunk();
+			if (!ActorItr->IsInvinsible())
+			{
+				if (ActorItr->GetSize() == 1)
+				{
+					ActorItr->Shrink();
+					ActorItr->GotShrunk();
+				}
+			
+			}
+			
 		}
 	}
 }

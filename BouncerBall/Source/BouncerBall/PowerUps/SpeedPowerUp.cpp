@@ -3,8 +3,8 @@
 #include "BouncerBall.h"
 #include "SpeedPowerUp.h"
 #define SPEED_TIME 4.f
-#define SPEED_SCALAR 1.25f
-SpeedPowerUp::SpeedPowerUp(ABouncerPlayer *PlayerOwner) :BouncerPowerUp(PlayerOwner)
+#define SPEED_SCALAR 1.5f
+SpeedPowerUp::SpeedPowerUp(ABouncerPlayer *PlayerOwner) :BouncerPowerUp(PlayerOwner,"Speed")
 {
 }
 

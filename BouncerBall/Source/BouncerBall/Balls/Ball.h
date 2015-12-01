@@ -25,9 +25,11 @@ public:
 		return BallOwner;
 	}
 	UFUNCTION()
-	void SetOwner(ABouncerPlayer* NewOwner)
+	void SetOwner(ABouncerPlayer* NewOwner, FLinearColor Color)
 	{
 		BallOwner = NewOwner;
+		Light->SetLightColor(Color);
+		
 	}
 protected:
 	//Called per frame in tick to move the Ball, override for your own movement, no need to call this in your implementation

@@ -3,7 +3,7 @@
 #include "BouncerBall.h"
 #include "InvinsiblePowerUp.h"
 #define TIME_INVULNERABLE 4.f
-InvinsiblePowerUp::InvinsiblePowerUp(ABouncerPlayer *PlayerOwner) :BouncerPowerUp(PlayerOwner)
+InvinsiblePowerUp::InvinsiblePowerUp(ABouncerPlayer *PlayerOwner) :BouncerPowerUp(PlayerOwner,"Invincible")
 {
 }
 

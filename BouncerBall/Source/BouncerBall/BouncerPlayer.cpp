@@ -18,28 +18,30 @@ ABouncerPlayer::ABouncerPlayer()
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 	Mesh->AttachTo(RootComponent);
 	Mesh->SetRelativeLocation(FVector(0.f, 0.f, 0.f));
-	
+
+	Collider = CreateDefaultSubobject<UBoxComponent>(TEXT("Collider"));
+	Collider->AttachTo(RootComponent);
 
 	SpotLight = CreateDefaultSubobject<USpotLightComponent>(TEXT("SpotLight"));
 	SpotLight->SetRelativeRotation(FRotator(90.f, 315.f, 90.f));
 	SpotLight->SetRelativeLocation(FVector(0.f, 141.f, 80.f));
 	SpotLight->AttachTo(Mesh);
 
-	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(
-		TEXT("CameraBoom")
-		);
-	CameraBoom->SetRelativeRotation(FRotator(-35.f, 0.f, 0.f));
-	CameraBoom->AttachTo(RootComponent);
+	//CameraBoom = CreateDefaultSubobject<USpringArmComponent>(
+		//TEXT("CameraBoom")
+		//);
+	//CameraBoom->SetRelativeRotation(FRotator(-35.f, 0.f, 0.f));
+	//CameraBoom->AttachTo(RootComponent);
 
-	Camera = CreateDefaultSubobject<UCameraComponent>(
-		TEXT("Camera")
-		);
-	Camera->AttachTo(CameraBoom);
+	//Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
+	//lock camera position
+	//Camera->SetAbsolute(true, true);
+	//Camera->AttachTo(CameraBoom);
 
 	OnActorBeginOverlap.AddDynamic(this, &ABouncerPlayer::OnBeginOverlap);
 	OnActorEndOverlap.AddDynamic(this, &ABouncerPlayer::OnEndOverlap);
 
-	MoveSpeed = 10.f;
+	MoveSpeed = 15.f;
 	rotSpeed = 1.f;
 	TimeCounted = 0.f;
 	TimeTillOver = 0.f;
@@ -47,11 +49,23 @@ ABouncerPlayer::ABouncerPlayer()
 	bIsStunned = false;
 	bIsImmune = false;
 	StoredPowerUp = nullptr;
-	rotBounds = 45.f;
+	StolenPowerUp = nullptr;
+	rotBounds = 35.f;
 	returnSpeed = 10.f;
-
+	SizeFactor = 1;
+	SmallPowerUpUsed = 0;
+	StunPowerUpUsed = 0;
+	ScoredTime = 0.f;
 }
-
+bool ABouncerPlayer::HasScored()
+{
+	ABouncerPlayerState* State = Cast<ABouncerPlayerState>(PlayerState);
+	if (State)
+	{
+		return State->bHasScored;
+	}
+	return false;
+}
 // Called when the game starts or when spawned
 void ABouncerPlayer::BeginPlay()
 {
@@ -62,6 +76,10 @@ void ABouncerPlayer::BeginPlay()
 	leftBounds = GetActorLocation() + GetActorRightVector() *-250;
 	startRotation = Mesh->GetComponentRotation();
 
+	//set overhead camera position
+	//Camera->SetWorldLocation(FVector(-1300, 0, 1500));
+	//Camera->SetWorldRotation(FRotator(-55, 0, 0));
+	
 }
 
 // Called every frame
@@ -69,14 +87,33 @@ void ABouncerPlayer::Tick( float DeltaTime )
 {
 	Super::Tick( DeltaTime );
 	TimeCounted += DeltaTime;
+	ABouncerPlayerState* State = Cast<ABouncerPlayerState>(PlayerState);
+	if (State)
+	{
+		if (State->bHasScored)
+		{
+			ScoredTime += DeltaTime;
+			if (ScoredTime >= 2)
+			{
+				State->bHasScored = false;
+				ScoredTime = 0;
+			}
+		}
+	}
 	if (TimeTillOver != 0.f)
 	{
 		if (TimeCounted >= TimeTillOver)
 		{
-			this->StoredPowerUp->Over();
+			if (StoredPowerUp)
+				StoredPowerUp->Over();
 			TimeTillOver = 0.f;
 			delete StoredPowerUp;
 			StoredPowerUp = nullptr;
+			if (StolenPowerUp)
+			{
+				StoredPowerUp = StolenPowerUp;
+				StolenPowerUp = nullptr;
+			}
 		}
 	}
 }
@@ -93,31 +130,31 @@ void ABouncerPlayer::SetupPlayerInputComponent(class UInputComponent* InputCompo
 		IE_Pressed,
 		this,
 		&ABouncerPlayer::Shoot);
+	InputComponent->BindAction(TEXT("PowerUp"), IE_Pressed, this, &ABouncerPlayer::UsePowerUp);
 }
 
 void ABouncerPlayer::Strafe(float Scale)
 {
 	if (bIsStunned)
 		return;
-	GEngine->AddOnScreenDebugMessage(1, 1.f, FColor::Yellow, TEXT("Move"));
 	//stops the player from moving outside their bounds
-	if (FVector::Dist(GetActorLocation(), leftBounds) > 20 && Scale<0)
+	if (FVector::Dist(GetActorLocation(), leftBounds) > 20 && (bReverseControls ? Scale *-1 : Scale)<0)
 	{
-		GEngine->AddOnScreenDebugMessage(2, 1.f, FColor::Yellow, TEXT("Left"));
-		AddActorWorldOffset(rightVector*Scale* (MoveSpeed * MoveScalar));
+		AddActorWorldOffset(rightVector*(bReverseControls ? Scale *-1: Scale)* (MoveSpeed * MoveScalar));
 
 	}
-	else if (FVector::Dist(GetActorLocation(), rightBounds) > 20 && Scale > 0)
+	else if (FVector::Dist(GetActorLocation(), rightBounds) > 20 && (bReverseControls ? Scale *-1 : Scale) > 0)
 	{
-		GEngine->AddOnScreenDebugMessage(3, 1.f, FColor::Yellow, TEXT("Right"));
-		AddActorWorldOffset(rightVector*Scale * (MoveSpeed* MoveScalar));
+		AddActorWorldOffset(rightVector*(bReverseControls ? Scale *-1 : Scale) * (MoveSpeed* MoveScalar));
 	}
 }
 
 void ABouncerPlayer::Rotate(float Scale)
 {
+	if (bIsStunned)
+		return;
 	FRotator CurrentRotation = Mesh->GetComponentRotation();
-	
+
 	CurrentRotation.Yaw += Scale * rotSpeed;
 	if (Scale != 0)
 	{
@@ -130,40 +167,35 @@ void ABouncerPlayer::Rotate(float Scale)
 	}
 	else
 	{
-		
-		CurrentRotation=FMath::RInterpTo(CurrentRotation, startRotation, GetWorld()->GetDeltaSeconds(), returnSpeed);
+
+		CurrentRotation = FMath::RInterpTo(CurrentRotation, startRotation, GetWorld()->GetDeltaSeconds(), returnSpeed);
 		Mesh->SetWorldRotation(CurrentRotation);
 	}
 }
+
 void ABouncerPlayer::Shoot()
 {
-	//if a ball is currently overlapping with the player calls the shoot function and passes in the new velocity	
-	if (canShoot && !bIsStunned)
-	{
-		ABall *ShootingBall = Cast<ABall>(Ball);
-
-		if (ShootingBall)
-		{
-			ShootingBall->SetOwner(this);
-			ShootingBall->Shoot(GetActorForwardVector() * 1000);
-		}
-	}
 }
 void ABouncerPlayer::UsePowerUp()
 {
 	if (!bIsStunned && StoredPowerUp && !StoredPowerUp->IsUsed())
 	{
+		GEngine->AddOnScreenDebugMessage(0, 1.f, FColor::Yellow, TEXT("Used Power Up"));
 		TimeCounted = 0.f;
 		StoredPowerUp->Use(GetWorld());
+		AudioPlayer->PlaySound(AudioPlayer->powerup);
 	}
 }
 void ABouncerPlayer::OnBeginOverlap(AActor* OtherActor)
 {
-	//sets true when a ball is overlaping with the player
 	if (OtherActor->GetClass()->IsChildOf(ABall::StaticClass()))
 	{
-		canShoot = true;
-		Ball = OtherActor;
+		ABall *ShootingBall = Cast<ABall>(OtherActor);
+		
+		if (ShootingBall)
+		{
+			ShootingBall->SetOwner(this,SpotLight->GetLightColor());
+		}
 	}
 }
 void ABouncerPlayer::OnEndOverlap(AActor* OtherActor)
@@ -177,7 +209,7 @@ void ABouncerPlayer::OnEndOverlap(AActor* OtherActor)
 void ABouncerPlayer::Grow()
 {
 	SizeFactor++;
-	SetActorScale3D(GetActorScale3D() * GROW_FACTOR);
+	SetActorScale3D(GetActorScale3D() / SHRINK_FACTOR);
 }
 void ABouncerPlayer::Shrink()
 {
