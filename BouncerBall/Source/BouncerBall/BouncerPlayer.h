@@ -185,6 +185,8 @@ public:
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 		USpotLightComponent* SpotLight;
+	UPROPERTY(EditAnywhere)
+		UForceFeedbackEffect* EffectClass;
 	//A value that will be modified by the balls after targetting to make sure there is an even distrobution of targeting for RNG
 	int8 Weight;
 	//Used to set the movement boundaries
@@ -232,5 +234,4 @@ private:
 	int8 SmallPowerUpUsed;
 	//Keeps track of how many stuns have been used on this player that have not expired
 	int8 StunPowerUpUsed;
-	
 };

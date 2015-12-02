@@ -193,6 +193,15 @@ void ABouncerPlayer::OnBeginOverlap(AActor* OtherActor)
 		
 		if (ShootingBall)
 		{
+			APlayerController* PlayerController = Cast<APlayerController>(Controller);
+			if (PlayerController)
+			{
+				PlayerController->bForceFeedbackEnabled = true;
+				//PlayerController->PlayDynamicForceFeedback(1.0f, 0.5f, true, true, true, true,EDynamicForceFeedbackAction::Start,Action);
+				
+				
+				PlayerController->ClientPlayForceFeedback(EffectClass, false, "Hit");
+			}
 			ShootingBall->SetOwner(this,SpotLight->GetLightColor());
 		}
 	}
