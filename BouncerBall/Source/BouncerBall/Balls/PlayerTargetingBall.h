@@ -24,5 +24,6 @@ protected:
 	//A reference to the current target of the ball
 	UPROPERTY()
 	ABouncerPlayer *CurrentTarget;
-	
+private:
+	float TimeWithTarget;
 };
