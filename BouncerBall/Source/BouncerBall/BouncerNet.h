@@ -3,6 +3,7 @@
 #pragma once
 #include "BouncerPlayer.h"
 #include "BouncerPlayerState.h"
+#include "MyAudio.h"
 #include "BouncerNet.generated.h"
 
 
@@ -25,6 +26,9 @@ public:
 	//The player who owns this net
 	UPROPERTY(EditAnywhere)
 	ABouncerPlayer* PlayerOwner;
+
+	UPROPERTY(EditAnywhere)
+	AMyAudio* AudioPlayer;
 
 private:
 	void ScoreLower(ABouncerPlayerState* State);

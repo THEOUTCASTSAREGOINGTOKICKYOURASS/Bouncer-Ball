@@ -182,6 +182,7 @@ void ABouncerPlayer::UsePowerUp()
 		GEngine->AddOnScreenDebugMessage(0, 1.f, FColor::Yellow, TEXT("Used Power Up"));
 		TimeCounted = 0.f;
 		StoredPowerUp->Use(GetWorld());
+		AudioPlayer->PlaySound(AudioPlayer->powerup);
 	}
 }
 void ABouncerPlayer::OnBeginOverlap(AActor* OtherActor)

@@ -5,6 +5,7 @@
 #include "GameFramework/Pawn.h"
 #include "PowerUps/BouncerPowerUp.h"
 #include "BouncerPlayerState.h"
+#include "MyAudio.h"
 #include "BouncerPlayer.generated.h"
 
 class BouncerPowerUp;
@@ -177,6 +178,10 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UBoxComponent* Collider;
+
+	UPROPERTY(EditAnywhere)
+	AMyAudio* AudioPlayer;
+
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 		USpotLightComponent* SpotLight;
