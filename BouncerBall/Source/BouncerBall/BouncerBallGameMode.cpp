@@ -14,7 +14,7 @@ ABouncerBallGameMode::ABouncerBallGameMode(
 		ConstructorHelpers::FObjectFinder<UBlueprint> CharacterClass;
 		FConstructorStatics()
 			: CharacterClass(
-			TEXT("Blueprint'/Game/Blueprints/Character/Player'")
+			TEXT("Blueprint'/Game/Blueprints/Character/Player.Player'")
 			)
 		{
 		}
