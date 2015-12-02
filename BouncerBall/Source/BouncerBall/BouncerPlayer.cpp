@@ -27,6 +27,9 @@ ABouncerPlayer::ABouncerPlayer()
 	SpotLight->SetRelativeLocation(FVector(0.f, 141.f, 80.f));
 	SpotLight->AttachTo(Mesh);
 
+
+
+
 	//CameraBoom = CreateDefaultSubobject<USpringArmComponent>(
 		//TEXT("CameraBoom")
 		//);
@@ -79,6 +82,10 @@ void ABouncerPlayer::BeginPlay()
 	//set overhead camera position
 	//Camera->SetWorldLocation(FVector(-1300, 0, 1500));
 	//Camera->SetWorldRotation(FRotator(-55, 0, 0));
+
+	APlayerController* PlayerController = Cast<APlayerController>(Controller);
+	if (PlayerController)
+		PlayerController->bForceFeedbackEnabled = true;
 }
 
 // Called every frame
@@ -196,7 +203,6 @@ void ABouncerPlayer::OnBeginOverlap(AActor* OtherActor)
 			APlayerController* PlayerController = Cast<APlayerController>(Controller);
 			if (PlayerController)
 			{
-				PlayerController->bForceFeedbackEnabled = true;
 				PlayerController->ClientPlayForceFeedback(EffectClass, false, "Hit");
 			}
 			ShootingBall->SetOwner(this,SpotLight->GetLightColor());
