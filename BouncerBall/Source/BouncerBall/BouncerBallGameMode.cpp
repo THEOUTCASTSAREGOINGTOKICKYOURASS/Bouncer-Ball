@@ -4,6 +4,7 @@
 #include "BouncerBallGameMode.h"
 #include "BouncerPlayerState.h"
 #include "BouncerHUD.h"
+#include "GameOverHUD.h"
 
 ABouncerBallGameMode::ABouncerBallGameMode(
 	const FObjectInitializer& ObjectInitializer)
@@ -45,5 +46,9 @@ void ABouncerBallGameMode::BeginPlay()
 }
 
 
-
+void ABouncerBallGameMode::SetGameOver(){
+	APlayerController* PlayerController1 = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+	PlayerController1->ClientSetHUD(AGameOverHUD::StaticClass());
+	UGameplayStatics::SetGamePaused(GetWorld(), true);
+}
 

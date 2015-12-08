@@ -18,6 +18,7 @@ ABouncerHUD::ABouncerHUD(const FObjectInitializer& ObjectInitializer)
 void ABouncerHUD::DrawHUD()
 {
 	GameTime += GetWorld()->DeltaTimeSeconds;
+	bool scoreMax = false;
 	//Get the screen dimensions
 	FVector2D ScreenDimensions = FVector2D(Canvas->SizeX, Canvas->SizeY);
 
@@ -52,6 +53,11 @@ void ABouncerHUD::DrawHUD()
 		ABouncerPlayerState* PlayerState1 = Cast<ABouncerPlayerState>(PlayerController1->PlayerState);
 		if (PlayerState1)
 		{
+			if (PlayerState1->RealScore >= 10)
+			{
+				scoreMax = true;
+			}
+
 			if (PlayerState1->bHasScored)
 			{
 				ScoredText = "Red";
@@ -71,6 +77,11 @@ void ABouncerHUD::DrawHUD()
 		ABouncerPlayerState* PlayerState2 = Cast<ABouncerPlayerState>(PlayerController2->PlayerState);
 		if (PlayerState2)
 		{
+			if (PlayerState2->RealScore >= 10)
+			{
+				scoreMax = true;
+			}
+
 			if (PlayerState2->bHasScored)
 			{
 				if (ScoredText.Len() > 1)
@@ -97,6 +108,11 @@ void ABouncerHUD::DrawHUD()
 		ABouncerPlayerState* PlayerState3 = Cast<ABouncerPlayerState>(PlayerController3->PlayerState);
 		if (PlayerState3)
 		{
+			if (PlayerState3->RealScore >= 10)
+			{
+				scoreMax = true;
+			}
+
 			if (PlayerState3->bHasScored)
 			{
 				if (ScoredText.Len() > 1)
@@ -123,6 +139,11 @@ void ABouncerHUD::DrawHUD()
 		ABouncerPlayerState* PlayerState4 = Cast<ABouncerPlayerState>(PlayerController4->PlayerState);
 		if (PlayerState4)
 		{
+			if (PlayerState4->RealScore >= 10)
+			{
+				scoreMax = true;
+			}
+
 			if (PlayerState4->bHasScored)
 			{
 				if (ScoredText.Len() > 1)
@@ -180,6 +201,9 @@ void ABouncerHUD::DrawHUD()
 	DrawText(TimeText, FColor::White, ScreenDimensions.X - (TimeTextSize.X*2), (ScreenDimensions.Y - TimeTextSize.Y) / 2, HUDFont);
 
 	ABouncerBallGameMode* BouncerBallGameMode = Cast<ABouncerBallGameMode>(UGameplayStatics::GetGameMode(this));
+
+	if (Time <= 0 || scoreMax)
+		BouncerBallGameMode->SetGameOver();
 }
 
 
