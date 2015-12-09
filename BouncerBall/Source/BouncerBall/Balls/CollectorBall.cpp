@@ -2,34 +2,25 @@
 
 #include "BouncerBall.h"
 #include "CollectorBall.h"
+#include "../PickUps/BouncerPickup.h"
 
 ACollectorBall::ACollectorBall()
 {
 	CurrentPickupTarget = nullptr;
 }
 
+void ACollectorBall::BeginPlay()
+{
+	Super::BeginPlay();
+	GetTarget();
+	MovementComponent->bIsHomingProjectile = true;
+	MovementComponent->HomingAccelerationMagnitude = 1100;
+}
+
 // Called every frame
 void ACollectorBall::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
-	if (!CurrentPickupTarget || CurrentPickupTarget->IsPendingKill())
-	{
-		if (!GetTarget())
-		{
-			CurrentPickupTarget = nullptr;
-		}
-	}
-		
-	//Turn the Minion to face the Player
-	if (CurrentPickupTarget)
-	{
-		const FVector PlayerPos = CurrentPickupTarget->GetActorLocation();
-		FVector Forward = (PlayerPos - this->GetActorLocation());
-		FRotator PlayerRot = FRotationMatrix::MakeFromX(Forward).Rotator();
-		this->SetActorRotation(GetActorRotation() - PlayerRot * DeltaSeconds);
-	}
-
-
 }
 
 bool ACollectorBall::GetTarget()
@@ -38,7 +29,14 @@ bool ACollectorBall::GetTarget()
 	for (TActorIterator<ABouncerPickup> ActorItr(GetWorld()); ActorItr; ++ActorItr)
 	{
 		CurrentPickupTarget = *ActorItr;
+		MovementComponent->HomingTargetComponent = CurrentPickupTarget->Collider;
 		return true;
 	}
 	return false;
+}
+
+bool ACollectorBall::HitPickup()
+{
+	MovementComponent->bIsHomingProjectile = false;
+	return true;
 }

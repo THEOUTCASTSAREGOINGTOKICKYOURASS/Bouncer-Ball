@@ -17,7 +17,10 @@ void AStealPickup::OnBeginOverlap(AActor* OtherActor)
 	ABall *Ball = Cast<ABall>(OtherActor);
 	if (Ball)
 	{
-		if (Ball->GetOwner())
-			Ball->GetOwner()->SetPowerUp(new StealPowerUp(Ball->GetOwner()));
+		if (Ball->HitPickup())
+		{
+			if (Ball->GetOwner())
+				Ball->GetOwner()->SetPowerUp(new StealPowerUp(Ball->GetOwner()));
+		}
 	}
 }

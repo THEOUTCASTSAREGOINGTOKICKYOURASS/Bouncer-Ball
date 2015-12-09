@@ -10,6 +10,7 @@ ADestroyerBall::ADestroyerBall()
 
 }
 
+/*
 void ADestroyerBall::NotifyHit(class UPrimitiveComponent* MyComp, class AActor* Other, class UPrimitiveComponent* OtherComp, bool bSelfMoved, FVector HitLocation, FVector HitNormal, FVector NormalImpulse, const FHitResult& Hit)
 {
 	Super::NotifyHit(MyComp, Other, OtherComp, bSelfMoved, HitLocation, HitNormal, NormalImpulse, Hit);
@@ -18,4 +19,9 @@ void ADestroyerBall::NotifyHit(class UPrimitiveComponent* MyComp, class AActor* 
 
 	if (Pickups)
 		Pickups->Destroy();
+}*/
+
+bool ADestroyerBall::HitPickup()
+{
+	return false;
 }

@@ -16,7 +16,10 @@ void AInvinsiblePickup::OnBeginOverlap(AActor* OtherActor)
 	ABall *Ball = Cast<ABall>(OtherActor);
 	if (Ball)
 	{
-		if (Ball->GetOwner())
-			Ball->GetOwner()->SetPowerUp(new InvinsiblePowerUp(Ball->GetOwner()));
+		if (Ball->HitPickup())
+		{
+			if (Ball->GetOwner())
+				Ball->GetOwner()->SetPowerUp(new InvinsiblePowerUp(Ball->GetOwner()));
+		}
 	}
 }

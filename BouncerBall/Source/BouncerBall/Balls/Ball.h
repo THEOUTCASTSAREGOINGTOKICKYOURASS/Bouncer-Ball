@@ -31,10 +31,14 @@ public:
 		Light->SetLightColor(Color);
 		
 	}
+	UFUNCTION()
+		virtual bool HitPickup();
+
 protected:
 	//Called per frame in tick to move the Ball, override for your own movement, no need to call this in your implementation
 	UFUNCTION()
 	virtual void Move() PURE_VIRTUAL(ABall::Move,);
+
 	//this is used to keep the balls from flying off into no where.
 	float ZPos;
 	//The owner of this ball

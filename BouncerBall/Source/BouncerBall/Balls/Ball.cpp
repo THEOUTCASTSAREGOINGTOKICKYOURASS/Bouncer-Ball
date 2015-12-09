@@ -44,7 +44,8 @@ void ABall::Tick(float DeltaSeconds)
 		
 	if (bStartedMoving && MovementComponent->Velocity.Size() < 500.f)
 	{
-		MovementComponent->SetVelocityInLocalSpace(GetActorForwardVector() * 1000);
+		FVector asdf = (MovementComponent->Velocity.GetUnsafeNormal());
+		MovementComponent->SetVelocityInLocalSpace(asdf * 1000);
 	}
 	//Get the current Position of the Ball and set its Z to the start up Z position 
 	FVector pos = GetActorLocation();
@@ -58,4 +59,9 @@ void ABall::Shoot(FVector Direction)
 {
 	//set the direction of the ball to the players forward vector
 	MovementComponent->Velocity = Direction;
+}
+
+bool ABall::HitPickup()
+{
+	return true;
 }

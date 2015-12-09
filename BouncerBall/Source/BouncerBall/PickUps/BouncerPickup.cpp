@@ -14,4 +14,5 @@ ABouncerPickup::ABouncerPickup()
 void ABouncerPickup::OnBeginOverlap(AActor* OtherActor)
 {
 	Destroy();
+
 }

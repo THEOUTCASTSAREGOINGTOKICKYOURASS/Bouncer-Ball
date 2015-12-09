@@ -16,7 +16,10 @@ void ASpeedPickup::OnBeginOverlap(AActor* OtherActor)
 	ABall *Ball = Cast<ABall>(OtherActor);
 	if (Ball)
 	{
-		if (Ball->GetOwner())
-			Ball->GetOwner()->SetPowerUp(new SpeedPowerUp(Ball->GetOwner()));
+		if (Ball->HitPickup())
+		{
+			if (Ball->GetOwner())
+				Ball->GetOwner()->SetPowerUp(new SpeedPowerUp(Ball->GetOwner()));
+		}
 	}
 }

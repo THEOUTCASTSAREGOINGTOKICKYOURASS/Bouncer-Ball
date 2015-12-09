@@ -16,12 +16,16 @@ class BOUNCERBALL_API ACollectorBall : public ABall
 	
 public:
 	ACollectorBall();
+	virtual void BeginPlay() override;
 
 	UFUNCTION()
 	bool GetTarget();
 
 	virtual void Tick(float DeltaSeconds) override;
 	
+	UFUNCTION()
+		virtual bool HitPickup() override;
+
 protected:
 	UPROPERTY()
 	ABouncerPickup *CurrentPickupTarget;
