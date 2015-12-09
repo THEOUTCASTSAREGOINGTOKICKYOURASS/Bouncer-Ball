@@ -34,8 +34,8 @@ void AGameOverHUD::DrawHUD()
 	UGameplayStatics::GetPlayerPawn(GetWorld(), 0);
 	UGameplayStatics::GetPlayerController(GetWorld(), 0);
 
-	int32 highScore;
-	int32 highPlayer;
+	int32 highScore = 0;
+	int32 highPlayer = 0;
 
 	FString CurrentPointString1 = "Player 1: ";
 	FString CurrentPointString2 = "Player 2: ";

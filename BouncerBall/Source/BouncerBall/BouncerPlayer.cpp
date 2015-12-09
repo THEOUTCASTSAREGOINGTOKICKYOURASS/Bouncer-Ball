@@ -186,10 +186,42 @@ void ABouncerPlayer::UsePowerUp()
 {
 	if (!bIsStunned && StoredPowerUp && !StoredPowerUp->IsUsed())
 	{
-		GEngine->AddOnScreenDebugMessage(0, 1.f, FColor::Yellow, TEXT("Used Power Up"));
 		TimeCounted = 0.f;
+		USoundCue* Cue = nullptr;
+		if (GetPowerUpName().Equals(TEXT("Grow"), ESearchCase::IgnoreCase))
+		{
+			Cue = AudioPlayer->grow;
+		}
+		else if (GetPowerUpName().Equals(TEXT("Invincible"), ESearchCase::IgnoreCase))
+		{
+			Cue = AudioPlayer->invincible;
+		}
+		else if (GetPowerUpName().Equals(TEXT("All Balls"), ESearchCase::IgnoreCase))
+		{
+			Cue = AudioPlayer->ownall;
+		}
+		else if (GetPowerUpName().Equals(TEXT("Slow"), ESearchCase::IgnoreCase))
+		{
+			Cue = AudioPlayer->slow;
+		}
+		else if (GetPowerUpName().Equals(TEXT("Small"), ESearchCase::IgnoreCase))
+		{
+			Cue = AudioPlayer->shrink;
+		}
+		else if (GetPowerUpName().Equals(TEXT("Speed"), ESearchCase::IgnoreCase))
+		{
+			Cue = AudioPlayer->speed;
+		}
+		else if (GetPowerUpName().Equals(TEXT("Steal"), ESearchCase::IgnoreCase))
+		{
+			Cue = AudioPlayer->steal;
+		}
+		else if (GetPowerUpName().Equals(TEXT("Stun"), ESearchCase::IgnoreCase))
+		{
+			Cue = AudioPlayer->stun;
+		}
+		AudioPlayer->PlaySound(Cue);
 		StoredPowerUp->Use(GetWorld());
-		AudioPlayer->PlaySound(AudioPlayer->powerup);
 	}
 }
 void ABouncerPlayer::OnBeginOverlap(AActor* OtherActor)

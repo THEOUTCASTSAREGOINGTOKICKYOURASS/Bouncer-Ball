@@ -31,6 +31,7 @@ public:
 protected:
 	ABouncerPlayer *Owner;
 private:
+	
 	bool bIsUsed;
 	FString Name;
 };

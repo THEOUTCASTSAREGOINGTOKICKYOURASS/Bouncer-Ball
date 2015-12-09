@@ -20,6 +20,24 @@ public:
 		USoundCue* goal;
 	UPROPERTY(EditAnywhere, Category = "Sounds")
 		USoundCue* powerup;
+
+	UPROPERTY(EditAnywhere, Category = "Sounds")
+		USoundCue* grow;
+	UPROPERTY(EditAnywhere, Category = "Sounds")
+		USoundCue* stun;
+	UPROPERTY(EditAnywhere, Category = "Sounds")
+		USoundCue* shrink;
+	UPROPERTY(EditAnywhere, Category = "Sounds")
+		USoundCue* ownall;
+	UPROPERTY(EditAnywhere, Category = "Sounds")
+		USoundCue* invincible;
+	UPROPERTY(EditAnywhere, Category = "Sounds")
+		USoundCue* steal;
+	UPROPERTY(EditAnywhere, Category = "Sounds")
+		USoundCue* speed;
+	UPROPERTY(EditAnywhere, Category = "Sounds")
+		USoundCue* slow;
+
 	UPROPERTY(EditAnywhere, Category = "Audio Component")
 		UAudioComponent* AudioComp;
 	UFUNCTION()
