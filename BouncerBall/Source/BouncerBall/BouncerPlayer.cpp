@@ -154,16 +154,18 @@ void ABouncerPlayer::Rotate(float Scale)
 	if (bIsStunned)
 		return;
 	FRotator CurrentRotation = Mesh->GetComponentRotation();
+	float MaxRotation = startRotation.Yaw + 45 * Scale;
 
-	CurrentRotation.Yaw += Scale * rotSpeed;
+	//CurrentRotation.Yaw += Scale * rotSpeed;
 	if (Scale != 0)
 	{
-		CurrentRotation.Yaw += Scale * rotSpeed;
+		CurrentRotation.Yaw = FMath::FInterpTo(CurrentRotation.Yaw, MaxRotation, GetWorld()->GetDeltaSeconds(), rotSpeed);
 
 		if (CurrentRotation.Yaw < startRotation.Yaw + 45 && CurrentRotation.Yaw > startRotation.Yaw - 45)
 		{
 			Mesh->SetWorldRotation(CurrentRotation);
 		}
+
 	}
 	else
 	{
