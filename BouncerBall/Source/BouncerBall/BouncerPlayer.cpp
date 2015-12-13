@@ -137,6 +137,14 @@ void ABouncerPlayer::SetupPlayerInputComponent(class UInputComponent* InputCompo
 		this,
 		&ABouncerPlayer::Shoot);
 	InputComponent->BindAction(TEXT("PowerUp"), IE_Pressed, this, &ABouncerPlayer::UsePowerUp);
+	InputComponent->BindAction(TEXT("Reload"), IE_Pressed, this, &ABouncerPlayer::Reload);
+	
+}
+
+void ABouncerPlayer::Reload()
+{
+	APlayerController* PlayerController1 = UGameplayStatics::GetPlayerController(GetWorld(), 0);
+	PlayerController1->ConsoleCommand(TEXT("RestartLevel"), true);
 }
 
 void ABouncerPlayer::Strafe(float Scale)

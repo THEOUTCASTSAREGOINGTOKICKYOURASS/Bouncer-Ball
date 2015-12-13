@@ -160,6 +160,9 @@ protected:
 	UFUNCTION()
 	virtual void OnEndOverlap(AActor* OtherActor);
 
+	UFUNCTION()
+	virtual void Reload();
+
 public:
 
 	/// StaticMesh component that will be the visuals for our flying pawn 
