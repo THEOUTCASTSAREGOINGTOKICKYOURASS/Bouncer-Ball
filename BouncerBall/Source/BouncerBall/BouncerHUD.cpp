@@ -12,7 +12,10 @@ ABouncerHUD::ABouncerHUD(const FObjectInitializer& ObjectInitializer)
 {
 	//use the RobotoDisanceField font from the engine
 	static ConstructorHelpers::FObjectFinder<UFont>HUDFontOB(TEXT("/Game/Fonts/COPRGTB"));
+
 	HUDFont = (UFont*)HUDFontOB.Object;
+	static ConstructorHelpers::FObjectFinder<UFont>HUDFontOBTwo(TEXT("/Game/Fonts/COPRGTB_Bigger.COPRGTB_Bigger"));
+	BiggerHUDFont = (UFont*)HUDFontOBTwo.Object;
 }
 
 void ABouncerHUD::DrawHUD()
@@ -24,6 +27,13 @@ void ABouncerHUD::DrawHUD()
 
 	//Call to the parent versions of DrawHUD
 	Super::DrawHUD();
+
+	//used to determine font
+	bool PlayerOneClose = false;
+	bool PlayerTwoClose = false;
+	bool PlayerThreeClose = false;
+	bool PlayerFourClose = false;
+	
 
 	//Get the character and print its current points
 	ABouncerPlayer* Player1 = Cast<ABouncerPlayer>(UGameplayStatics::GetPlayerPawn(this, 0));
@@ -62,6 +72,8 @@ void ABouncerHUD::DrawHUD()
 			{
 				ScoredText = "Red";
 			}
+			if (PlayerState1->RealScore == 9)
+				PlayerOneClose = true;
 			CurrentPointString1 += FString::Printf(TEXT("%d"), FMath::Abs(PlayerState1->RealScore));
 		}
 		else
@@ -93,6 +105,8 @@ void ABouncerHUD::DrawHUD()
 					ScoredText = "Yellow";
 				}
 			}
+			if (PlayerState2->RealScore == 9)
+				PlayerTwoClose = true;
 			CurrentPointString2 += FString::Printf(TEXT("%d"), FMath::Abs(PlayerState2->RealScore));
 		}
 		else
@@ -124,6 +138,8 @@ void ABouncerHUD::DrawHUD()
 					ScoredText = "Blue";
 				}
 			}
+			if (PlayerState3->RealScore == 9)
+				PlayerThreeClose = true;
 			CurrentPointString3 += FString::Printf(TEXT("%d"), FMath::Abs(PlayerState3->RealScore));
 		}
 		else
@@ -155,6 +171,8 @@ void ABouncerHUD::DrawHUD()
 					ScoredText = "Green";
 				}
 			}
+			if (PlayerState4->RealScore == 9)
+				PlayerFourClose = true;
 			CurrentPointString4 += FString::Printf(TEXT("%d"), FMath::Abs(PlayerState4->RealScore));
 		}
 		else
@@ -168,11 +186,28 @@ void ABouncerHUD::DrawHUD()
 	int Time = 300.f - GameTime;
 	FString TimeText = FString::Printf(TEXT("%d"), Time);
 	//The dimensions 2D of the CurrentPointString
+
+	
 	FVector2D ScoreSize, ScoreSize1, ScoreSize2, ScoreSize3, ScoreSize4,PowerUpSizeOne,PowerUpSizeTwo,PowerUpSizeThree,PowerUpSizeFour,CenterScoreSize,TimeTextSize;
-	GetTextSize(CurrentPointString1, ScoreSize1.X, ScoreSize1.Y, HUDFont);
-	GetTextSize(CurrentPointString2, ScoreSize2.X, ScoreSize2.Y, HUDFont);
-	GetTextSize(CurrentPointString3, ScoreSize3.X, ScoreSize3.Y, HUDFont);
-	GetTextSize(CurrentPointString4, ScoreSize4.X, ScoreSize4.Y, HUDFont);
+	if (PlayerOneClose && (Time %2) == 1)
+		GetTextSize(CurrentPointString1, ScoreSize1.X, ScoreSize1.Y, BiggerHUDFont);
+	else
+		GetTextSize(CurrentPointString1, ScoreSize1.X, ScoreSize1.Y, HUDFont);
+
+	if (PlayerTwoClose && (Time % 2) == 1)
+		GetTextSize(CurrentPointString2, ScoreSize2.X, ScoreSize2.Y, BiggerHUDFont);
+	else
+		GetTextSize(CurrentPointString2, ScoreSize2.X, ScoreSize2.Y, HUDFont);
+
+	if (PlayerThreeClose && (Time % 2) == 1)
+		GetTextSize(CurrentPointString3, ScoreSize3.X, ScoreSize3.Y, BiggerHUDFont);
+	else
+		GetTextSize(CurrentPointString3, ScoreSize3.X, ScoreSize3.Y, HUDFont);
+	
+	if (PlayerFourClose && (Time % 2) == 1)
+		GetTextSize(CurrentPointString4, ScoreSize4.X, ScoreSize4.Y, BiggerHUDFont);
+	else
+		GetTextSize(CurrentPointString4, ScoreSize4.X, ScoreSize4.Y, HUDFont);
 
 	GetTextSize(PowerUpPlayerOne, PowerUpSizeOne.X, PowerUpSizeOne.Y, HUDFont);
 	GetTextSize(PowerUpPlayerTwo, PowerUpSizeTwo.X, PowerUpSizeTwo.Y, HUDFont);
@@ -183,16 +218,31 @@ void ABouncerHUD::DrawHUD()
 
 	GetTextSize(TimeText, TimeTextSize.X, TimeTextSize.Y, HUDFont);
 	//We Draw the Player's Current Points or Score on the top of the screen, Centered on the X
-	DrawText(CurrentPointString1, FColor::Red, 0, ScreenDimensions.Y - ScoreSize1.Y, HUDFont);
+	if (PlayerOneClose && (Time % 2) == 1)
+		DrawText(CurrentPointString1, FColor::Red, 0, ScreenDimensions.Y - ScoreSize1.Y, BiggerHUDFont);
+	else
+		DrawText(CurrentPointString1, FColor::Red, 0, ScreenDimensions.Y - ScoreSize1.Y, HUDFont);
 	DrawText(PowerUpPlayerOne, FColor::Red, ScoreSize1.X + 10, ScreenDimensions.Y - PowerUpSizeOne.Y, HUDFont);
+	
+	if (PlayerTwoClose && (Time % 2) == 1)
+		DrawText(CurrentPointString2, FColor::Yellow, 0, 0, BiggerHUDFont);
+	else
+		DrawText(CurrentPointString2, FColor::Yellow, 0, 0, HUDFont);
 
-	DrawText(CurrentPointString2, FColor::Yellow, 0, 0, HUDFont);
 	DrawText(PowerUpPlayerTwo, FColor::Yellow, ScoreSize2.X+ 10, 0, HUDFont);
 
-	DrawText(CurrentPointString3, FColor::Blue, ScreenDimensions.X - ScoreSize3.X, 0, HUDFont);
+	if (PlayerThreeClose && (Time % 2) == 1)
+		DrawText(CurrentPointString3, FColor::Blue, ScreenDimensions.X - ScoreSize3.X, 0, BiggerHUDFont);
+	else
+		DrawText(CurrentPointString3, FColor::Blue, ScreenDimensions.X - ScoreSize3.X, 0, HUDFont);
+
 	DrawText(PowerUpPlayerThree, FColor::Blue, ScreenDimensions.X - ScoreSize3.X - PowerUpSizeThree.X - 10, 0, HUDFont);
 
-	DrawText(CurrentPointString4, FColor::Green, ScreenDimensions.X - ScoreSize4.X, ScreenDimensions.Y - ScoreSize4.Y, HUDFont);
+	if (PlayerFourClose && (Time % 2) == 1)
+		DrawText(CurrentPointString4, FColor::Green, ScreenDimensions.X - ScoreSize4.X, ScreenDimensions.Y - ScoreSize4.Y, BiggerHUDFont);
+	else
+		DrawText(CurrentPointString4, FColor::Green, ScreenDimensions.X - ScoreSize4.X, ScreenDimensions.Y - ScoreSize4.Y, HUDFont);
+
 	DrawText(PowerUpPlayerFour, FColor::Green, ScreenDimensions.X - ScoreSize4.X - PowerUpSizeFour.X - 10, ScreenDimensions.Y - PowerUpSizeFour.Y, HUDFont);
 
 	DrawText(ScoredText, FColor::White, (ScreenDimensions.X - CenterScoreSize.X) / 2, (ScreenDimensions.Y - CenterScoreSize.Y) / 2, HUDFont);

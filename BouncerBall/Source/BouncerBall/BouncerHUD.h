@@ -17,6 +17,8 @@ class BOUNCERBALL_API ABouncerHUD : public AHUD
 	UPROPERTY()
 	UFont* HUDFont;
 
+	UFont* BiggerHUDFont;
+
 	//Primary draw call for the HUD
 	virtual void DrawHUD() override;
 
