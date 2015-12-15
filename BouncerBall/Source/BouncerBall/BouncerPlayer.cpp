@@ -19,6 +19,11 @@ ABouncerPlayer::ABouncerPlayer()
 	Mesh->AttachTo(RootComponent);
 	Mesh->SetRelativeLocation(FVector(0.f, 0.f, 0.f));
 
+	StunnedMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Stunned Mesh"));
+	StunnedMesh->AttachTo(RootComponent);
+	StunnedMeshTwo = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Stunned Mesh Two"));
+	StunnedMeshTwo->AttachTo(RootComponent);
+
 	Collider = CreateDefaultSubobject<UBoxComponent>(TEXT("Collider"));
 	Collider->AttachTo(RootComponent);
 
@@ -79,6 +84,9 @@ void ABouncerPlayer::BeginPlay()
 	leftBounds = GetActorLocation() + GetActorRightVector() *-250;
 	startRotation = Mesh->GetComponentRotation();
 
+	StunnedMeshTwo->SetVisibility(false);
+	StunnedMesh->SetVisibility(false);
+
 	//set overhead camera position
 	//Camera->SetWorldLocation(FVector(-1300, 0, 1500));
 	//Camera->SetWorldRotation(FRotator(-55, 0, 0));
@@ -122,6 +130,12 @@ void ABouncerPlayer::Tick( float DeltaTime )
 			}
 		}
 	}
+	FRotator CurrentRotation = StunnedMesh->GetComponentRotation();
+	CurrentRotation.Yaw += (.0001 * DeltaTime) ;
+
+	StunnedMesh->SetRelativeRotation(CurrentRotation);
+	StunnedMeshTwo->SetRelativeRotation(CurrentRotation);
+	
 }
 
 // Called to bind functionality to input

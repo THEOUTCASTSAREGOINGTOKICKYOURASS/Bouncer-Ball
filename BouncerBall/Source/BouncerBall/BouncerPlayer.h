@@ -97,10 +97,14 @@ public:
 	//Used to keep track of how many stuns were used
 	void GotStunned()
 	{
+		StunnedMesh->SetVisibility(true);
+		StunnedMeshTwo->SetVisibility(true);
 		StunPowerUpUsed++;
 	}
 	void StunIsOver()
 	{
+		StunnedMesh->SetVisibility(false);
+		StunnedMeshTwo->SetVisibility(false);
 		StunPowerUpUsed--;
 		if (StunPowerUpUsed < 0)
 			StunPowerUpUsed = 0;
@@ -168,7 +172,10 @@ public:
 	/// StaticMesh component that will be the visuals for our flying pawn 
 	UPROPERTY(Category = Mesh, VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	class UStaticMeshComponent* Mesh;
-
+	UPROPERTY(VisibleAnywhere)
+	UStaticMeshComponent* StunnedMesh;
+	UPROPERTY(VisibleAnywhere)
+		UStaticMeshComponent* StunnedMeshTwo;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	class USceneComponent* root;
 
