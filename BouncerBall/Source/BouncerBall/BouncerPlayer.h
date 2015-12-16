@@ -192,6 +192,9 @@ public:
 	UPROPERTY(EditAnywhere)
 	AMyAudio* AudioPlayer;
 
+	UPROPERTY(EditAnywhere, Category = "Sounds")
+	USoundCue* ScoredSound;
+
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 		USpotLightComponent* SpotLight;

@@ -22,7 +22,8 @@ void AMyAudio::BeginPlay()
 {
 	AudioComp->Sound = music;
 	AudioComp->Activate();
-
+	PlaySound(Welcome);
+	PlaySound(Cheering);
 	Super::BeginPlay();
 
 

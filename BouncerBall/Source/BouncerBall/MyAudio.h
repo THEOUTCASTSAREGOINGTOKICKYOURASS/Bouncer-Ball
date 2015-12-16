@@ -37,7 +37,18 @@ public:
 		USoundCue* speed;
 	UPROPERTY(EditAnywhere, Category = "Sounds")
 		USoundCue* slow;
-
+	UPROPERTY(EditAnywhere, Category = "Sounds")
+		USoundCue* Welcome;
+	UPROPERTY(EditAnywhere, Category = "Sounds")
+		USoundCue* Cheering;
+	UPROPERTY(EditAnywhere, Category = "Sounds")
+		USoundCue* RedScored;
+	UPROPERTY(EditAnywhere, Category = "Sounds")
+		USoundCue* YellowScored;
+	UPROPERTY(EditAnywhere, Category = "Sounds")
+		USoundCue* BlueScored;
+	UPROPERTY(EditAnywhere, Category = "Sounds")
+		USoundCue* GreenScored;
 	UPROPERTY(EditAnywhere, Category = "Audio Component")
 		UAudioComponent* AudioComp;
 	UFUNCTION()

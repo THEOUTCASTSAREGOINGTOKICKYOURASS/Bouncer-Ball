@@ -41,6 +41,7 @@ void ABouncerNet::OnBeginOverlap_Implementation(AActor* OtherActor)
 				{
 					State->RealScore++;
 					State->bHasScored = true;
+					AudioPlayer->PlaySound(Ball->GetOwner()->ScoredSound);
 					AudioPlayer->PlaySound(AudioPlayer->goal);
 				}	
 			}
