@@ -2,7 +2,7 @@
 
 #include "BouncerBall.h"
 #include "BouncerNet.h"
-#include "Ball.h"
+#include "Balls/Ball.h"
 #include "Kismet/GameplayStatics.h"
 #include "SpawnVolume.h"
 
@@ -23,18 +23,48 @@ ABouncerNet::ABouncerNet()
 
 void ABouncerNet::OnBeginOverlap_Implementation(AActor* OtherActor)
 {
-
-	GEngine->AddOnScreenDebugMessage(0, 1.f, FColor::Yellow, TEXT("Goal"));
-	OtherActor->Destroy();
-
-	ASpawnVolume* SpawnVolumes[4];
-	int8 i = 0;
-	//Finds all Instances of SpawnVolumes and stores them into an array
-	for (TActorIterator<ASpawnVolume> ActorItr(GetWorld()); ActorItr; ++ActorItr)
+	ABouncerPlayerState* State;
+	ABall* Ball = Cast<ABall>(OtherActor);
+	if (Ball)
 	{
-		SpawnVolumes[i] = *ActorItr;
-		i++;
+		if (Ball->GetOwner())
+		{
+			State = Cast<ABouncerPlayerState>(Ball->GetOwner()->PlayerState);
+
+			if (State)
+			{
+				if (Ball->GetOwner() == PlayerOwner)
+				{
+					ScoreLower(State);
+				}
+				else
+				{
+					State->RealScore++;
+					State->bHasScored = true;
+					AudioPlayer->PlaySound(Ball->GetOwner()->ScoredSound);
+					AudioPlayer->PlaySound(AudioPlayer->goal);
+				}	
+			}
+		}
+		else
+		{
+			if (PlayerOwner)
+			{
+				State = Cast<ABouncerPlayerState>(PlayerOwner);
+				ScoreLower(State);
+			}
+		}
 	}
-	SpawnVolumes[0]->SpawnPickup();
-	Destroy();
+	OtherActor->Destroy();
+}
+
+void ABouncerNet::ScoreLower(ABouncerPlayerState* State)
+{
+	if (State)
+	{
+		State->RealScore--;
+		if (State->RealScore <= 0)
+			State->RealScore = 0;
+	}
+
 }
