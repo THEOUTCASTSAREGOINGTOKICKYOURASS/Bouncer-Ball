@@ -32,9 +32,6 @@ ABouncerPlayer::ABouncerPlayer()
 	SpotLight->SetRelativeLocation(FVector(0.f, 141.f, 80.f));
 	SpotLight->AttachTo(Mesh);
 
-
-
-
 	//CameraBoom = CreateDefaultSubobject<USpringArmComponent>(
 		//TEXT("CameraBoom")
 		//);
@@ -50,7 +47,7 @@ ABouncerPlayer::ABouncerPlayer()
 	OnActorEndOverlap.AddDynamic(this, &ABouncerPlayer::OnEndOverlap);
 
 	MoveSpeed = 15.f;
-	rotSpeed = 1.f;
+	rotSpeed = 10.f;
 	TimeCounted = 0.f;
 	TimeTillOver = 0.f;
 	MoveScalar = 1.f;
@@ -146,10 +143,7 @@ void ABouncerPlayer::SetupPlayerInputComponent(class UInputComponent* InputCompo
 
 	InputComponent->BindAxis(TEXT("Rotate"), this, &ABouncerPlayer::Rotate);
 
-	InputComponent->BindAction(TEXT("Shoot"),
-		IE_Pressed,
-		this,
-		&ABouncerPlayer::Shoot);
+	InputComponent->BindAction(TEXT("Shoot"), IE_Pressed, this, &ABouncerPlayer::Shoot);
 	InputComponent->BindAction(TEXT("PowerUp"), IE_Pressed, this, &ABouncerPlayer::UsePowerUp);
 	InputComponent->BindAction(TEXT("Reload"), IE_Pressed, this, &ABouncerPlayer::Reload);
 	
@@ -182,11 +176,12 @@ void ABouncerPlayer::Rotate(float Scale)
 	if (bIsStunned)
 		return;
 	FRotator CurrentRotation = Mesh->GetComponentRotation();
+	float MaxRotation = startRotation.Yaw + 45 * Scale;
 
-	CurrentRotation.Yaw += Scale * rotSpeed;
+	//CurrentRotation.Yaw += Scale * rotSpeed;
 	if (Scale != 0)
 	{
-		CurrentRotation.Yaw += Scale * rotSpeed;
+		CurrentRotation.Yaw = FMath::FInterpTo(CurrentRotation.Yaw, MaxRotation, GetWorld()->GetDeltaSeconds(), rotSpeed);
 
 		if (CurrentRotation.Yaw < startRotation.Yaw + 45 && CurrentRotation.Yaw > startRotation.Yaw - 45)
 		{

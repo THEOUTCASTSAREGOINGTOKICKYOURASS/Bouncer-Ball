@@ -5,6 +5,9 @@
 #include "BouncerPlayerState.h"
 #include "BouncerHUD.h"
 #include "GameOverHUD.h"
+#include "BouncerPlayer.h"
+#include "Balls/Ball.h"
+#include "SpawnVolume.h"
 
 ABouncerBallGameMode::ABouncerBallGameMode(
 	const FObjectInitializer& ObjectInitializer)
